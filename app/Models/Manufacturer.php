@@ -10,8 +10,9 @@ class Manufacturer extends Model
 {
     use HasFactory;
 
-    public function beers(): HasMany
-    {
-        return $this->hasMany(Beer::class);
-    }
+    protected $fillable = [
+        'name',
+        'adress',
+        'description',
+    ];
 }
