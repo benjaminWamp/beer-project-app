@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Avis;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -50,5 +52,7 @@ class DatabaseSeeder extends Seeder
                 $categories->random(rand(1, 2))->pluck("id")->toArray()
             );
         });
+
+        Avis::factory()->create(10);
     }
 }
