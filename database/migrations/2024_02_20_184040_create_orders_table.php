@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('created_at');
             $table->integer('total');
             $table->string('status');
             $table->integer('number');

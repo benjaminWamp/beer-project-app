@@ -16,14 +16,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-        \App\Models\OrderItem::factory(100)->create();
+        \App\Models\User::factory(5)->create();
+        // \App\Models\OrderItem::factory(100)->create();
         \App\Models\Manufacturer::factory(5)->create();
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        Favoris::factory()->create(5);
+        
 
         \App\Models\Category::factory()->create([
             "name" => "Blonde",
@@ -57,14 +57,8 @@ class DatabaseSeeder extends Seeder
             );
         });
 
-        $beers->each(function ($book) use ($categories) {
-            $book->categories()->attach(
-                $categories->random(rand(1, 2))->pluck("id")->toArray()
-            );
-        });
+        Avis::factory(10)->create();
 
-        Avis::factory()->create(10);
-
-        \App\Models\User::factory(5)->create();
+        Favoris::factory(5)->create();
     }
 }

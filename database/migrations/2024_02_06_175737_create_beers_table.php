@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->integer('price');
             $table->string('image');
-            $table->string('description');
+            $table->text('description');
+            $table->foreignId('manufacturer_id')->constrained()->cascadeOnDelete();
             $table->timestamp('published_at')->nullable();
         });
     }

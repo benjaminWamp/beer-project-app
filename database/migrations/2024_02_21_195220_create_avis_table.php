@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('avis', function (Blueprint $table) {
             $table->id();
-            $table->int("stars");
+            $table->integer("stars");
             $table->text("message");
-            $table->foreignId("beer_id");
-            $table->foreignId("user_id");
+            $table->foreignId("beer_id")->constrained()->cascadeOnDelete();
+            $table->foreignId("user_id")->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
