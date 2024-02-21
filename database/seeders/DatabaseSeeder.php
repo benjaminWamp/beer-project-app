@@ -47,6 +47,12 @@ class DatabaseSeeder extends Seeder
 
         $beers->each(function ($book) use ($categories) {
             $book->categories()->attach(
+                $categories->random(1)->pluck("id")->toArray()
+            );
+        });
+
+        $beers->each(function ($book) use ($categories) {
+            $book->categories()->attach(
                 $categories->random(rand(1, 2))->pluck("id")->toArray()
             );
         });
