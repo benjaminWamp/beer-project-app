@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Beer extends Model
+class Product extends Model
 {
     use HasFactory;
 
@@ -19,6 +20,16 @@ class Beer extends Model
         return $this->belongsToMany(Category::class); /*belongTo(Category::class, "category_id, "id")*/
     }
 
+    public function manufacturer(): BelongsTo
+    {
+        return $this->belongsTo(Manufacturer::class); /*belongTo(Category::class, "category_id, "id")*/
+    }
+
+    public function reviews(): BelongsToMany
+    {
+        return $this->belongsToMany(Review::class); /*belongTo(Category::class, "category_id, "id")*/
+    }
+
     protected $fillable = [
         'name',
         'description',
@@ -26,5 +37,6 @@ class Beer extends Model
         'image',
         'price',
         "manufacturer_id",
+        'reviews_sum'
     ];
 }

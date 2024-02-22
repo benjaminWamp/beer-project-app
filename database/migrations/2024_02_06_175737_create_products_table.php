@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('image');
             $table->text('description');
             $table->foreignId('manufacturer_id')->constrained()->cascadeOnDelete();
+            $table->integer("reviews_sum");
             $table->timestamp('published_at')->nullable();
         });
     }

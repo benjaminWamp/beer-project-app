@@ -4,9 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Favoris;
-
-use App\Models\Avis;
+use App\Models\Favorite;
+use App\Models\Review;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,7 +22,7 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        
+
 
         \App\Models\Category::factory()->create([
             "name" => "Blonde",
@@ -47,18 +46,18 @@ class DatabaseSeeder extends Seeder
             "color" => "yellow",
         ]);
 
-        $beers = \App\Models\Beer::factory(50)->create();
+        $products = \App\Models\Product::factory(50)->create();
 
         $categories = \App\Models\Category::all();
 
-        $beers->each(function ($book) use ($categories) {
-            $book->categories()->attach(
+        $products->each(function ($product) use ($categories) {
+            $product->categories()->attach(
                 $categories->random(1)->pluck("id")->toArray()
             );
         });
 
-        Avis::factory(10)->create();
+        Review::factory(10)->create();
 
-        Favoris::factory(5)->create();
+        Favorite::factory(5)->create();
     }
 }

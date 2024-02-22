@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Beer>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
  */
-class BeerFactory extends Factory
+class ProductFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -26,7 +26,8 @@ class BeerFactory extends Factory
                 "image-2.png",
             ]),
             "price" => fake()->numberBetween(100, 10000),
-            "manufacturer_id" => "1"
+            "manufacturer_id" => "1",
+            "reviews_sum" => fake()->numberBetween(0, 5),
         ];
     }
 }
