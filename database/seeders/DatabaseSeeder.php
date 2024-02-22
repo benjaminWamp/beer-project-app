@@ -4,9 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Favoris;
-
-use App\Models\Avis;
+use App\Models\Favorite;
+use App\Models\Review;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,7 +22,7 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        
+
 
         \App\Models\Category::factory()->create([
             "name" => "Blonde",
@@ -57,8 +56,8 @@ class DatabaseSeeder extends Seeder
             );
         });
 
-        Avis::factory(10)->create();
+        Review::factory(10)->create();
 
-        Favoris::factory(5)->create();
+        Favorite::factory(5)->create();
     }
 }

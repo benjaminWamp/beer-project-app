@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Avis extends Model
+class Review extends Model
 {
     use HasFactory;
 
@@ -23,5 +23,7 @@ class Avis extends Model
     protected $fillable = [
         'stars',
         'message',
+        'beer_id',
+        'user_id',
     ];
 }
