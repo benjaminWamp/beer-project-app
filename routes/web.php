@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/admin/catalogue', "App\Http\Controllers\ProductController@index")->name('Product.index');
+Route::post('/admin/catalogue/{beer}', "App\Http\Controllers\ProductController@edit")->name('Product.edit');
+Route::delete('/admin/catalogue/{beer}',"App\Http\Controllers\ProductController@destroy")->name('Product.destroy');
