@@ -18,6 +18,11 @@ class User extends Authenticatable
         return $this->hasMany(Review::class);
     }
 
+    public function favorites(): HasMany
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -59,6 +64,18 @@ class User extends Authenticatable
         $review = $this->reviews()->where("product_id", "=", $product->id)->first(); //this fait référence au contexte de la classe actuel et appel la fonction order au dessus
 
         if ($review) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function hasFavorite(Product $product): bool
+    {
+
+        $favorite = $this->favorites()->where("product_id", "=", $product->id)->first(); //this fait référence au contexte de la classe actuel et appel la fonction order au dessus
+
+        if ($favorite) {
             return true;
         } else {
             return false;

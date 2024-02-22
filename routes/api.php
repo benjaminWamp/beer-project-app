@@ -32,5 +32,9 @@ Route::middleware('auth:sanctum')->group(
         Route::post("/user/reviews", "App\Http\Controllers\Api\ReviewController@store")->name("review.store");
         Route::post("/user/reviews/{review}", "App\Http\Controllers\Api\ReviewController@update")->name("review.update");
         Route::delete("/user/reviews/{review}", "App\Http\Controllers\Api\ReviewController@destroy")->name("review.destroy");
+
+        Route::get("/user/favorites", "App\Http\Controllers\Api\FavoriteController@index")->name("favorite.index");
+        Route::post("/user/favorites", "App\Http\Controllers\Api\FavoriteController@store")->name("favorite.store");
+        Route::delete("/user/favorites/{favorite}", "App\Http\Controllers\Api\FavoriteController@destroy")->name("favorite.destroy");
     }
 );
