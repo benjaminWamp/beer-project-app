@@ -34,8 +34,10 @@ class Product extends Model
         'name',
         'description',
         'published_at',
+        'delivered_at',
+        'stock',
         'image',
-        'price',
+        'price_ht',
         "manufacturer_id",
         'reviews_sum'
     ];

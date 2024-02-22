@@ -15,9 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-
-        $Beers = Product::all();
-        return view('Beer.index', ["Beers" => $Beers]);
+        $Products = Product::all();
+        return view('Product.index', ["product" => $Products]);
     }
 
     /**
@@ -34,10 +33,14 @@ class ProductController extends Controller
     public function store(CreateProductRequest $request)
     {
         $product = Product::create(
-            $request->validated()
+            [
+                ...$request->validated(),
+                'manufacturer_id' => 1,
+                'reviews_sum' => 1,
+            ]
         );
 
-        return redirect()->route("Beer.show", $product);
+        return redirect()->route("Product.show", $product);
     }
 
     /**
@@ -45,7 +48,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('Beer.show', compact("product"));
+        return view('Product.show', compact("product"));
     }
 
     /**
@@ -53,7 +56,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('Product.edit', compact("beer"),);
+        return view('Product.edit', compact("product"),);
     }
 
     /**
@@ -63,7 +66,7 @@ class ProductController extends Controller
     {
         /*dd($request->all(), $Beer);*/
         $product->update($request->validated());
-        return redirect()->route("Beer.show", $product);
+        return redirect()->route("Product.show", $product);
     }
 
     /**
@@ -72,6 +75,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return redirect()->route("Beer.index");
+        return redirect()->route("Product.index");
     }
 }
