@@ -50,7 +50,9 @@ class Product extends Model
         // foreach ($this->reviews as $review) {
         //     $sum += $review->stars;
         // };
-        $sum /= $this->reviews->count();
+        if ($this->reviews->count() > 0) {
+            $sum /= $this->reviews->count();
+        }
 
         $this->update([
             "reviews_sum" => $sum,

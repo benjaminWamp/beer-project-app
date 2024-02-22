@@ -31,5 +31,6 @@ Route::middleware('auth:sanctum')->group(
         Route::get("/user/reviews", "App\Http\Controllers\Api\UserController@showReviews")->name("user.reviews");
         Route::post("/user/reviews", "App\Http\Controllers\Api\ReviewController@store")->name("review.store");
         Route::post("/user/reviews/{review}", "App\Http\Controllers\Api\ReviewController@update")->name("review.update");
+        Route::delete("/user/reviews/{review}", "App\Http\Controllers\Api\ReviewController@destroy")->name("review.destroy");
     }
 );

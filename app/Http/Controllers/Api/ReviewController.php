@@ -71,8 +71,12 @@ class ReviewController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Review $review)
+    public function destroy(Request $request, Review $review)
     {
-        //
+        $this->authorize("reviews", $review);
+        $product = Product::find($review->product_id);
+        $review->delete();
+        $product->calculateReviewsSum();
+        return $review;
     }
 }
