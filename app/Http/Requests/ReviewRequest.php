@@ -23,6 +23,7 @@ class ReviewRequest extends FormRequest
     {
         return [
             "stars" => "required|numeric|max:5|min:1",
+            "message" => "max:1000|min:10",
             "product_id" => "required|exists:products,id"
         ];
     }

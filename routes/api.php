@@ -29,6 +29,7 @@ Route::post("/login", "App\Http\Controllers\Api\AuthController@login")->name("lo
 Route::middleware('auth:sanctum')->group(
     function () {
         Route::get("/user/reviews", "App\Http\Controllers\Api\UserController@showReviews")->name("user.reviews");
-        Route::post("/user/reviews", "App\Http\Controllers\Api\ReviewController@store")->name("user.storeReview");
+        Route::post("/user/reviews", "App\Http\Controllers\Api\ReviewController@store")->name("review.store");
+        Route::post("/user/reviews/{review}", "App\Http\Controllers\Api\ReviewController@update")->name("review.update");
     }
 );

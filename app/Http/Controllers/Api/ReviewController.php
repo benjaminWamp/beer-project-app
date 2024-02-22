@@ -57,10 +57,16 @@ class ReviewController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Review $review)
+
+    public function update(ReviewRequest $request, Review $review)
     {
-        //
+        $this->authorize("reviews", $review);
+        $product = Product::find($request->input("product_id"));
+        $review->update($request->validated());
+        $product->calculateReviewsSum();
+        return $review;
     }
+
 
     /**
      * Remove the specified resource from storage.
