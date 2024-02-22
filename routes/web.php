@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/admin/catalogue', "App\Http\Controllers\ProductController@index")->name('Product.index');
-Route::get('/admin/catalogue/edit/{product}', "App\Http\Controllers\ProductController@edit")->name('Product.edit');
-Route::put('/admin/catalogue/update', "App\Http\Controllers\ProductController@update")->name('Product.update');
-Route::get('/admin/catalogue/create', "App\Http\Controllers\ProductController@create")->name('Product.create');
-Route::get('/admin/catalogue/{product}', "App\Http\Controllers\ProductController@show")->name('Product.show');
-Route::post('/admin/catalogue/store', "App\Http\Controllers\ProductController@store")->name('Product.store');
-Route::delete('/admin/catalogue/{product}',"App\Http\Controllers\ProductController@destroy")->name('Product.destroy');
+Route::get('/admin/catalogue', "App\Http\Controllers\ProductController@index")->name('product.index');
+Route::get('/admin/produit/modifier/{product}', "App\Http\Controllers\ProductController@edit")->name('product.edit');
+Route::put('/admin/produit/modifier', "App\Http\Controllers\ProductController@update")->name('product.update');
+Route::get('/admin/produit/ajouter', "App\Http\Controllers\ProductController@create")->name('product.create');
+Route::get('/admin/produit/{product}', "App\Http\Controllers\ProductController@show")->name('product.show');
+Route::post('/admin/produit/store', "App\Http\Controllers\ProductController@store")->name('product.store');
+Route::delete('/admin/produit/{product}',"App\Http\Controllers\ProductController@destroy")->name('product.destroy');

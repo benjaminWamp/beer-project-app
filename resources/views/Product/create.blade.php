@@ -1,5 +1,5 @@
 <div class="container mx-auto mt-10">
-    <form action="{{ route('Product.store') }}" method="post" enctype="multipart/form-data"> {{--enctype for enabled file post--}}
+    <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data"> {{--enctype for enabled file post--}}
         @csrf
         <div>
             <label for="name" class="block text-sm font-semibold leading-6 text-gray-900">Nom</label>

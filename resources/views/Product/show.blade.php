@@ -1,14 +1,18 @@
-@foreach ($product as $item)
-    <div class="p-2">
-        <p>{{$item->name}}</p>
-        <p>{{$item->price / 100}} €</p>
-        <p>{{$item->published_at->format("d/m/Y")}}</p>
-        {{-- <button class="bg-indigo-800 p-2 rounded text-white"><a href="{{route("book.edit", $book)}}">Modifer</a></button>
-        <form method="post" action="{{route('book.destroy', $book)}}">
-            @method("DELETE")
-            @csrf 
-        <button type="submit" class="bg-indigo-800 p-2 rounded text-white"  onsubmit="return confirm('Voulez vous vraiment supprimer cette book ?')">Supprimer</button>
-        </form>
-        <a href="{{route("book.pdf", $book)}}"  class="bg-indigo-800 p-2 rounded text-white">Télécharger</a> --}}
-    </div>
-@endforeach
+<div class="p-2">
+    <h1>{{$product->name}}</h1>
+    @if($product->image)
+    <img src="{{asset("storage/images/$product->image")}}" alt="Image {{$product->name}}" class="w-40" />
+    @endif
+    <h2>Prix unitaire : {{$product->price / 100}} €</h2>
+    <p>Description : {{$product->description}}</p>
+    <p>Créé le : {{$product->created_at->format("d/m/Y")}}</p>
+    <p>En stock : {{$product->stock}}</p>
+    <p>Avis : {{$product->reviews_sum}}</p>
+    <p>Fournisseur :</p>
+    <button class="bg-indigo-800 p-2 rounded text-white"><a href="{{route("product.edit", $product)}}">Modifer</a></button>
+    <form method="post" action="{{route('product.destroy', $product)}}">
+        @method("DELETE")
+        @csrf 
+    <button type="submit" class="bg-indigo-800 p-2 rounded text-white"  onsubmit="return confirm('Voulez vous vraiment supprimer cette book ?')">Supprimer</button>
+    </form>
+</div>
