@@ -52,4 +52,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function hasReview(Product $product): bool
+    {
+
+        $review = $this->reviews()->where("product_id", "=", $product->id)->first(); //this fait référence au contexte de la classe actuel et appel la fonction order au dessus
+
+        if ($review) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

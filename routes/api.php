@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,17 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Route::get("/catalogue", ProductController::class . "@index")->name("product.index");
+Route::get("/catalogue", "App\Http\Controllers\Api\ProductController@index")->name("product.index");
+Route::get("/product/{product}", "App\Http\Controllers\Api\ProductController@show")->name("product.show");
+Route::get("/product/{product}/reviews", "App\Http\Controllers\Api\ProductController@showReviews")->name("product.reviews");
+
+Route::post("/login", "App\Http\Controllers\Api\AuthController@login")->name("login");
+
+Route::middleware('auth:sanctum')->group(
+    function () {
+        Route::get("/user/reviews", "App\Http\Controllers\Api\UserController@showReviews")->name("user.reviews");
+        Route::post("/user/reviews", "App\Http\Controllers\Api\ReviewController@store")->name("user.storeReview");
+    }
+);
