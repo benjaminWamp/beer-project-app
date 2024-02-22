@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer("stars");
             $table->text("message");
-            $table->foreignId("beer_id")->constrained()->cascadeOnDelete();
+            $table->foreignId("product_id")->constrained()->cascadeOnDelete();
             $table->foreignId("user_id")->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

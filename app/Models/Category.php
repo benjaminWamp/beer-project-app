@@ -10,9 +10,9 @@ class Category extends Model
 {
     use HasFactory;
 
-    public function books(): BelongsToMany
+    public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Beer::class); /*belongTo(Category::class, "book_id, "id")*/
+        return $this->belongsToMany(Product::class); /*belongTo(Category::class, "book_id, "id")*/
     }
 
     protected $fillable = [

@@ -46,12 +46,12 @@ class DatabaseSeeder extends Seeder
             "color" => "yellow",
         ]);
 
-        $beers = \App\Models\Beer::factory(50)->create();
+        $products = \App\Models\Product::factory(50)->create();
 
         $categories = \App\Models\Category::all();
 
-        $beers->each(function ($book) use ($categories) {
-            $book->categories()->attach(
+        $products->each(function ($product) use ($categories) {
+            $product->categories()->attach(
                 $categories->random(1)->pluck("id")->toArray()
             );
         });

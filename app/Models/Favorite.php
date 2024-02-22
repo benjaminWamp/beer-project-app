@@ -15,13 +15,13 @@ class Favorite extends Model
         return $this->belongsToMany(User::class);
     }
 
-    public function beer(): BelongsToMany
+    public function product(): BelongsToMany
     {
-        return $this->belongsToMany(Beer::class);
+        return $this->belongsToMany(Product::class);
     }
 
     protected $fillable = [
         'user_id',
-        'beer_id',
+        'product_id',
     ];
 }

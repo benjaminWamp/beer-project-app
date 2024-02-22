@@ -18,7 +18,7 @@ class FavoriteFactory extends Factory
     {
         return [
             "user_id" => "1",
-            "beer_id" => "1",
+            "product_id" => "1",
         ];
     }
 }

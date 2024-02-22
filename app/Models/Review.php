@@ -10,9 +10,9 @@ class Review extends Model
 {
     use HasFactory;
 
-    public function beer(): BelongsTo
+    public function product(): BelongsTo
     {
-        return $this->belongsTo(Beer::class); /*belongTo(Category::class, "category_id, "id")*/
+        return $this->belongsTo(Product::class); /*belongTo(Category::class, "category_id, "id")*/
     }
 
     public function user(): BelongsTo
@@ -23,7 +23,7 @@ class Review extends Model
     protected $fillable = [
         'stars',
         'message',
-        'beer_id',
+        'product_id',
         'user_id',
     ];
 }

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateBeerRequest;
-use App\Http\Requests\UpdateBeerRequest;
-use App\Models\Beer;
+
+use App\Http\Requests\CreateProductRequest;
+use App\Http\Requests\UpdateProductRequest;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class BeerControler extends Controller
+class ProductControler extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,7 @@ class BeerControler extends Controller
     public function index()
     {
 
-        $Beers = Beer::all();
+        $Beers = Product::all();
         return view('Beer.index', ["Beers" => $Beers]);
     }
 
@@ -30,27 +31,27 @@ class BeerControler extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateBeerRequest $request)
+    public function store(CreateProductRequest $request)
     {
-        $Beer = Beer::create(
+        $product = Product::create(
             $request->validated()
         );
 
-        return redirect()->route("Beer.show", $Beer);
+        return redirect()->route("Beer.show", $product);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Beer $Beer)
+    public function show(Product $product)
     {
-        return view('Beer.show', compact("Beer"));
+        return view('Beer.show', compact("product"));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Beer $Beer)
+    public function edit(Product $product)
     {
         return view('Beer.edit', compact("Beer"),);
     }
@@ -58,19 +59,19 @@ class BeerControler extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBeerRequest $request, Beer $Beer)
+    public function update(UpdateProductRequest $request, Product $product)
     {
         /*dd($request->all(), $Beer);*/
-        $Beer->update($request->validated());
-        return redirect()->route("Beer.show", $Beer);
+        $product->update($request->validated());
+        return redirect()->route("Beer.show", $product);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Beer $Beer)
+    public function destroy(Product $product)
     {
-        $Beer->delete();
+        $product->delete();
         return redirect()->route("Beer.index");
     }
 }
