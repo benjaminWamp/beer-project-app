@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 // Route::get("/catalogue", ProductController::class . "@index")->name("product.index");
 Route::get("/catalogue", "App\Http\Controllers\Api\ProductController@index")->name("product.index");
@@ -36,5 +36,8 @@ Route::middleware('auth:sanctum')->group(
         Route::get("/user/favorites", "App\Http\Controllers\Api\FavoriteController@index")->name("favorite.index");
         Route::post("/user/favorites", "App\Http\Controllers\Api\FavoriteController@store")->name("favorite.store");
         Route::delete("/user/favorites/{favorite}", "App\Http\Controllers\Api\FavoriteController@destroy")->name("favorite.destroy");
+
+        Route::get("/user", "App\Http\Controllers\Api\UserController@show")->name("user.show");
+        Route::post("/user", "App\Http\Controllers\Api\UserController@updateUser")->name("user.updateUser");
     }
 );

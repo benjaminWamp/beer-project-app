@@ -15,6 +15,7 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
+        //Vérifie que l'email et le mdp correspond
         if (!Auth::attempt($credentials)) {
             return response()->json(["message" => "Invalid credentials"], 401);
         }
