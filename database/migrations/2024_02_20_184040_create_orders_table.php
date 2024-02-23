@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('street');
             $table->string('city');
             $table->string('zip_code');
+            $table->foreignId("user_id")->constrained();
             $table->timestamps();
         });
     }
