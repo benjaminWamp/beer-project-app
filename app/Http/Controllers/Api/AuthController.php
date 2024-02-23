@@ -22,7 +22,24 @@ class AuthController extends Controller
         //Permet de faire fonctionné le createToken dans VSCode, le com permet de paramétrer le type var $user
         /** @var User $user */
         $user = Auth::user();
+
         $token = $user->createToken("auth_token");
+        // Auth::login();
         return ["token" => $token->plainTextToken];
+    }
+
+    public function logout(Request $request)
+    {
+        $user = $request->user();
+
+        // Vérifie si l'utilisateur est authentifié
+        if ($user) {
+            // Révoque tous les jetons d'authentification de l'utilisateur
+            $user->tokens()->delete();
+
+            return response()->json(["message" => "User logged out successfully"], 200);
+        } else {
+            return response()->json(["message" => "User not authenticated"], 401);
+        }
     }
 }
