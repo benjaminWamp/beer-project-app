@@ -23,6 +23,11 @@ class User extends Authenticatable
         return $this->hasMany(Favorite::class);
     }
 
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -57,6 +62,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function cart(): Order
+    {
+        $order = $this->orders()->where("status", "=", "cart")->first(); //this fait référence au contexte de la classe actuel et appel la fonction order au dessus
+
+
+        if (!$order) {
+            $order = Order::create(
+                [
+                    "status" => "cart",
+                    "total" => 0,
+                    "number" => $this->number,
+                    "street" => $this->street,
+                    "city" => $this->city,
+                    "zip_code" => $this->zip_code,
+                    "user_id" => $this->id,
+                ]
+            );
+        }
+        return $order;
+    }
 
     public function hasReview(Product $product): bool
     {
