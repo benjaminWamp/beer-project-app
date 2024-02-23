@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 // Route::get("/catalogue", ProductController::class . "@index")->name("product.index");
 Route::get("/catalogue", "App\Http\Controllers\Api\ProductController@index")->name("product.index");
@@ -39,5 +39,12 @@ Route::middleware('auth:sanctum')->group(
 
         Route::get("/user", "App\Http\Controllers\Api\UserController@show")->name("user.show");
         Route::post("/user", "App\Http\Controllers\Api\UserController@updateUser")->name("user.updateUser");
+
+        Route::get("/user/orders", "App\Http\Controllers\Api\OrderController@index")->name("order.index");
+        Route::get("/user/cart", "App\Http\Controllers\Api\OrderController@showCart")->name("order.showCart");
+        Route::post("/user/cart", "App\Http\Controllers\Api\OrderController@addToCart")->name("order.addToCart");
+        Route::post("/user/cart/complete", "App\Http\Controllers\Api\OrderController@complete")->name("order.complete");
+        Route::delete("/user/cart/{orderItem}", "App\Http\Controllers\Api\OrderController@removeFromCart")->name("order.removeFromCart");
+        Route::delete("/user/cart", "App\Http\Controllers\Api\OrderController@deleteCart")->name("order.deleteCart");
     }
 );

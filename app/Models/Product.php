@@ -13,7 +13,7 @@ class Product extends Model
     use HasFactory;
 
     protected $casts = [
-        "published_at" => "datetime",
+        "delivered_at" => "datetime",
     ];
 
     public function categories(): BelongsToMany //Pour une table intermédiaire
@@ -34,9 +34,10 @@ class Product extends Model
     protected $fillable = [
         'name',
         'description',
-        'published_at',
+        'delivered_at',
+        "stock",
         'image',
-        'price',
+        'price_ht',
         "manufacturer_id",
         'reviews_sum'
     ];

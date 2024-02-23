@@ -19,13 +19,14 @@ class ProductFactory extends Factory
         return [
             "name" => fake()->words(4, true),
             "description" => fake()->text(1000),
-            "published_at" => fake()->dateTimeBetween("-10 years"),
+            "delivered_at" => fake()->dateTimeBetween("-10 years"),
+            "stock" => fake()->numberBetween(1, 100),
             /*"cover" => fake()->imageUrl(640, 480, "book", true),*/
             "image" => fake()->randomElement([
                 "image-1.png",
                 "image-2.png",
             ]),
-            "price" => fake()->numberBetween(100, 10000),
+            "price_ht" => fake()->numberBetween(100, 10000),
             "manufacturer_id" => "1",
             "reviews_sum" => fake()->numberBetween(0, 5),
         ];

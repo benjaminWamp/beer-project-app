@@ -16,12 +16,13 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->integer('price');
+            $table->integer('price_ht');
+            $table->integer("stock");
             $table->string('image');
             $table->text('description');
             $table->foreignId('manufacturer_id')->constrained()->cascadeOnDelete();
             $table->integer("reviews_sum");
-            $table->timestamp('published_at')->nullable();
+            $table->timestamp('delivered_at')->nullable();
         });
     }
 
