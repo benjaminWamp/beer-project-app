@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateproductRequest;
 use App\Http\Requests\UpdateproductRequest;
-use App\Models\product;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class productController extends Controller
@@ -15,7 +16,7 @@ class productController extends Controller
      */
     public function index()
     {
-        $products = product::all();
+        $products = Product::all();
         return view('product.index', ["product" => $products]);
     }
 
@@ -30,14 +31,15 @@ class productController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateproductRequest $request)
+    public function store(CreateProductRequest $request)
     {
         $request->file("image")->store("public/images");
 
-        $product = product::create(
+        $product = Product::create(
             [
                 ...$request->validated(),
                 "image" => $request->file("image")->hashName(), 
+                "price_ht" => $request->input("price_ht") * 100,
                 'manufacturer_id' => 1,
                 'reviews_sum' => 1,
             ]
@@ -49,7 +51,7 @@ class productController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(product $product)
+    public function show(Product $product)
     {
         return view('product.show', compact("product"));
     }
@@ -57,7 +59,7 @@ class productController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(product $product)
+    public function edit(Product $product)
     {
         return view('product.edit', compact("product"),);
     }
@@ -65,17 +67,28 @@ class productController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateproductRequest $request, product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        /*dd($request->all(), $Beer);*/
-        $product->update($request->validated());
+        if ($request->hasFile("image")) {
+            Storage::delete("public/images/" . $product->image);
+            $request->file("image")->store("public/images");
+            $product->update([
+                ...$request->validated(),
+                "image" => $request->file("image")->hashName(),
+                "price_ht" => $request->input("price") * 100
+            ]);
+        } else {
+            $product->update(
+                $request->validated()
+            );
+        };
         return redirect()->route("product.show", $product);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(product $product)
+    public function destroy(Product $product)
     {
         $product->delete();
         return redirect()->route("product.index");
