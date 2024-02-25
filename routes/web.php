@@ -25,17 +25,17 @@ Route::get(
 )->name("manufacturer.index");
 
 Route::get(
-    '/admin/manufacturer/create',
+    '/admin/producteurs/ajouter',
     ManufacturerController::class . "@create"
 )->name("manufacturer.create");
 
 Route::get(
-    '/admin/{manufacturer}',
+    '/admin/producteurs/{manufacturer}',
     ManufacturerController::class . "@show"
 )->name("manufacturer.show");
 
 Route::delete(
-    '/admin/{manufacturer}',
+    '/admin/producteurs/{manufacturer}',
     ManufacturerController::class . "@destroy"
 )->name("manufacturer.destroy");
 
@@ -45,11 +45,11 @@ Route::post(
 )->name("manufacturer.store");
 
 Route::get(
-    '/admin/edit/{manufacturer}',
+    '/admin/producteurs/modifier/{manufacturer}',
     ManufacturerController::class . "@edit"
 )->name("manufacturer.edit");
 
 Route::put(
-    '/admin/update/{manufacturer}',
+    '/admin/modifier/{manufacturer}',
     ManufacturerController::class . "@update"
 )->name("manufacturer.update");
