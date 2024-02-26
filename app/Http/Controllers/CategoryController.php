@@ -10,10 +10,10 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function show_categoies()
+    public function index()
     {
         $categories = Category::all();
-        return view("category.show_categoies", compact('categories'));
+        return view("category.index", compact('categories'));
     }
 
     public function create()
@@ -25,7 +25,7 @@ class CategoryController extends Controller
     {
         Category::create($request->validate());
 
-        return redirect()->route("category.show_categoies");
+        return redirect()->route("category.show");
     }
 
     public function edit(Category $category)
@@ -39,13 +39,13 @@ class CategoryController extends Controller
             $request->validated()
         );
 
-        return redirect()->route("category.show_categoies");
+        return redirect()->route("category.show");
     }
 
     public function destroy(Category $category)
     {
 
         $category->delete();
-        return redirect()->route("category.show_categoies");
+        return redirect()->route("category.index");
     }
 }
