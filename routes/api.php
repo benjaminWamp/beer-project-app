@@ -25,6 +25,7 @@ Route::get("/product/{product}", "App\Http\Controllers\Api\ProductController@sho
 Route::get("/product/{product}/reviews", "App\Http\Controllers\Api\ProductController@showReviews")->name("product.reviews");
 
 Route::post("/login", "App\Http\Controllers\Api\AuthController@login")->name("login");
+Route::post("/register", "App\Http\Controllers\Api\RegisterController@register")->name("register");
 
 
 Route::middleware('auth:sanctum')->group(
@@ -40,6 +41,7 @@ Route::middleware('auth:sanctum')->group(
 
         Route::get("/user", "App\Http\Controllers\Api\UserController@show")->name("user.show");
         Route::post("/user", "App\Http\Controllers\Api\UserController@updateUser")->name("user.updateUser");
+        Route::delete("/user/{user}", "App\Http\Controllers\Api\UserController@removeUser")->name("user.removeUser");
 
         Route::get("/user/orders", "App\Http\Controllers\Api\OrderController@index")->name("order.index");
         Route::get("/user/cart", "App\Http\Controllers\Api\OrderController@showCart")->name("order.showCart");

@@ -25,10 +25,10 @@ class UserRequest extends FormRequest
             "name" => "required|max:255|min:2",
             "email" => "required|email",
             "password" => "required",
-            "numero" => "numeric",
-            "rue" => "max:1000|min:10",
-            "ville" => "max:1000|min:10",
-            "code_postal" => "max:5|min:5"
+            "number" => "numeric",
+            "street" => "max:1000",
+            "city" => "max:1000",
+            "zip_code" => "max:5|min:5"
         ];
     }
 }
