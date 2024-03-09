@@ -34,8 +34,9 @@ class UserController extends Controller
         return $user->reviews;
     }
 
-    public function removeUser(User $user)
+    public function removeUser(Request $request)
     {
+        $user = $request->user();
 
         if (Auth::id() !== $user->id) {
             return response()->json(["error" => "Vous n'êtes pas autorisé à supprimer cet utilisateur"], 403);

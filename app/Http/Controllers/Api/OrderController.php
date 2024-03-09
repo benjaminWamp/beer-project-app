@@ -77,7 +77,8 @@ class OrderController extends Controller
     {
 
         // Get User cart
-        $order = $request->user()->cart();
+        $order = $orderItem->order;
+        $this->authorize("order", $order);
         $orderItem->delete();
         $order->calculateTotal();
 
