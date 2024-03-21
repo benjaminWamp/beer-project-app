@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ManufacturerController;
+use App\Http\Controllers\UserController;
 use App\Models\Manufacturer;
 
 /*
@@ -24,7 +25,7 @@ Route::put('/admin/produit/modifier/{product}', "App\Http\Controllers\ProductCon
 Route::get('/admin/produit/ajouter', "App\Http\Controllers\ProductController@create")->name('product.create');
 Route::get('/admin/produit/{product}', "App\Http\Controllers\ProductController@show")->name('product.show');
 Route::post('/admin/produit/store', "App\Http\Controllers\ProductController@store")->name('product.store');
-Route::delete('/admin/produit/{product}',"App\Http\Controllers\ProductController@destroy")->name('product.destroy');
+Route::delete('/admin/produit/{product}', "App\Http\Controllers\ProductController@destroy")->name('product.destroy');
 
 Route::get(
     '/admin/producteurs',
@@ -60,3 +61,5 @@ Route::put(
     '/admin/modifier/{manufacturer}',
     ManufacturerController::class . "@update"
 )->name("manufacturer.update");
+
+Route::get('/admin/utilisateurs', UserController::class . "@index")->name('users.index');
