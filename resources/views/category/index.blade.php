@@ -1,4 +1,4 @@
-<x-layout>
+{{--<x-layout>--}}
 
     <div class="flex flex-row gap-4">
         <h1 class="text-4xl	font-title font-semibold text-accent">Producteurs</h1>
@@ -32,4 +32,4 @@
 
     </div>
 
-</x-layout>
+{{--</x-layout>--}}
