@@ -20,7 +20,7 @@
           </svg>
          </button>
         <a href="#" class="flex gap-4 ms-2 md:me-24">
-          <img src="{{asset("storage\logos\MB_Logo.png")}}" alt="Logo Monsieur Bière" class="w-10">
+          <img src="{{asset("storage\app\public\logos\MB_Logo.png")}}" alt="Logo Monsieur Bière" class="w-10">
           <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap font-title">Monsieur Bière</span>
         </a>
       </div>

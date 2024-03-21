@@ -9,9 +9,7 @@ use Illuminate\Http\Request;
 
 class ManufacturerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $manufacturers = Manufacturer::paginate(10);

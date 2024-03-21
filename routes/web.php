@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ManufacturerController;
 use App\Models\Manufacturer;
-use App\Http\Controllers\AvisController;
-use App\Models\Avis;
+use App\Http\Controllers\ReviewController;
+use App\Models\Review;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ Route::put('/admin/produit/modifier/{product}', "App\Http\Controllers\ProductCon
 Route::get('/admin/produit/ajouter', "App\Http\Controllers\ProductController@create")->name('product.create');
 Route::get('/admin/produit/{product}', "App\Http\Controllers\ProductController@show")->name('product.show');
 Route::post('/admin/produit/store', "App\Http\Controllers\ProductController@store")->name('product.store');
-Route::delete('/admin/produit/{product}',"App\Http\Controllers\ProductController@destroy")->name('product.destroy');
+Route::delete('/admin/produit/{product}', "App\Http\Controllers\ProductController@destroy")->name('product.destroy');
 
 Route::get(
     '/admin/producteurs',
@@ -65,10 +65,10 @@ Route::put(
 
 Route::get(
     '/admin/avis',
-    AvisController::class . "@index"
-)->name("Avis.index");
+    ReviewController::class . "@index"
+)->name("review.index");
 
 Route::get(
-    '/admin/avis/{Avis}',
-    AvisController::class . "@show"
-)->name("Avis.show");
+    '/admin/avis/{review}',
+    ReviewController::class . "@show"
+)->name("review.show");
