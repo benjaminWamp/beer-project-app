@@ -7,6 +7,8 @@ use App\Http\Requests\CreateCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class CategoryController extends Controller
 {
@@ -23,9 +25,11 @@ class CategoryController extends Controller
 
     public function store(CreateCategoryRequest $request)
     {
-        Category::create($request->validate());
-
-        return redirect()->route("category.show");
+        $category = Category::create([
+            ...$request->validated(),
+            "slug" => Str::slug($request->name),
+        ]);
+        return redirect()->route("category.show", $category);
     }
 
     public function show(Category $category)
@@ -35,16 +39,17 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        return view('category.edit');
+        return view('category.edit', compact("category"));
     }
 
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $category->update(
-            $request->validated()
-        );
+        $category->update([
+            ...$request->validated(),
+            "slug" => Str::slug($request->slug),
+        ]);
 
-        return redirect()->route("category.show");
+        return redirect()->route("category.show", $category);
     }
 
     public function destroy(Category $category)
