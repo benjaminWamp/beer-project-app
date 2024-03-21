@@ -11,7 +11,7 @@ class UpdateManufacturerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class UpdateManufacturerRequest extends FormRequest
         return [
             "name" => "required|max:255|min:2",
             "adress" => "required|max:1000|min:10",
-            "description" => "required|max:1000|min:10",
+            "description" => "required|max:2000|min:10",
         ];
     }
 }
