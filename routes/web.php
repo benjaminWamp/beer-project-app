@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AvisController;
+use App\Models\Avis;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get(
+    '/admin/avis',
+    AvisController::class . "@index"
+)->name("Avis.index");
+
+Route::get(
+    '/admin/avis/{Avis}',
+    AvisController::class . "@show"
+)->name("Avis.show");
