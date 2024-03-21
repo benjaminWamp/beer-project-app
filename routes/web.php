@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\UserController;
@@ -63,3 +64,9 @@ Route::put(
 )->name("manufacturer.update");
 
 Route::get('/admin/utilisateurs', UserController::class . "@index")->name('users.index');
+
+
+Route::get('admin/commandes', OrderController::class . "@index")->name("orders.index");
+Route::get('admin/commandes/{order}', OrderController::class . "@show")->name("orders.show");
+Route::post('admin/commandes/{order}/delivered', OrderController::class . "@delivered")->name("orders.delivered");
+Route::post('admin/commandes/{order}/cancel', OrderController::class . "@cancel")->name("orders.cancel");

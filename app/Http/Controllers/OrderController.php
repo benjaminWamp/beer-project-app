@@ -6,14 +6,43 @@ use App\Http\Requests\CreateOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
 use App\Models\Product;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
-class OrderControler extends Controller
+class OrderController extends Controller
 {
-    public function show()
+    public function index()
     {
-        return view("cart.show");
+        $orders = Order::whereIn("status", ["complete", "delivered", "cancel"])->paginate(15);
+        return view("orders.index", ["orders" => $orders]);
     }
+
+    public function show(Order $order)
+    {
+
+        return view("orders.show", compact("order"));
+    }
+
+    public function delivered(Order $order)
+    {
+        if ($order->status === "complete") {
+            $order->update([
+                "status" => "delivered"
+            ]);
+            return redirect()->route("orders.show", $order);
+        }
+    }
+
+    public function cancel(Order $order)
+    {
+        if ($order->status !== "cart") {
+            $order->update([
+                "status" => "cancel"
+            ]);
+            return redirect()->route("orders.show", $order);
+        }
+    }
+
 
     public function addToCart(Request $request)
     {
