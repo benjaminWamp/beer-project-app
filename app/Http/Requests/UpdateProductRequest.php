@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateBeerRequest extends FormRequest
+class UpdateProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,10 +24,12 @@ class UpdateBeerRequest extends FormRequest
         return [
             "name" => "required|max:255|min:2",
             "description" => "required|max:1000|min:10",
-            "published_at" => "required|date",
-            "image" => "required|url",
-            "price" => "required|numeric|min:0",
-            "editor_id" => "required|exists:App\Models\Editor,id",
+            'delivered_at' => "date",
+            "image" => "file|image|mimes:jpg,png,jpeg|max:10024",
+            "stock" => "required|numeric",
+            "price_ht" => "required|numeric|min:0",
+            // "manufacturer_id" => "required|exists:App\Models\Manufacturer,id",
+            "reviews_sum" => "numeric|max:5",
         ];
     }
 }

@@ -12,15 +12,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('beers', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('name');
-            $table->integer('price');
+            $table->integer('price_ht');
+            $table->integer('stock');
             $table->string('image');
             $table->text('description');
             $table->foreignId('manufacturer_id')->constrained()->cascadeOnDelete();
-            $table->timestamp('published_at')->nullable();
+            $table->integer("reviews_sum");
+            $table->timestamp('delivered_at')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('beers');
+        Schema::dropIfExists('products');
     }
 };

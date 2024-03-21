@@ -7,16 +7,15 @@ use App\Http\Requests\UpdateManufacturerRequest;
 use App\Models\Manufacturer;
 use Illuminate\Http\Request;
 
-class ManufacturerControler extends Controller
+class ManufacturerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-
-        $Manufacturer = Manufacturer::all();
-        return view('Manufacturer.index', ["Manufacturer" => $Manufacturer]);
+        $manufacturers = Manufacturer::paginate(10);
+        return view('manufacturer.index', ["manufacturers" => $manufacturers]);
     }
 
     /**
@@ -24,7 +23,7 @@ class ManufacturerControler extends Controller
      */
     public function create()
     {
-        return view('Manufacturer.create');
+        return view('manufacturer.create');
     }
 
     /**
@@ -36,41 +35,41 @@ class ManufacturerControler extends Controller
             $request->validated()
         );
 
-        return redirect()->route("Manufacturer.show", $Manufacturer);
+        return redirect()->route("manufacturer.show", $Manufacturer);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Manufacturer $Manufacturer)
+    public function show(Manufacturer $manufacturer)
     {
-        return view('Manufacturer.show', compact("Manufacturer"));
+        return view('manufacturer.show', compact("manufacturer"));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Manufacturer $Manufacturer)
+    public function edit(Manufacturer $manufacturer)
     {
-        return view('Manufacturer.edit', compact("Manufacturer"),);
+        return view('manufacturer.edit', compact("manufacturer"),);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateManufacturerRequest $request, Manufacturer $Manufacturer)
+    public function update(UpdateManufacturerRequest $request, Manufacturer $manufacturer)
     {
         /*dd($request->all(), $Manufacturer);*/
-        $Manufacturer->update($request->validated());
-        return redirect()->route("Manufacturer.show", $Manufacturer);
+        $manufacturer->update($request->validated());
+        return redirect()->route("manufacturer.show", $manufacturer);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Manufacturer $Manufacturer)
+    public function destroy(Manufacturer $manufacturer)
     {
-        $Manufacturer->delete();
-        return redirect()->route("Manufacturer.index");
+        $manufacturer->delete();
+        return redirect()->route("manufacturer.index");
     }
 }

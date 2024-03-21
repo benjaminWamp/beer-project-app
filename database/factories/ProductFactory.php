@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Beer>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
  */
-class BeerFactory extends Factory
+class ProductFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,14 +19,16 @@ class BeerFactory extends Factory
         return [
             "name" => fake()->words(4, true),
             "description" => fake()->text(1000),
-            "published_at" => fake()->dateTimeBetween("-10 years"),
+            "stock" => fake()->numberBetween(0, 1000),
+            "delivered_at" => fake()->dateTimeBetween("-1 years"),
             /*"cover" => fake()->imageUrl(640, 480, "book", true),*/
             "image" => fake()->randomElement([
                 "image-1.png",
                 "image-2.png",
             ]),
-            "price" => fake()->numberBetween(100, 10000),
-            "manufacturer_id" => "1"
+            "price_ht" => fake()->numberBetween(100, 10000),
+            "manufacturer_id" => "1",
+            "reviews_sum" => fake()->numberBetween(0, 5),
         ];
     }
 }

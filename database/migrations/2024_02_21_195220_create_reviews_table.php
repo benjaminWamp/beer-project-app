@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('beer_category', function (Blueprint $table) {
+        Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("beer_id")->constrained()->cascadeOnDelete();
-            $table->foreignId("category_id")->constrained()->cascadeOnDelete(); // créer une clé de lien | casaceOnDelete permet de la supprimer si la bière est supprimé
+            $table->integer("stars");
+            $table->text("message");
+            $table->foreignId("product_id")->constrained()->cascadeOnDelete();
+            $table->foreignId("user_id")->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('beer_category');
+        Schema::dropIfExists('reviews');
     }
 };

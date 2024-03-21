@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Favoris>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Review>
  */
-class FavorisFactory extends Factory
+class ReviewFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,10 @@ class FavorisFactory extends Factory
     public function definition(): array
     {
         return [
-            "user_id" => "1",
-            "beer_id" => "1",
+            'stars' => fake()->numberBetween(0, 5),
+            'message' => fake()->text(1000),
+            'product_id' => "1",
+            'user_id' => "1",
         ];
     }
 }

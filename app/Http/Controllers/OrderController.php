@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
-use App\Models\Beer;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class OrderControler extends Controller
@@ -19,10 +19,10 @@ class OrderControler extends Controller
     {
         //On vérifie que l'id du livre existe bien
         $request->validate([
-            "beer_id" => ["required", "exists:beers,id"]
+            "product_id" => ["required", "exists:products,id"]
         ]);
 
-        $beer = Beer::find($request->input("beer_id"));
+        $product = Product::find($request->input("product_id"));
 
         $order = $request->user()->orders()->where("status", "cart")->first();
 
@@ -43,9 +43,9 @@ class OrderControler extends Controller
         }
 
         // $order->orderItems()->create([
-        //     "beer_id" => $request->input("beer_id"),
+        //     "product_id" => $request->input("product_id"),
         //     "quantity" => 1,
-        //     "price" => $beer->price
+        //     "price" => $product->price
         // ]);
 
         $request->session()->flash("success", "Votre produit a bien été ajouté au panier");
