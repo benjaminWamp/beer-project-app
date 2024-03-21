@@ -1,8 +1,8 @@
 {{--<x-layout>--}}
 
     <div class="flex flex-row gap-4">
-        <h1 class="text-4xl	font-title font-semibold text-accent">Producteurs</h1>
-        <a href="{{route("category.create")}}" class="font-title border bg-accent text-secondary rounded-md px-3 py-2 text-sm font-medium hover:-translate-y-1 transition-all">Ajouter un Producteur +</a>
+        <h1 class="text-4xl	font-title font-semibold text-accent">Catégories</h1>
+        <a href="{{route("category.create")}}" class="font-title border bg-accent text-secondary rounded-md px-3 py-2 text-sm font-medium hover:-translate-y-1 transition-all">Ajouter une Catégorie +</a>
     </div>
 
     <div class="flex flex-col gap-6 mt-8">
@@ -20,7 +20,7 @@
                     <form method="post" action="{{route('category.destroy', $category)}}">
                         @method("DELETE")
                         @csrf 
-                        <button type="submit" class="font-title border border-accent bg-secondary text-accent rounded-md px-3 py-2 text-sm font-semibold hover:-translate-y-1 transition-all"  onsubmit="return confirm('Voulez vous vraiment supprimer ce Porducteur ?')" class="font-title border bg-accent text-secondary rounded-md px-3 py-2 text-sm font-medium">Supprimer</button>
+                        <button type="submit" class="font-title border border-accent bg-secondary text-accent rounded-md px-3 py-2 text-sm font-semibold hover:-translate-y-1 transition-all"  onsubmit="return confirm('Voulez vous vraiment supprimer cette catégorie ?')" class="font-title border bg-accent text-secondary rounded-md px-3 py-2 text-sm font-medium">Supprimer</button>
                     </form>
                 </div>
 
