@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\UserController;
 use App\Models\Manufacturer;
+use App\Http\Controllers\ReviewController;
+use App\Models\Review;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,13 +22,13 @@ use App\Models\Manufacturer;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/admin/produits', "App\Http\Controllers\ProductController@index")->name('product.index');
-Route::get('/admin/produits/modifier/{product}', "App\Http\Controllers\ProductController@edit")->name('product.edit');
-Route::put('/admin/produits/modifier/{product}', "App\Http\Controllers\ProductController@update")->name('product.update');
-Route::get('/admin/produits/ajouter', "App\Http\Controllers\ProductController@create")->name('product.create');
-Route::get('/admin/produits/{product}', "App\Http\Controllers\ProductController@show")->name('product.show');
-Route::post('/admin/produits/store', "App\Http\Controllers\ProductController@store")->name('product.store');
-Route::delete('/admin/produits/{product}', "App\Http\Controllers\ProductController@destroy")->name('product.destroy');
+Route::get('/admin/catalogue', "App\Http\Controllers\ProductController@index")->name('product.index');
+Route::get('/admin/produit/modifier/{product}', "App\Http\Controllers\ProductController@edit")->name('product.edit');
+Route::put('/admin/produit/modifier/{product}', "App\Http\Controllers\ProductController@update")->name('product.update');
+Route::get('/admin/produit/ajouter', "App\Http\Controllers\ProductController@create")->name('product.create');
+Route::get('/admin/produit/{product}', "App\Http\Controllers\ProductController@show")->name('product.show');
+Route::post('/admin/produit/store', "App\Http\Controllers\ProductController@store")->name('product.store');
+Route::delete('/admin/produit/{product}', "App\Http\Controllers\ProductController@destroy")->name('product.destroy');
 
 Route::get(
     '/admin/producteurs',
@@ -62,6 +64,16 @@ Route::put(
     '/admin/modifier/{manufacturer}',
     ManufacturerController::class . "@update"
 )->name("manufacturer.update");
+
+Route::get(
+    '/admin/avis',
+    ReviewController::class . "@index"
+)->name("review.index");
+
+Route::get(
+    '/admin/avis/{review}',
+    ReviewController::class . "@show"
+)->name("review.show");
 
 Route::get('/admin/utilisateurs', UserController::class . "@index")->name('users.index');
 
