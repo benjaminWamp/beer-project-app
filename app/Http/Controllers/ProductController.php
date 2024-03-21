@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Requests\CreateProductRequest;
-use App\Http\Requests\UpdateProductRequest;
+use App\Http\Requests\CreateproductRequest;
+use App\Http\Requests\UpdateproductRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-class ProductControler extends Controller
+class productController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-
-        $Beers = Product::all();
-        return view('Beer.index', ["Beers" => $Beers]);
+        $products = Product::all();
+        return view('product.index', ["product" => $products]);
     }
 
     /**
@@ -25,7 +25,7 @@ class ProductControler extends Controller
      */
     public function create()
     {
-        return view('Beer.create');
+        return view('product.create');
     }
 
     /**
@@ -33,11 +33,19 @@ class ProductControler extends Controller
      */
     public function store(CreateProductRequest $request)
     {
+        $request->file("image")->store("public/images");
+
         $product = Product::create(
-            $request->validated()
+            [
+                ...$request->validated(),
+                "image" => $request->file("image")->hashName(), 
+                "price_ht" => $request->input("price_ht") * 100,
+                'manufacturer_id' => 1,
+                'reviews_sum' => 1,
+            ]
         );
 
-        return redirect()->route("Beer.show", $product);
+        return redirect()->route("product.show", $product);
     }
 
     /**
@@ -45,7 +53,7 @@ class ProductControler extends Controller
      */
     public function show(Product $product)
     {
-        return view('Beer.show', compact("product"));
+        return view('product.show', compact("product"));
     }
 
     /**
@@ -53,7 +61,7 @@ class ProductControler extends Controller
      */
     public function edit(Product $product)
     {
-        return view('Beer.edit', compact("Beer"),);
+        return view('product.edit', compact("product"),);
     }
 
     /**
@@ -61,9 +69,20 @@ class ProductControler extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        /*dd($request->all(), $Beer);*/
-        $product->update($request->validated());
-        return redirect()->route("Beer.show", $product);
+        if ($request->hasFile("image")) {
+            Storage::delete("public/images/" . $product->image);
+            $request->file("image")->store("public/images");
+            $product->update([
+                ...$request->validated(),
+                "image" => $request->file("image")->hashName(),
+                "price_ht" => $request->input("price") * 100
+            ]);
+        } else {
+            $product->update(
+                $request->validated()
+            );
+        };
+        return redirect()->route("product.show", $product);
     }
 
     /**
@@ -72,6 +91,6 @@ class ProductControler extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return redirect()->route("Beer.index");
+        return redirect()->route("product.index");
     }
 }
