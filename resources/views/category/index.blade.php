@@ -6,7 +6,7 @@
     </div>
 
     <div class="flex flex-col gap-6 mt-8">
-        @foreach ($categorys as $category)
+        @foreach ($categories as $category)
         <div class="p-4 border-2 border-primary border-dashed rounded-lg hover:shadow-xl hover:shadow-accent/20 transition-all">
             <div class="group relative flex justify-between align-center">
                 <a href="{{route("category.edit", $category)}}">
@@ -28,7 +28,7 @@
         </div>
         @endforeach
 
-        {{ $categorys->links() }}
+        {{ $categories->links() }}
 
     </div>
 
