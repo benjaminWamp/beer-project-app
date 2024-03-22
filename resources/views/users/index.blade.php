@@ -45,6 +45,9 @@
            
         </tbody>
     </table>
+
+    {{ $users->links() }}
+
 </div>
 
 </x-layout>

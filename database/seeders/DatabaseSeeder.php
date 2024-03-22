@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Order;
 use App\Models\Favorite;
 use App\Models\Review;
 use Illuminate\Database\Seeder;
@@ -15,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory(5)->create();
+        \App\Models\User::factory(20)->create();
         // \App\Models\OrderItem::factory(100)->create();
         \App\Models\Manufacturer::factory(5)->create();
         // \App\Models\User::factory()->create([

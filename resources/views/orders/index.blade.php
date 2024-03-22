@@ -58,6 +58,8 @@
            
         </tbody>
     </table>
+
+    {{ $orders->links() }}
 </div>
 
 </x-layout>
