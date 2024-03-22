@@ -3,13 +3,17 @@
 const colors = require("tailwindcss/colors");
 
 export default {
-    content: ["./resources/**/*.blade.php"],
+    content: [
+        "./resources/**/*.blade.php",
+        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php'
+            ],
     theme: {
         colors: {
             primary: "#715315",
             secondary: "#F8E7BC",
             accent: "#514339",
             background: "#eee",
+            offWhite: "f6f7f7",
             black: colors.black,
             blue: colors.blue,
             cyan: colors.cyan,
