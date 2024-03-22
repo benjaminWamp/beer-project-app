@@ -3,17 +3,31 @@ import Coucou from "./components/Coucou";
 import { fetchData } from "./utils/OrderServices";
 
 const App = () => {
-    const [data, setData] = useState("");
+    const [data, setData] = useState<any>();
     const putdata = async () => {
         const testApi = await fetchData();
-        console.log("data ?", testApi.data);
+
+        return testApi.data;
     };
 
     useEffect(() => {
-        putdata();
+        const test = async () => {
+            const datas = await putdata();
+            setData(datas);
+        };
+        test();
     }, []);
 
-    return <Coucou />;
+    console.log("datas ?", data);
+
+    return (
+        <>
+            <Coucou />
+            {data?.map((data) => {
+                return <p>{data.name}</p>;
+            })}
+        </>
+    );
 };
 
 export default App;
