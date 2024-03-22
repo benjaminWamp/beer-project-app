@@ -15,9 +15,7 @@ use App\Models\Manufacturer;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/admin', "App\Http\Controllers\DashboardController@index")->name('index');
 Route::get('/admin/catalogue', "App\Http\Controllers\ProductController@index")->name('product.index');
 Route::get('/admin/produit/modifier/{product}', "App\Http\Controllers\ProductController@edit")->name('product.edit');
 Route::put('/admin/produit/modifier/{product}', "App\Http\Controllers\ProductController@update")->name('product.update');
