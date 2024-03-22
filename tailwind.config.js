@@ -10,6 +10,7 @@ export default {
             secondary: "#F8E7BC",
             accent: "#514339",
             background: "#eee",
+            offWhite: "#f6f7f7",
             black: colors.black,
             blue: colors.blue,
             cyan: colors.cyan,

@@ -1,6 +1,11 @@
 <x-layout>
-<h1 class="text-4xl font-bold p-4">Derniers Avis</h1>
-<div class="relative">
+<x-breadcrumbs :breadcrumbs="[
+            ['title' => 'Tableau de bord (définir route quand tableau de bord sera complété)', 'url' => '/'],
+            ['title' => 'Avis', 'url' => ''],
+        ]"/>
+<div class="px-6">
+    <h1 class="text-4xl font-bold p-4">Derniers Avis</h1>
+    <div class="relative">
     <table class="w-full text-sm text-left rtl:text-right text-zinc-50 ">
         <thead class="text-xs text-zinc-50 uppercase bg-accent ">
             <tr>
@@ -45,6 +50,7 @@
     </table>
 
     {{ $reviews->links() }}
+</div>
 </div>
 
 </x-layout>

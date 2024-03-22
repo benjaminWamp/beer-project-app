@@ -1,10 +1,11 @@
 <x-layout>
+<x-breadcrumbs :breadcrumbs="[
+            ['title' => 'Tableau de bord', 'url' => '/'],
+            ['title' => 'Avis', 'url' => route('review.index')],
+            ['title' => $review->user->name, 'url' => ''],
+        ]"/>
 
-    <button class="font-title border bg-accent text-secondary rounded-md px-3 py-2 text-sm font-medium hover:-translate-y-1 transition-all">
-        <a href="{{route("review.index")}}">Retour</a>
-    </button>
-
-
+<div class="px-6">
     <div class="mt-4 ">
         <h1 class="font-title text-4xl font-title font-semibold text-accent">{{$review->user->name}}</h1>
         <div class="flex align-center mt-4 gap-4">
@@ -16,5 +17,5 @@
             <p class="bg-secondary border-2 border-primary border-dashed p-2 rounded-md">{{$review->message}}</p>
         </div>
     </div>
-
+</div>
 </x-layout>
