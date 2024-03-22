@@ -19,8 +19,8 @@ class ProductFactory extends Factory
         return [
             "name" => fake()->words(4, true),
             "description" => fake()->text(1000),
-            "stock" => fake()->numberBetween(0, 1000),
-            "delivered_at" => fake()->dateTimeBetween("-1 years"),
+            "delivered_at" => fake()->dateTimeBetween("-10 years"),
+            "stock" => fake()->numberBetween(1, 100),
             /*"cover" => fake()->imageUrl(640, 480, "book", true),*/
             "image" => fake()->randomElement([
                 "image-1.png",
