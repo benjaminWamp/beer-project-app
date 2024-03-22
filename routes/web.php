@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ManufacturerController;
 use App\Models\Manufacturer;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Middleware\Authenticate;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,45 +21,26 @@ use App\Models\Manufacturer;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/admin/catalogue', "App\Http\Controllers\ProductController@index")->name('product.index');
-Route::get('/admin/produit/modifier/{product}', "App\Http\Controllers\ProductController@edit")->name('product.edit');
-Route::put('/admin/produit/modifier/{product}', "App\Http\Controllers\ProductController@update")->name('product.update');
-Route::get('/admin/produit/ajouter', "App\Http\Controllers\ProductController@create")->name('product.create');
-Route::get('/admin/produit/{product}', "App\Http\Controllers\ProductController@show")->name('product.show');
-Route::post('/admin/produit/store', "App\Http\Controllers\ProductController@store")->name('product.store');
-Route::delete('/admin/produit/{product}',"App\Http\Controllers\ProductController@destroy")->name('product.destroy');
 
-Route::get(
-    '/admin/producteurs',
-    ManufacturerController::class . "@index"
-)->name("manufacturer.index");
+Route::post("/login", LoginController::class . "@authenticate")->name("login");
 
-Route::get(
-    '/admin/producteurs/ajouter',
-    ManufacturerController::class . "@create"
-)->name("manufacturer.create");
+Route::middleware(["auth"])->group(function () {
 
-Route::get(
-    '/admin/producteurs/{manufacturer}',
-    ManufacturerController::class . "@show"
-)->name("manufacturer.show");
+    Route::post("/logout", LogoutController::class . "@logout")->name("logout");
 
-Route::delete(
-    '/admin/producteurs/{manufacturer}',
-    ManufacturerController::class . "@destroy"
-)->name("manufacturer.destroy");
+    Route::get('/admin/catalogue', "App\Http\Controllers\ProductController@index")->name('product.index');
+    Route::get('/admin/produit/modifier/{product}', "App\Http\Controllers\ProductController@edit")->name('product.edit');
+    Route::put('/admin/produit/modifier/{product}', "App\Http\Controllers\ProductController@update")->name('product.update');
+    Route::get('/admin/produit/ajouter', "App\Http\Controllers\ProductController@create")->name('product.create');
+    Route::get('/admin/produit/{product}', "App\Http\Controllers\ProductController@show")->name('product.show');
+    Route::post('/admin/produit/store', "App\Http\Controllers\ProductController@store")->name('product.store');
+    Route::delete('/admin/produit/{product}', "App\Http\Controllers\ProductController@destroy")->name('product.destroy');
 
-Route::post(
-    '/admin/producteurs',
-    ManufacturerController::class . "@store"
-)->name("manufacturer.store");
-
-Route::get(
-    '/admin/producteurs/modifier/{manufacturer}',
-    ManufacturerController::class . "@edit"
-)->name("manufacturer.edit");
-
-Route::put(
-    '/admin/modifier/{manufacturer}',
-    ManufacturerController::class . "@update"
-)->name("manufacturer.update");
+    Route::get('/admin/producteurs', ManufacturerController::class . "@index")->name("manufacturer.index");
+    Route::get('/admin/producteurs/ajouter', ManufacturerController::class . "@create")->name("manufacturer.create");
+    Route::get('/admin/producteurs/{manufacturer}', ManufacturerController::class . "@show")->name("manufacturer.show");
+    Route::delete('/admin/producteurs/{manufacturer}', ManufacturerController::class . "@destroy")->name("manufacturer.destroy");
+    Route::post('/admin/producteurs', ManufacturerController::class . "@store")->name("manufacturer.store");
+    Route::get('/admin/producteurs/modifier/{manufacturer}', ManufacturerController::class . "@edit")->name("manufacturer.edit");
+    Route::put('/admin/producteurs/modifier/{manufacturer}', ManufacturerController::class . "@update")->name("manufacturer.update");
+});
