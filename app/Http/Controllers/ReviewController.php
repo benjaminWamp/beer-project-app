@@ -11,7 +11,8 @@ class ReviewController extends Controller
     public function index()
     {
         $reviews = Review::paginate(5);
-        return view('review.index', ["reviews" => $reviews]);
+
+        return view('review.index', compact('reviews'));
     }
 
     public function show(Review $review)

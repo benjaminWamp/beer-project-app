@@ -7,7 +7,7 @@
     <title>{{$title ?? "Pas de titre"}}</title>
     @vite( ['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-background">
+<body class="bg-offWhite">
           <x-navbar/>
           <nav class="fixed top-0 z-50 w-full bg-secondary border-b border-gray-200 ">
   <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -62,7 +62,7 @@
   </div>
 </nav>
         </div> 
-        <div class="p-6 mt-28 sm:ml-64">
+        <div class="mt-28 sm:ml-64">
           {{$slot}}
         </div> 
       </div>

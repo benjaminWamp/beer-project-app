@@ -1,9 +1,12 @@
 <x-layout>
-<h1 class="text-2xl font-title font-bold">Derniers Avis</h1>
-<div class="relative">
-    {{ $reviews->links() }}
-
-    <table class="rounded-full my-4 w-full text-sm text-left rtl:text-right text-zinc-50 ">
+<x-breadcrumbs :breadcrumbs="[
+            ['title' => 'Tableau de bord (définir route quand tableau de bord sera complété)', 'url' => '/'],
+            ['title' => 'Avis', 'url' => ''],
+        ]"/>
+<div class="px-6">
+    <h1 class="text-4xl font-bold p-4">Derniers Avis</h1>
+    <div class="relative">
+    <table class="w-full text-sm text-left rtl:text-right text-zinc-50 ">
         <thead class="text-xs text-zinc-50 uppercase bg-accent ">
             <tr>
                 <th scope="col" class="font-title font-bold text-background px-6 py-3">
@@ -53,7 +56,8 @@
         </tbody>
     </table>
 
-    <div class="livewire-pagination">{{ $reviews->onEachSide(2)->links() }}</div>
+    {{ $reviews->links() }}
+</div>
 </div>
 
 </x-layout>
