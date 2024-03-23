@@ -26,7 +26,7 @@
         <tbody>
             @foreach($reviews as $review)
         
-             <tr class="bg-white border-b text-slate-950">
+             <tr class="bg-table border-b text-slate-950">
                 <th scope="row" class="px-6 py-4 font-sans font-bold text-slate-950 whitespace-nowrap ">
                    {{$review->user->name}}
                 </th>
