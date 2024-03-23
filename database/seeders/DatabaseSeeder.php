@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Order;
 use App\Models\Favorite;
 use App\Models\Review;
 use Illuminate\Database\Seeder;
@@ -16,6 +17,17 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         \App\Models\User::factory(5)->create();
+
+        \App\Models\User::factory()->create([
+            "name" => "Cécile",
+            "email" => "cecile.valente@email.com",
+            "password" => "password",
+            "number" => "5",
+            "street" => "rue jesaispas",
+            "city" => "jesaispas",
+            "zip_code" => "00000",
+            "role" => "admin",
+        ]);
         // \App\Models\OrderItem::factory(100)->create();
         \App\Models\Manufacturer::factory(5)->create();
         // \App\Models\User::factory()->create([

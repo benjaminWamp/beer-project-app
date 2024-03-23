@@ -11,5 +11,7 @@
             @csrf 
         <button type="submit" class="bg-indigo-800 p-2 rounded text-white"  onsubmit="return confirm('Voulez vous vraiment supprimer cette book ?')">Supprimer</button>
         </form>
+
+        {{ $product->links() }}
     </div>
 @endforeach

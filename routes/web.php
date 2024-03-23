@@ -53,7 +53,8 @@ Route::get(
 Route::put(
     '/admin/modifier/{category}',
     CategoryController::class . "@update"
-)->name("category.update");Route::get('/admin/catalogue', "App\Http\Controllers\ProductController@index")->name('product.index');
+)->name("category.update");
+Route::get('/admin/catalogue', "App\Http\Controllers\ProductController@index")->name('product.index');
 Route::get('/admin/produit/modifier/{product}', "App\Http\Controllers\ProductController@edit")->name('product.edit');
 Route::put('/admin/produit/modifier/{product}', "App\Http\Controllers\ProductController@update")->name('product.update');
 Route::get('/admin/produit/ajouter', "App\Http\Controllers\ProductController@create")->name('product.create');
@@ -107,7 +108,13 @@ Route::get(
 )->name("review.show");
 
 Route::get('/admin/utilisateurs', UserController::class . "@index")->name('users.index');
-
+Route::get('/admin/utilisateurs/ajouter', UserController::class . "@create")->name('users.create');
+Route::post('/admin/utilisateurs/ajouter', UserController::class . "@store")->name('users.store');
+Route::get('/admin/utilisateurs/updateRole/{user}', UserController::class . "@editRole")->name('users.editRole');
+Route::put(
+    '/admin/utilisateurs/updateRole/{user}',
+    UserController::class . "@update"
+)->name("users.update");
 
 Route::get('admin/commandes', OrderController::class . "@index")->name("orders.index");
 Route::get('admin/commandes/{order}', OrderController::class . "@show")->name("orders.show");
