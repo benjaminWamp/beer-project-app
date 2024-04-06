@@ -24,15 +24,18 @@ class DashboardController extends Controller
         ->count();
 
         $lastFavoris = DB::table('favorites')
-        ->select(DB::raw('COUNT(*) AS data'), 'product_id')
+        ->selectRaw('COUNT(*) AS data, favorites.product_id')
         ->groupBy('product_id')
         ->orderByDesc('data')
+        ->take(3)
         ->get();
+        dd($lastFavoris);
+        // je récupère la liste des 3 product_id les plus favoris avec le compte
 
         $listProductEmpty = Product::where("stock", "<", 10)->get();
 
         $lastReview = Review::where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"), $currentMonth)->take(3)->get();
 
-        return view('Dashboard.dashboard', ["totalSold" => $totalSold, "countOrderInProgress" => $countOrderInProgress, "countOrderDelivered" => $countOrderDelivered, "listProductEmpty" => $listProductEmpty, "lastReview" => $lastReview]);
+        return view('Dashboard.dashboard', ["totalSold" => $totalSold, "countOrderInProgress" => $countOrderInProgress, "countOrderDelivered" => $countOrderDelivered, "listProductEmpty" => $listProductEmpty, "lastReview" => $lastReview, "lastFavoris" => $lastFavoris]);
     }
 }
