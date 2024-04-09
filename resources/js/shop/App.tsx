@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Coucou from "./components/Coucou";
-import { fetchData } from "./utils/CatalogueServices";
-import { fetchProduct } from "./utils/ProductServices";
-import TestServices from "./components/TestServices";
-import { fetchUserFavorite } from "./utils/CartService";
+import "./App.css";
 import { fetchUser } from "./utils/LoginService";
+import Catalogue from "./components/Catalogue";
 
 const App = () => {
     const [userToken, setUserToken] = useState<any>();
@@ -23,8 +20,7 @@ const App = () => {
 
     return (
         <>
-            <Coucou />
-            <TestServices />
+            <Catalogue />
         </>
     );
 };
