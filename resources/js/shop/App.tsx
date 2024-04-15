@@ -12,6 +12,8 @@ import {
     RouterProvider,
     Routes,
 } from "react-router-dom";
+import ProductList from "./components/catalogue/ProductList";
+import ProductLayer from "./components/Product";
 
 const router = createHashRouter([
     {
@@ -31,8 +33,8 @@ const router = createHashRouter([
         element: <Catalogue />,
     },
     {
-        path: "/produit/:productId",
-        element: <div>Produit</div>,
+        path: "/produit",
+        element: <ProductLayer />,
     },
     {
         path: "/login",

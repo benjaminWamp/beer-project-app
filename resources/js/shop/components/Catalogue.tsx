@@ -4,6 +4,7 @@ import ProductList from "./catalogue/ProductList";
 
 const Catalogue = () => {
     const [productList, setProductList] = useState<any>();
+
     const getProduct = async () => {
         const response = await fetchProducts();
 
