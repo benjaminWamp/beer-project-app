@@ -93,7 +93,7 @@ Route::get(
 )->name("manufacturer.edit");
 
 Route::put(
-    '/admin/modifier/{manufacturer}',
+    '/admin/producteurs/modifier/{manufacturer}',
     ManufacturerController::class . "@update"
 )->name("manufacturer.update");
 

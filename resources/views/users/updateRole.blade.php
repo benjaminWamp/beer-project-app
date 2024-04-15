@@ -1,16 +1,29 @@
 <x-layout>
-    <div class="mt-3 hover:-translate-y-1 transition-all inline-block">
-        <a href="{{route("users.index")}}" class="font-title border bg-accent text-secondary rounded-md px-3 py-3 text-sm font-medium">Retour</a>
+<x-breadcrumbs :breadcrumbs="[
+            ['title' => 'Tableau de bord (définir route quand tableau de bord sera complété)', 'url' => '/'],
+            ['title' => 'Utilisateurs', 'url' => route('users.index')],
+            ['title' => $user->name, 'url' => ''],
+        ]"/>
+
+<div class="mt-2 px-6">
+
+    <div class="flex mt-3">
+        <a href="{{route("users.index")}}" class="hover:-translate-y-1 transition-all font-title border bg-accent text-secondary rounded-3xl px-3 py-3 text-sm font-medium">
+            <svg class="w-6 h-6 text-background" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+            </svg>
+        </a>
     </div>
+
     <div>
-        <h3>
+        <h1 class="mt-4 font-title text-4xl font-title font-semibold text-accent">
             {{$user->name}}
-        </h3>
-        <h4>
+        </h1>
+        <h2 class="mt-4 font-title text-xl leading-none font-semibold leading-6 text-accent">
             {{$user->email}}
-        </h4>
+        </h2>
     </div>
-    <div class="container mx-auto mt-4">
+    <div class=" mt-4">
         <form action="{{ route('users.update', $user) }}" method="post" enctype="multipart/form-data">
             @method("PUT")
             @csrf
@@ -27,7 +40,13 @@
                     </select>
                 </div>
             </div>
-            <button type="submit" class="font-title border bg-accent text-secondary rounded-md px-3 py-2 text-sm font-medium hover:-translate-y-1 transition-all">Valider</button>
+            <div class="mt-4">
+                <button type="submit" class="block w-full font-title border bg-accent text-background rounded-3xl px-3 py-3 text-m font-bold hover:-translate-y-1 transition-all">
+                    Modifier statut
+                </button>
+            </div>
         </form>
     </div>
+
+</div>
 </x-layout>

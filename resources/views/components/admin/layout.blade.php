@@ -62,7 +62,7 @@
   </div>
 </nav>
         </div> 
-        <div class="mt-28 sm:ml-64">
+        <div class="mt-28 sm:ml-64 mb-8">
           {{$slot}}
         </div> 
       </div>

@@ -1,35 +1,71 @@
 <x-layout>
 
+<x-breadcrumbs :breadcrumbs="[
+            ['title' => 'Tableau de bord (définir route quand tableau de bord sera complété)', 'url' => '/'],
+            ['title' => 'Producteurs', 'url' => ''],
+        ]"/>
+<div class="px-6">
     <div class="flex flex-row gap-4">
-        <h1 class="text-4xl	font-title font-semibold text-accent">Producteurs</h1>
-        <a href="{{route("manufacturer.create")}}" class="font-title border bg-accent text-secondary rounded-md px-3 py-2 text-sm font-medium hover:-translate-y-1 transition-all">Ajouter un Producteur +</a>
+        <h1 class="text-3xl font-bold mt-4 mb-2 font-title text-accent">Producteurs</h1>
+        <a href="{{route("manufacturer.create")}}" class="bg-accent rounded-3xl mt-3 mb-2 px-2 pt-2 text-sm font-medium hover:-translate-y-1 transition-all">
+            <svg class="w-6 h-6 text-background" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
+            </svg>
+        </a>        
     </div>
-
-    <div class="flex flex-col gap-6 mt-8">
-        @foreach ($manufacturers as $manufacturer)
-        <div class="p-4 border-2 border-primary border-dashed rounded-lg hover:shadow-xl hover:shadow-accent/20 transition-all">
-            <div class="group relative flex justify-between align-center">
-                <a href="{{route("manufacturer.edit", $manufacturer)}}">
-                    <h2 class="font-title text-3xl leading-none	font-semibold leading-6 text-accent">{{ $manufacturer->name }}</h2>
-                </a>
-                <div class="flex gap-4">
-                    <button class="font-title border bg-accent text-secondary rounded-md px-3 py-2 text-sm font-medium hover:-translate-y-1 transition-all"><a href="{{route("manufacturer.edit", $manufacturer)}}">Modifier</a></button>
-
-                    <button class="font-title border bg-accent text-secondary rounded-md px-3 py-2 text-sm font-medium hover:-translate-y-1 transition-all"><a href="{{ route('manufacturer.show', $manufacturer) }}">Voir</a></button>
-
+    
+    {{ $manufacturers->links() }}
+    <div class="relative">
+    <table class="w-full text-sm text-left rtl:text-right text-zinc-50 my-4">
+        <thead class="text-xs text-zinc-50 uppercase bg-accent ">
+            <tr>
+                <th scope="col" class="font-title font-bold text-background px-6 py-3">
+                    Producteur
+                </th>
+                <th scope="col" class="flex justify-end font-title font-bold text-background px-6 py-3">
+                    Modifier / Voir / Supprimer
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($manufacturers as $manufacturer)
+        
+             <tr class="bg-table border-b border-accent text-slate-950">
+                <th scope="row" class="px-6 py-4 font-sans font-bold text-slate-950 whitespace-nowrap ">
+                   {{$manufacturer->name}}
+                </th>
+                <td class="flex flex-row justify-end px-6 py-4 gap-11">
+                    <a href="{{route("manufacturer.edit", $manufacturer)}}" class="bg-accent rounded-3xl px-2 py-2 text-sm font-medium hover:-translate-y-1 transition-all">
+                        <svg class="w-6 h-6 text-background" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                        </svg>
+                    </a>
+                    <a href="{{route("manufacturer.show", $manufacturer)}}" class="bg-accent rounded-3xl px-2 py-2 text-sm font-medium hover:-translate-y-1 transition-all">
+                        <svg class="w-6 h-6 text-background" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
+                            <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                        </svg>
+                    </a>
                     <form method="post" action="{{route('manufacturer.destroy', $manufacturer)}}">
                         @method("DELETE")
                         @csrf 
-                        <button type="submit" class="font-title border border-accent bg-secondary text-accent rounded-md px-3 py-2 text-sm font-semibold hover:-translate-y-1 transition-all"  onsubmit="return confirm('Voulez vous vraiment supprimer ce Porducteur ?')" class="font-title border bg-accent text-secondary rounded-md px-3 py-2 text-sm font-medium">Supprimer</button>
-                    </form>
-                </div>
+                        <button type="submit" class="border-2 border-accent bg-secondary rounded-3xl px-2 py-2 text-sm font-medium hover:-translate-y-1 transition-all">
+                            <svg class="w-5 h-5 text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                            </svg>
+                        </button>
+                    </form>                   
+                </td>
+            </tr>
+            @endforeach
 
-            </div>
-        </div>
-        @endforeach
+        </tbody>
+    </table>
 
-        {{ $manufacturers->links() }}
-
+    {{ $manufacturers->links() }}
+    
     </div>
+
+</div>
 
 </x-layout>

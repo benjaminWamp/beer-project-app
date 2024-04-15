@@ -57,7 +57,7 @@ class ManufacturerController extends Controller
      */
     public function update(UpdateManufacturerRequest $request, Manufacturer $manufacturer)
     {
-        /*dd($request->all(), $Manufacturer);*/
+        
         $manufacturer->update($request->validated());
         return redirect()->route("manufacturer.show", $manufacturer);
     }

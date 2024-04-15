@@ -4,9 +4,10 @@
             ['title' => 'Avis', 'url' => ''],
         ]"/>
 <div class="px-6">
-    <h1 class="text-4xl font-bold p-4">Derniers Avis</h1>
+    <h1 class="text-3xl font-bold mt-4 mb-2 font-title text-accent">Derniers Avis</h1>
+    {{ $reviews->links() }}
     <div class="relative">
-    <table class="w-full text-sm text-left rtl:text-right text-zinc-50 ">
+    <table class="w-full text-sm text-left rtl:text-right text-zinc-50 my-4">
         <thead class="text-xs text-zinc-50 uppercase bg-accent ">
             <tr>
                 <th scope="col" class="font-title font-bold text-background px-6 py-3">
@@ -29,7 +30,7 @@
         <tbody>
             @foreach($reviews as $review)
         
-             <tr class="bg-table border-b text-slate-950">
+             <tr class="bg-table border-b border-accent text-slate-950">
                 <th scope="row" class="px-6 py-4 font-sans font-bold text-slate-950 whitespace-nowrap ">
                    {{$review->user->name}}
                 </th>
