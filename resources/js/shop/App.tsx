@@ -16,14 +16,22 @@ import {
 const router = createHashRouter([
     {
         path: "/",
-        element: <div>Coucou</div>,
+        element: <div>Acceuil</div>,
+    },
+    {
+        path: "/a-propos",
+        element: <div>A propos</div>,
+    },
+    {
+        path: "/contact",
+        element: <div>Contact</div>,
     },
     {
         path: "/catalogue",
         element: <Catalogue />,
     },
     {
-        path: "/product/:productId",
+        path: "/produit/:productId",
         element: <div>Produit</div>,
     },
     {
@@ -31,8 +39,24 @@ const router = createHashRouter([
         element: <div>Login</div>,
     },
     {
-        path: "/login",
-        element: <div>Login</div>,
+        path: "/account",
+        element: <div>Account</div>,
+    },
+    {
+        path: "/cart",
+        element: <div>Cart</div>,
+    },
+    {
+        path: "/checkout",
+        element: <div>Checkout</div>,
+    },
+    {
+        path: "/mentions-legales",
+        element: <div>Mentions Légales</div>,
+    },
+    {
+        path: "/cgv",
+        element: <div>CGV</div>,
     },
 ]);
 
