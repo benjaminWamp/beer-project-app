@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { fetchUser } from "./utils/LoginService";
 import Catalogue from "./components/Catalogue";
+import Layout from "./layout/Layout";
 
 const App = () => {
     const [userToken, setUserToken] = useState<any>();
@@ -19,9 +20,9 @@ const App = () => {
     }, []);
 
     return (
-        <>
+        <Layout>
             <Catalogue />
-        </>
+        </Layout>
     );
 };
 
