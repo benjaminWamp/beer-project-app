@@ -1,9 +1,10 @@
 <x-layout>
-
 <x-breadcrumbs :breadcrumbs="[
             ['title' => 'Tableau de bord (définir route quand tableau de bord sera complété)', 'url' => '/'],
             ['title' => 'Producteurs', 'url' => ''],
         ]"/>
+
+
 <div class="px-6">
     <div class="flex flex-row gap-4">
         <h1 class="text-3xl font-bold mt-4 mb-2 font-title text-accent">Producteurs</h1>

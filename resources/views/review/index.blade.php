@@ -3,6 +3,8 @@
             ['title' => 'Tableau de bord (définir route quand tableau de bord sera complété)', 'url' => '/'],
             ['title' => 'Avis', 'url' => ''],
         ]"/>
+
+
 <div class="px-6">
     <h1 class="text-3xl font-bold mt-4 mb-2 font-title text-accent">Derniers Avis</h1>
     {{ $reviews->links() }}
