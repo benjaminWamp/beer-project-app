@@ -3,6 +3,38 @@ import "./App.css";
 import { fetchUser } from "./utils/LoginService";
 import Catalogue from "./components/Catalogue";
 import Layout from "./layout/Layout";
+import {
+    BrowserRouter,
+    createBrowserRouter,
+    createHashRouter,
+    HashRouter,
+    Route,
+    RouterProvider,
+    Routes,
+} from "react-router-dom";
+
+const router = createHashRouter([
+    {
+        path: "/",
+        element: <div>Coucou</div>,
+    },
+    {
+        path: "/catalogue",
+        element: <Catalogue />,
+    },
+    {
+        path: "/product/:productId",
+        element: <div>Produit</div>,
+    },
+    {
+        path: "/login",
+        element: <div>Login</div>,
+    },
+    {
+        path: "/login",
+        element: <div>Login</div>,
+    },
+]);
 
 const App = () => {
     const [userToken, setUserToken] = useState<any>();
@@ -21,7 +53,13 @@ const App = () => {
 
     return (
         <Layout>
-            <Catalogue />
+            <RouterProvider router={router} />
+            {/* <HashRouter>
+                <Routes>
+                    <Route path="/" element={<div>Coucou</div>} />
+                    <Route path="catalogue" element={<Catalogue />} />
+                </Routes>
+            </HashRouter> */}
         </Layout>
     );
 };
