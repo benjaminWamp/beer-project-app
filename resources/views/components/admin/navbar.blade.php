@@ -1,5 +1,5 @@
 <aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0" aria-label="Sidebar">
-   <div class="h-full px-3 pb-4 overflow-y-auto bg-accent pt-20 flex-col space-between">
+   <div class="flex h-full px-3 pb-4 bg-accent pt-32 flex-col justify-between">
       <ul class="space-y-2 font-medium">
          <li >
             <a  class="{{Route::is('admin') ? 'border-2 rounded-md' : ""}} flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
@@ -52,11 +52,23 @@
             </a>
          </li>         
       </ul>
-      @auth
-         <form action="{{route("logout")}}" method="POST"> {{--Dans un form pour éviter les déconnection non désiré--}}
-            @csrf
-            <button type="submit" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Se déconnecter</button>
-         </form>
-      @endauth  
+
+      <div>
+         <hr class="border mb-2">
+
+         @auth
+         <div class="p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+            <form action="{{route("logout")}}" method="POST"> {{--Dans un form pour éviter les déconnection non désiré--}}
+               @csrf
+               <button type="submit" class="w-full flex items-center">
+                  <svg class="flex-shrink-0 w-5 h-5 text-white transition duration-75 group-hover:text-accent" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
+                  </svg>
+                  <span class="text-start flex-1 ms-3 text-white group-hover:text-accent font-title">Se déconnecter</span>
+               </button>
+            </form>
+         </div>
+         @endauth 
+      </div>
    </div>
 </aside>
