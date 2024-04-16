@@ -22,6 +22,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get("/login", LoginController::class . "@show")->name("login");
 Route::post("/login", LoginController::class . "@authenticate")->name("login");
 
 Route::middleware(["auth"])->group(function () {

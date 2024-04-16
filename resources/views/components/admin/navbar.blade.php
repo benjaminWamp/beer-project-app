@@ -44,9 +44,11 @@
             </a>
          </li>
       </ul>
-      <form action="{{route("logout")}}" method="post"> {{--Dans un form pour éviter les déconnection non désiré--}}
-         @csrf
-         <button type="submit" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">Se déconnecter</button>
-      </form>
+      @auth
+         <form action="{{route("logout")}}" method="POST"> {{--Dans un form pour éviter les déconnection non désiré--}}
+            @csrf
+            <button type="submit" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Se déconnecter</button>
+         </form>
+      @endauth  
    </div>
 </aside>
