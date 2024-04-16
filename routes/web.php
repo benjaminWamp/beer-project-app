@@ -25,12 +25,16 @@ use App\Http\Middleware\Authenticate;
 
 
 
+
+
 Route::get("/admin/login", LoginController::class . "@show")->name("login");
 Route::post("/admin/login", LoginController::class . "@authenticate")->name("login");
 
 Route::middleware(["auth"])->group(function () {
 
     Route::post("/logout", LogoutController::class . "@logout")->name("logout");
+
+    Route::get('/admin', "App\Http\Controllers\DashboardController@index")->name('index');
 
     Route::get('/admin/catalogue', "App\Http\Controllers\ProductController@index")->name('product.index');
     Route::get('/admin/produit/modifier/{product}', "App\Http\Controllers\ProductController@edit")->name('product.edit');
