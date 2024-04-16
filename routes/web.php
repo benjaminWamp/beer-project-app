@@ -20,6 +20,7 @@ use App\Models\Review;
 |
 */
 
+Route::get('/admin', "App\Http\Controllers\DashboardController@index")->name('index');
 Route::get(
     '/admin/categories',
     CategoryController::class . "@index"
