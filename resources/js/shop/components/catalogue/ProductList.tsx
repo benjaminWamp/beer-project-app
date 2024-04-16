@@ -1,7 +1,7 @@
 import React from "react";
 import ProductCategories from "./ProdcutCategories";
-import ReviewsStars from "./ReviewsStars";
 import { CatalogueProduct } from "../../types/Catalogue.types";
+import ReviewsStars from "../shared/ReviewsStars";
 
 interface productListProps {
     products: Array<CatalogueProduct>;
@@ -26,7 +26,7 @@ const ProductList = (props: productListProps) => {
                         <div className="mt-4 flex justify-between">
                             <div>
                                 <h3 className="text-sm text-gray-700">
-                                    <a href={`#/produit?product=${product.id}`}>
+                                    <a href={`#/produit/${product.id}`}>
                                         <span
                                             aria-hidden="true"
                                             className="absolute inset-0"
@@ -39,7 +39,7 @@ const ProductList = (props: productListProps) => {
                             <p className="text-sm font-medium text-gray-900">
                                 {((product.price_ht + 0.2) / 100).toFixed(2)}€
                             </p>
-                            <ReviewsStars reviews={product.reviews_sum} />
+                            <ReviewsStars review={product.reviews_sum} />
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"

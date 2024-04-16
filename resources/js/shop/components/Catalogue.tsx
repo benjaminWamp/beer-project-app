@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { fetchProducts } from "../utils/CatalogueServices";
 import ProductList from "./catalogue/ProductList";
+import { fetchProducts } from "../utils/services/CatalogueServices";
 
 const Catalogue = () => {
     const [productList, setProductList] = useState<any>();

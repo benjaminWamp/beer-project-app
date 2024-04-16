@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { fetchUser } from "./utils/LoginService";
 import Catalogue from "./components/Catalogue";
 import Layout from "./layout/Layout";
 import {
@@ -14,53 +13,8 @@ import {
 } from "react-router-dom";
 import ProductList from "./components/catalogue/ProductList";
 import ProductLayer from "./components/Product";
-
-const router = createHashRouter([
-    {
-        path: "/",
-        element: <div>Acceuil</div>,
-    },
-    {
-        path: "/a-propos",
-        element: <div>A propos</div>,
-    },
-    {
-        path: "/contact",
-        element: <div>Contact</div>,
-    },
-    {
-        path: "/catalogue",
-        element: <Catalogue />,
-    },
-    {
-        path: "/produit",
-        element: <ProductLayer />,
-    },
-    {
-        path: "/login",
-        element: <div>Login</div>,
-    },
-    {
-        path: "/account",
-        element: <div>Account</div>,
-    },
-    {
-        path: "/cart",
-        element: <div>Cart</div>,
-    },
-    {
-        path: "/checkout",
-        element: <div>Checkout</div>,
-    },
-    {
-        path: "/mentions-legales",
-        element: <div>Mentions Légales</div>,
-    },
-    {
-        path: "/cgv",
-        element: <div>CGV</div>,
-    },
-]);
+import { fetchUser } from "./utils/services/LoginService";
+import { routes } from "./utils/routes";
 
 const App = () => {
     const [userToken, setUserToken] = useState<any>();
@@ -79,13 +33,17 @@ const App = () => {
 
     return (
         <Layout>
-            <RouterProvider router={router} />
-            {/* <HashRouter>
+            <HashRouter>
                 <Routes>
-                    <Route path="/" element={<div>Coucou</div>} />
-                    <Route path="catalogue" element={<Catalogue />} />
+                    {Object.values(routes).map((route) => (
+                        <Route
+                            key={route.path}
+                            path={route.path}
+                            element={route.element}
+                        />
+                    ))}
                 </Routes>
-            </HashRouter> */}
+            </HashRouter>
         </Layout>
     );
 };

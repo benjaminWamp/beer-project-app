@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { StarIcon } from "@heroicons/react/20/solid";
-import { RadioGroup } from "@headlessui/react";
+import ReviewsStars from "../shared/ReviewsStars";
+import { Product } from "../../types/product.types";
+import { addProductToCart } from "../../utils/services/CartService";
 
 interface ProdcutDetailProps {
-    product: any;
+    product: Product;
+    onScrollToReviews: (_: any) => void;
 }
 
 function classNames(...classes) {
@@ -11,20 +13,19 @@ function classNames(...classes) {
 }
 
 const ProdcutDetails = (props: ProdcutDetailProps) => {
-    const { product } = props;
-    const reviews = { href: "#", average: 4, totalCount: 117 };
+    const { product, onScrollToReviews } = props;
+    const { categories } = product;
+    const { reviews } = product;
     const [selectedQuantity, setselectedQuantity] = useState(1);
     const [selectedQuantityType, setselectedQuantityType] = useState(1);
 
-    const [addedProduct, setAddedProduct] = useState({});
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const quantity = e.target.quantity.value * e.target.quantityType.value;
-        setAddedProduct({ product_id: 1, quantity: quantity });
+        const addedProduct = { product_id: product.id, quantity: quantity };
+        await addProductToCart(addedProduct);
     };
 
-    console.log(addedProduct);
     return (
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6  lg:size-3/6 lg:px-8 lg:pb-24 lg:pt-16">
             <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
@@ -41,33 +42,18 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
                 </p>
 
                 <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-                    {product.categories.map((category) => {
-                        <h3>{category.name}</h3>;
-                    })}
+                    {categories.map((category) => (
+                        <h3>{category.name}</h3>
+                    ))}
                 </div>
 
                 {/* Reviews */}
                 <div className="mt-6">
                     <h3 className="sr-only">Reviews</h3>
-                    <div className="flex items-center">
-                        <div className="flex items-center">
-                            {[0, 1, 2, 3, 4].map((rating) => (
-                                <StarIcon
-                                    key={rating}
-                                    className={classNames(
-                                        product.reviews_sum > rating
-                                            ? "text-gray-900"
-                                            : "text-gray-200",
-                                        "h-5 w-5 flex-shrink-0"
-                                    )}
-                                    aria-hidden="true"
-                                />
-                            ))}
-                        </div>
-                        <p className="sr-only">
-                            {reviews.average} out of 5 stars
-                        </p>
-                    </div>
+                    <ReviewsStars review={product.reviews_sum} />{" "}
+                    <a href="#" onClick={(e) => onScrollToReviews(e)}>
+                        {reviews.length} avis
+                    </a>
                 </div>
 
                 <form className="mt-10" onSubmit={(e) => handleSubmit(e)}>

@@ -1,10 +1,11 @@
 import React from "react";
+import { Product } from "../../types/product.types";
 
 interface ProductImageProps {
-    product: any;
+    product: Product;
 }
 
-const ProductImage = (props) => {
+const ProductImage = (props: ProductImageProps) => {
     const { product } = props;
 
     return (
