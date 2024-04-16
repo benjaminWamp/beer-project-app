@@ -9,9 +9,7 @@ use Illuminate\Http\Request;
 
 class ManufacturerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $manufacturers = Manufacturer::paginate(10);
@@ -59,7 +57,7 @@ class ManufacturerController extends Controller
      */
     public function update(UpdateManufacturerRequest $request, Manufacturer $manufacturer)
     {
-        /*dd($request->all(), $Manufacturer);*/
+        
         $manufacturer->update($request->validated());
         return redirect()->route("manufacturer.show", $manufacturer);
     }

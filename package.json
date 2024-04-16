@@ -6,11 +6,19 @@
         "build": "vite build"
     },
     "devDependencies": {
-        "autoprefixer": "^10.4.17",
+        "@types/react-beautiful-dnd": "^13.1.8",
+        "@types/react-dom": "^18.2.22",
+        "autoprefixer": "^10.4.19",
         "axios": "^1.6.4",
         "laravel-vite-plugin": "^1.0.0",
-        "postcss": "^8.4.35",
+        "postcss": "^8.4.38",
         "tailwindcss": "^3.4.1",
+        "typescript": "^5.4.3",
         "vite": "^5.0.0"
+    },
+    "dependencies": {
+        "@vitejs/plugin-react": "^4.2.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
     }
 }

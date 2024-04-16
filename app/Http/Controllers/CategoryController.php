@@ -7,13 +7,15 @@ use App\Http\Requests\CreateCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class CategoryController extends Controller
 {
-    public function show_categoies()
+    public function index()
     {
-        $categories = Category::all();
-        return view("category.show_categoies", compact('categories'));
+        $categories = Category::paginate(10);
+        return view("category.index", compact('categories'));
     }
 
     public function create()
@@ -23,29 +25,37 @@ class CategoryController extends Controller
 
     public function store(CreateCategoryRequest $request)
     {
-        Category::create($request->validate());
+        $category = Category::create([
+            ...$request->validated(),
+            "slug" => Str::slug($request->name),
+        ]);
+        return redirect()->route("category.show", $category);
+    }
 
-        return redirect()->route("category.show_categoies");
+    public function show(Category $category)
+    {
+        return view('category.show', compact("category"));
     }
 
     public function edit(Category $category)
     {
-        return view('category.edit');
+        return view('category.edit', compact("category"));
     }
 
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $category->update(
-            $request->validated()
-        );
+        $category->update([
+            ...$request->validated(),
+            "slug" => Str::slug($request->slug),
+        ]);
 
-        return redirect()->route("category.show_categoies");
+        return redirect()->route("category.show", $category);
     }
 
     public function destroy(Category $category)
     {
 
         $category->delete();
-        return redirect()->route("category.show_categoies");
+        return redirect()->route("category.index");
     }
 }

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('price_ht');
-            $table->integer('stock');
+            $table->integer("stock");
             $table->string('image');
             $table->text('description');
             $table->foreignId('manufacturer_id')->constrained()->cascadeOnDelete();
