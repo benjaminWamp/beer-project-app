@@ -5,7 +5,9 @@ const colors = require("tailwindcss/colors");
 export default {
     content: [
         "./resources/**/*.blade.php",
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php'
+        './resources/**/*.{js,jsx,ts,tsx}',
+        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+        'node_modules/flowbite-react/lib/esm/**/*.js',
             ],
     theme: {
         colors: {
@@ -45,5 +47,6 @@ export default {
             title: ["QTGraveure", "serif"],
         },
     },
-    plugins: [],
+    plugins: [require('flowbite/plugin'),
+    require('@tailwindcss/aspect-ratio')],
 };
