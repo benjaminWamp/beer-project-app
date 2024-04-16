@@ -22,7 +22,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return $product->load(["categories", "manufacturer"]);
+        return $product->load(["categories", "manufacturer", "reviews.user:id,name"]);
     }
 
     public function showReviews(Product $product)

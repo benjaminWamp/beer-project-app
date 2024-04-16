@@ -2,7 +2,7 @@ import React from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 
 interface ReviewsStarsProps {
-    reviews: number;
+    review: number;
 }
 
 function classNames(...classes: string[]) {
@@ -10,7 +10,7 @@ function classNames(...classes: string[]) {
 }
 
 const ReviewsStars = (props: ReviewsStarsProps) => {
-    const { reviews } = props;
+    const { review } = props;
 
     return (
         <div className="flex items-center">
@@ -20,7 +20,7 @@ const ReviewsStars = (props: ReviewsStarsProps) => {
                         <StarIcon
                             key={rating}
                             className={classNames(
-                                reviews > rating
+                                review > rating
                                     ? "text-yellow-600"
                                     : "text-gray-600",
                                 "h-5 w-5 flex-shrink-0"
