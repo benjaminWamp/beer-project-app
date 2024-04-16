@@ -1,5 +1,5 @@
 <x-layout>
-<a href="{{route("category.index")}}" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Retour</a>
+<a href="{{ URL::previous() }}" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Retour</a>
 
 <h1>{{$category->name}}</h1>
 <p>{{$category->description}}</p>  
