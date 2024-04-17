@@ -50,10 +50,8 @@ Route::get(
     CategoryController::class . "@edit"
 )->name("category.edit");
 
-Route::put(
-    '/admin/modifier/{category}',
-    CategoryController::class . "@update"
-)->name("category.update");
+Route::put('/admin/modifier/{category}', CategoryController::class . "@update")->name("category.update");
+
 Route::get('/admin/catalogue', "App\Http\Controllers\ProductController@index")->name('product.index');
 Route::get('/admin/produit/modifier/{product}', "App\Http\Controllers\ProductController@edit")->name('product.edit');
 Route::put('/admin/produit/modifier/{product}', "App\Http\Controllers\ProductController@update")->name('product.update');
@@ -62,59 +60,22 @@ Route::get('/admin/produit/{product}', "App\Http\Controllers\ProductController@s
 Route::post('/admin/produit/store', "App\Http\Controllers\ProductController@store")->name('product.store');
 Route::delete('/admin/produit/{product}', "App\Http\Controllers\ProductController@destroy")->name('product.destroy');
 
-Route::get(
-    '/admin/producteurs',
-    ManufacturerController::class . "@index"
-)->name("manufacturer.index");
+Route::get('/admin/producteurs', ManufacturerController::class . "@index")->name("manufacturer.index");
+Route::get('/admin/producteurs/ajouter', ManufacturerController::class . "@create")->name("manufacturer.create");
+Route::get('/admin/producteurs/{manufacturer}', ManufacturerController::class . "@show")->name("manufacturer.show");
+Route::delete('/admin/producteurs/{manufacturer}', ManufacturerController::class . "@destroy")->name("manufacturer.destroy");
+Route::post('/admin/producteurs', ManufacturerController::class . "@store")->name("manufacturer.store");
+Route::get('/admin/producteurs/modifier/{manufacturer}', ManufacturerController::class . "@edit")->name("manufacturer.edit");
+Route::put('/admin/producteurs/modifier/{manufacturer}', ManufacturerController::class . "@update")->name("manufacturer.update");
 
-Route::get(
-    '/admin/producteurs/ajouter',
-    ManufacturerController::class . "@create"
-)->name("manufacturer.create");
-
-Route::get(
-    '/admin/producteurs/{manufacturer}',
-    ManufacturerController::class . "@show"
-)->name("manufacturer.show");
-
-Route::delete(
-    '/admin/producteurs/{manufacturer}',
-    ManufacturerController::class . "@destroy"
-)->name("manufacturer.destroy");
-
-Route::post(
-    '/admin/producteurs',
-    ManufacturerController::class . "@store"
-)->name("manufacturer.store");
-
-Route::get(
-    '/admin/producteurs/modifier/{manufacturer}',
-    ManufacturerController::class . "@edit"
-)->name("manufacturer.edit");
-
-Route::put(
-    '/admin/producteurs/modifier/{manufacturer}',
-    ManufacturerController::class . "@update"
-)->name("manufacturer.update");
-
-Route::get(
-    '/admin/avis',
-    ReviewController::class . "@index"
-)->name("review.index");
-
-Route::get(
-    '/admin/avis/{review}',
-    ReviewController::class . "@show"
-)->name("review.show");
+Route::get('/admin/avis', ReviewController::class . "@index")->name("review.index");
+Route::get('/admin/avis/{review}', ReviewController::class . "@show")->name("review.show");
 
 Route::get('/admin/utilisateurs', UserController::class . "@index")->name('users.index');
 Route::get('/admin/utilisateurs/ajouter', UserController::class . "@create")->name('users.create');
 Route::post('/admin/utilisateurs/ajouter', UserController::class . "@store")->name('users.store');
 Route::get('/admin/utilisateurs/updateRole/{user}', UserController::class . "@editRole")->name('users.editRole');
-Route::put(
-    '/admin/utilisateurs/updateRole/{user}',
-    UserController::class . "@update"
-)->name("users.update");
+Route::put('/admin/utilisateurs/updateRole/{user}', UserController::class . "@update")->name("users.update");
 
 Route::get('admin/commandes', OrderController::class . "@index")->name("orders.index");
 Route::get('admin/commandes/{order}', OrderController::class . "@show")->name("orders.show");
