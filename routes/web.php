@@ -25,7 +25,9 @@ use App\Http\Middleware\Authenticate;
 
 
 
-
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get("/admin/login", LoginController::class . "@show")->name("login");
 Route::post("/admin/login", LoginController::class . "@authenticate")->name("login");

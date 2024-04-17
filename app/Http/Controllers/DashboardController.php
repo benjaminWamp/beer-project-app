@@ -23,13 +23,11 @@ class DashboardController extends Controller
         ->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"), $currentMonth)
         ->count();
 
-        $lastFavoris = DB::table('favorites')
-        ->selectRaw('COUNT(*) AS data, favorites.product_id')
+        $lastFavoris = Favorite::selectRaw('COUNT(*) AS data, favorites.product_id')
         ->groupBy('product_id')
         ->orderByDesc('data')
         ->take(3)
         ->get();
-        dd($lastFavoris);
         // je récupère la liste des 3 product_id les plus favoris avec le compte
 
         $listProductEmpty = Product::where("stock", "<", 10)->get();
