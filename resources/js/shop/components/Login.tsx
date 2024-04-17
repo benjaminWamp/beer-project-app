@@ -31,7 +31,6 @@ const Login = () => {
         }
     }, [token]);
 
-    console.log(isLogged);
 
     return (
         <>
@@ -43,7 +42,7 @@ const Login = () => {
                         alt="Your Company"
                     />
                     <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                        Sign in to your account
+                        Connexion à votre compte
                     </h2>
                 </div>
 
