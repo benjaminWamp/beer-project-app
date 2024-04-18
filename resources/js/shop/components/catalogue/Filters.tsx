@@ -66,29 +66,46 @@ const Filters = (props) => {
         }
     };
 
-    console.log("categories", categoriesChecked);
-    console.log("manufacturer", manufacturersChecked);
-    console.log("products", products);
-
-    const onChangeFilter = () => {
-        const filteredProduct = products.filter((product) => {
+    const addCategoriesProductsFiltered = (addedFilteredProducts?) => {
+        const productsToFilter = addedFilteredProducts || products;
+        return productsToFilter.filter((product) => {
             return product.categories.some((category) =>
                 categoriesChecked.includes(category.id.toString())
             );
         });
-        if (filteredProduct.length > 0) {
-            setFilteredProducts(filteredProduct);
-        } else {
-            setFilteredProducts(products);
+    };
+
+    const addManufacturerProductsFiltered = (addedFilteredProducts?) => {
+        const productsToFilter = addedFilteredProducts || products;
+        return productsToFilter.filter((product) =>
+            manufacturersChecked.includes(product.manufacturer_id.toString())
+        );
+    };
+
+    const onChangeFilter = () => {
+        let filteredProducts = [];
+
+        if (categoriesChecked.length > 0) {
+            filteredProducts = addCategoriesProductsFiltered();
+
+            if (manufacturersChecked.length > 0) {
+                filteredProducts =
+                    addManufacturerProductsFiltered(filteredProducts);
+            }
+        } else if (manufacturersChecked.length > 0) {
+            filteredProducts = addManufacturerProductsFiltered();
         }
+
+        setFilteredProducts(filteredProducts);
     };
 
     useEffect(() => {
-        console.log("coucou");
-        onChangeFilter();
-    }, [categoriesChecked]);
-
-    console.log("product final", filteredProducts);
+        if (categoriesChecked.length > 0 || manufacturersChecked.length > 0) {
+            onChangeFilter();
+        } else {
+            setFilteredProducts(products);
+        }
+    }, [categoriesChecked, manufacturersChecked]);
 
     return (
         <div className="bg-white">
@@ -427,7 +444,14 @@ const Filters = (props) => {
 
                             {/* Product grid */}
                             <div className="lg:col-span-3">
-                                <ProductList products={filteredProducts} />
+                                {filteredProducts.length > 0 ? (
+                                    <ProductList products={filteredProducts} />
+                                ) : (
+                                    <h2>
+                                        Aucune bière ne correspond à vos
+                                        critères
+                                    </h2>
+                                )}
                             </div>
                         </div>
                     </section>
