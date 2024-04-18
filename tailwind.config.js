@@ -46,6 +46,11 @@ export default {
             serif: ["Merriweather", "serif"],
             title: ["QTGraveure", "serif"],
         },
+        extends: {
+            flex: {
+                '2': '2 2 0%'
+              }        
+        }
     },
     plugins: [require('flowbite/plugin'),
     require('@tailwindcss/aspect-ratio'), require('@tailwindcss/forms'),],
