@@ -10,13 +10,14 @@ import {
     PlusIcon,
 } from "@heroicons/react/20/solid";
 import ProductList from "./ProductList";
+import { SortingType } from "../../types/sorting.enum";
+import { fetchProducts } from "../../utils/services/CatalogueServices";
 
 const sortOptions = [
-    { name: "Most Popular", href: "#", current: true },
-    { name: "Best Rating", href: "#", current: false },
-    { name: "Newest", href: "#", current: false },
-    { name: "Price: Low to High", href: "#", current: false },
-    { name: "Price: High to Low", href: "#", current: false },
+    { name: "Meilleur note", value: SortingType.BEST },
+    { name: "Récent", value: SortingType.NEW },
+    { name: "Prix: croissant", value: SortingType.UP },
+    { name: "Price: décroissant", value: SortingType.DOWN },
 ];
 
 function classNames(...classes) {
@@ -36,6 +37,11 @@ const Filters = (props) => {
     const [filteredProducts, setFilteredProducts] =
         useState<Array<any>>(products);
 
+    const [sortingValue, setSortingValue] = useState<SortingType | undefined>(
+        undefined
+    );
+    const [orderValue, setOrderValue] = useState<string | undefined>("desc");
+
     const addCatergoryChecked = (e) => {
         const isChecked = e.target.checked;
         const categoryChecked = e.target.value;
@@ -51,7 +57,7 @@ const Filters = (props) => {
     const addManufacturerChecked = (e) => {
         const isChecked = e.target.checked;
         const manufacturerChecked = e.target.value;
-        console.log("coucou", manufacturersChecked);
+
         if (isChecked) {
             setManufacturersChecked([
                 ...manufacturersChecked,
@@ -66,46 +72,93 @@ const Filters = (props) => {
         }
     };
 
-    const addCategoriesProductsFiltered = (addedFilteredProducts?) => {
-        const productsToFilter = addedFilteredProducts || products;
-        return productsToFilter.filter((product) => {
-            return product.categories.some((category) =>
-                categoriesChecked.includes(category.id.toString())
-            );
-        });
+    const handleSorting = (e) => {
+        setSortingValue(e.target.value);
+        handleOrderValue(e);
     };
 
-    const addManufacturerProductsFiltered = (addedFilteredProducts?) => {
-        const productsToFilter = addedFilteredProducts || products;
-        return productsToFilter.filter((product) =>
-            manufacturersChecked.includes(product.manufacturer_id.toString())
-        );
-    };
-
-    const onChangeFilter = () => {
-        let filteredProducts = [];
-
-        if (categoriesChecked.length > 0) {
-            filteredProducts = addCategoriesProductsFiltered();
-
-            if (manufacturersChecked.length > 0) {
-                filteredProducts =
-                    addManufacturerProductsFiltered(filteredProducts);
-            }
-        } else if (manufacturersChecked.length > 0) {
-            filteredProducts = addManufacturerProductsFiltered();
+    const handleOrderValue = (e) => {
+        if (e.target.value === SortingType.UP) {
+            setOrderValue("asc");
+        } else if (e.target.value === SortingType.DOWN) {
+            setOrderValue("desc");
         }
+    };
 
-        setFilteredProducts(filteredProducts);
+    const getProducts = async (
+        page,
+        categories?,
+        manufacturers?,
+        sorting?,
+        order?
+    ) => {
+        const response = await fetchProducts(
+            page,
+            categories,
+            manufacturers,
+            sorting,
+            order
+        );
+
+        return response.data;
     };
 
     useEffect(() => {
-        if (categoriesChecked.length > 0 || manufacturersChecked.length > 0) {
-            onChangeFilter();
-        } else {
-            setFilteredProducts(products);
-        }
-    }, [categoriesChecked, manufacturersChecked]);
+        const getDatas = async () => {
+            console.log(manufacturersChecked);
+            const ProductsData = await getProducts(
+                1,
+                categoriesChecked,
+                manufacturersChecked,
+                sortingValue,
+                orderValue
+            );
+            setFilteredProducts(ProductsData);
+        };
+        getDatas();
+    }, [categoriesChecked, manufacturersChecked, orderValue, sortingValue]);
+
+    // const handleSorting = (e) => {
+    //     const sortingType = e.target.value;
+    //     setSortingValue(sortingType);
+    //     let sorted: any[] = [];
+    //     switch (sortingType) {
+    //         case SortingType.BEST:
+    //             sorted = filteredProducts.sort(
+    //                 (a, b) => b.reviews_sum - a.reviews_sum
+    //             );
+    //             break;
+    //         case SortingType.NEW:
+    //             sorted = filteredProducts.sort(
+    //                 (a, b) =>
+    //                     new Date(b.created_at).getTime() -
+    //                     new Date(a.created_at).getTime()
+    //             );
+    //             break;
+    //         case SortingType.UP:
+    //             console.log("coucou");
+    //             sorted = filteredProducts.sort(
+    //                 (a, b) => a.price_ht - b.price_ht
+    //             );
+    //             break;
+    //         case SortingType.DOWN:
+    //             sorted = filteredProducts.sort(
+    //                 (a, b) => b.price_ht - a.price_ht
+    //             );
+    //             break;
+    //         default:
+    //             sorted = filteredProducts;
+    //             break;
+    //     }
+
+    //     setFilteredProducts([...sorted]);
+    // };
+
+    const findNameByValue = (value) => {
+        const option = sortOptions.find((option) => option.value === value);
+
+        return option ? option.name : "";
+    };
 
     return (
         <div className="bg-white">
@@ -261,7 +314,7 @@ const Filters = (props) => {
                 </Transition.Root>
 
                 <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
+                    <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-4">
                         <h1 className="text-4xl font-bold tracking-tight text-gray-900">
                             Nos Bières
                         </h1>
@@ -273,7 +326,9 @@ const Filters = (props) => {
                             >
                                 <div>
                                     <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                                        Sort
+                                        {sortingValue
+                                            ? findNameByValue(sortingValue)
+                                            : "Trier"}
                                         <ChevronDownIcon
                                             className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                                             aria-hidden="true"
@@ -293,26 +348,49 @@ const Filters = (props) => {
                                     {/* Button Sort */}
                                     <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                                         <div className="py-1">
-                                            {sortOptions.map((option) => (
-                                                <Menu.Item key={option.name}>
-                                                    {({ active }) => (
-                                                        <a
-                                                            href={option.href}
-                                                            className={classNames(
-                                                                option.current
-                                                                    ? "font-medium text-gray-900"
-                                                                    : "text-gray-500",
-                                                                active
-                                                                    ? "bg-gray-100"
-                                                                    : "",
-                                                                "block px-4 py-2 text-sm"
-                                                            )}
-                                                        >
-                                                            {option.name}
-                                                        </a>
-                                                    )}
-                                                </Menu.Item>
-                                            ))}
+                                            {sortOptions.map(
+                                                (option, index) => (
+                                                    <Menu.Item
+                                                        key={option.name}
+                                                    >
+                                                        {({ active }) => (
+                                                            <div
+                                                                key={`category - ${index}`}
+                                                                className="flex items-center"
+                                                            >
+                                                                <input
+                                                                    id={`filter-${option.name}-${index}`}
+                                                                    name={`filter-${option.name}-${index}`}
+                                                                    defaultValue={
+                                                                        option.value
+                                                                    }
+                                                                    type="radio"
+                                                                    checked={
+                                                                        sortingValue ===
+                                                                        option.value
+                                                                    }
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        handleSorting(
+                                                                            e
+                                                                        )
+                                                                    }
+                                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                                />
+                                                                <label
+                                                                    htmlFor={`filter-${option.name}-${index}`}
+                                                                    className="ml-3 text-sm text-gray-600"
+                                                                >
+                                                                    {
+                                                                        option.name
+                                                                    }
+                                                                </label>
+                                                            </div>
+                                                        )}
+                                                    </Menu.Item>
+                                                )
+                                            )}
                                         </div>
                                     </Menu.Items>
                                 </Transition>

@@ -11,7 +11,7 @@ const Catalogue = () => {
     const [manufacturers, setManufacturers] = useState<any>();
 
     const getProducts = async () => {
-        const response = await fetchProducts();
+        const response = await fetchProducts(1);
 
         return response.data;
     };
@@ -40,8 +40,6 @@ const Catalogue = () => {
         getDatas();
     }, []);
 
-    console.log(categories);
-    console.log(manufacturers);
     return (
         productList &&
         categories &&
