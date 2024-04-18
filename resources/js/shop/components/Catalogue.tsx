@@ -9,11 +9,26 @@ const Catalogue = () => {
     const [productList, setProductList] = useState<any>();
     const [categories, setCategories] = useState<any>();
     const [manufacturers, setManufacturers] = useState<any>();
+    const [currentPage, setCurrentPage] = useState<number>();
+    const [totalPages, setTotalPages] = useState<number>();
+    const [totalProducts, setTotalProducts] = useState<number>();
 
-    const getProducts = async () => {
-        const response = await fetchProducts(1);
+    const getProducts = async (
+        page,
+        categories?,
+        manufacturers?,
+        sorting?,
+        order?
+    ) => {
+        const response = await fetchProducts(
+            page,
+            categories,
+            manufacturers,
+            sorting,
+            order
+        );
 
-        return response.data;
+        return response;
     };
 
     const getCategories = async () => {
@@ -30,10 +45,13 @@ const Catalogue = () => {
 
     useEffect(() => {
         const getDatas = async () => {
-            const ProductsData = await getProducts();
+            const ProductsData = await getProducts(1);
             const categoriesData = await getCategories();
             const manufacturersData = await getManufacturers();
-            setProductList(ProductsData);
+            setProductList(ProductsData.data);
+            setCurrentPage(ProductsData.current_page);
+            setTotalPages(ProductsData.last_page);
+            setTotalProducts(ProductsData.total);
             setCategories(categoriesData);
             setManufacturers(manufacturersData);
         };
@@ -48,6 +66,13 @@ const Catalogue = () => {
                 products={productList}
                 categories={categories}
                 manufacturers={manufacturers}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                totalPages={totalPages}
+                setTotalPages={setTotalPages}
+                setTotalProducts={setTotalProducts}
+                totalProducts={totalProducts}
+                getProducts={getProducts}
             />
         )
     );

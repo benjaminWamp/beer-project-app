@@ -13,14 +13,14 @@ export const fetchProducts = async (
 
     if (categories) {
         categories.forEach((category) =>
-            searchParams.set("categories[]", category)
+            searchParams.append("categories[]", category)
         );
     }
     if (manufacturers) {
-        console.log(manufacturers);
-        manufacturers.forEach((manufacturer) =>
-            searchParams.set("manufacturer[]", manufacturer)
-        );
+        manufacturers.forEach((manufacturer) => {
+            const encodedValue = encodeURIComponent(manufacturer);
+            return searchParams.append(`manufacturer[]`, encodedValue);
+        });
     }
     if (sorting) {
         console.log("sorting", sorting);
@@ -29,7 +29,7 @@ export const fetchProducts = async (
     if (order) {
         searchParams.set("order", order);
     }
-    searchParams.set("page", "1");
+    searchParams.set("page", page.toString());
     console.log(searchParams.toString());
     try {
         const response = await fetch(

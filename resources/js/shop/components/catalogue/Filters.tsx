@@ -12,6 +12,7 @@ import {
 import ProductList from "./ProductList";
 import { SortingType } from "../../types/sorting.enum";
 import { fetchProducts } from "../../utils/services/CatalogueServices";
+import Pagination from "../shared/Pagination";
 
 const sortOptions = [
     { name: "Meilleur note", value: SortingType.BEST },
@@ -25,7 +26,18 @@ function classNames(...classes) {
 }
 
 const Filters = (props) => {
-    const { products, categories, manufacturers } = props;
+    const {
+        products,
+        categories,
+        manufacturers,
+        currentPage,
+        setCurrentPage,
+        totalPages,
+        setTotalPages,
+        totalProducts,
+        setTotalProducts,
+        getProducts,
+    } = props;
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
     const [categoriesChecked, setCategoriesChecked] = useState<Array<string>>(
         []
@@ -52,6 +64,7 @@ const Filters = (props) => {
                 categoriesChecked.filter((item) => item !== categoryChecked)
             );
         }
+        setCurrentPage(1);
     };
 
     const addManufacturerChecked = (e) => {
@@ -70,6 +83,7 @@ const Filters = (props) => {
                 )
             );
         }
+        setCurrentPage(1);
     };
 
     const handleSorting = (e) => {
@@ -85,38 +99,48 @@ const Filters = (props) => {
         }
     };
 
-    const getProducts = async (
-        page,
-        categories?,
-        manufacturers?,
-        sorting?,
-        order?
-    ) => {
-        const response = await fetchProducts(
-            page,
-            categories,
-            manufacturers,
-            sorting,
-            order
-        );
+    // const getProducts = async (
+    //     page,
+    //     categories?,
+    //     manufacturers?,
+    //     sorting?,
+    //     order?
+    // ) => {
+    //     const response = await fetchProducts(
+    //         page,
+    //         categories,
+    //         manufacturers,
+    //         sorting,
+    //         order
+    //     );
 
-        return response.data;
-    };
+    //     return response;
+    // };
 
     useEffect(() => {
         const getDatas = async () => {
-            console.log(manufacturersChecked);
+            console.log("hello");
             const ProductsData = await getProducts(
-                1,
+                currentPage,
                 categoriesChecked,
                 manufacturersChecked,
                 sortingValue,
                 orderValue
             );
-            setFilteredProducts(ProductsData);
+            setFilteredProducts(ProductsData.data);
+            setTotalPages(ProductsData.last_page);
+            setTotalProducts(ProductsData.total);
+            console.log("cpoucou", ProductsData.total);
         };
         getDatas();
-    }, [categoriesChecked, manufacturersChecked, orderValue, sortingValue]);
+        window.scrollTo(0, 0);
+    }, [
+        categoriesChecked,
+        manufacturersChecked,
+        orderValue,
+        sortingValue,
+        currentPage,
+    ]);
 
     // const handleSorting = (e) => {
     //     const sortingType = e.target.value;
@@ -530,6 +554,12 @@ const Filters = (props) => {
                                         critères
                                     </h2>
                                 )}
+                                <Pagination
+                                    currentPage={currentPage}
+                                    setCurrentPage={setCurrentPage}
+                                    totalPages={totalPages}
+                                    totalProducts={totalProducts}
+                                />
                             </div>
                         </div>
                     </section>
