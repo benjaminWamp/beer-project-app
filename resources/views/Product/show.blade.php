@@ -42,9 +42,9 @@
             </div>
         </div>
 
-        <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Catégorie&nbsp;:</h2> 
+        <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Prix unitaire&nbsp;:</h2> 
         <div class="flex align-center mt-2 gap-4">
-            <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{$product->price / 100}} €</p>
+            <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{$product->price_ht / 100}} €</p>
             <div class="flex">
                 <a href="{{route("product.edit", $product)}}" class="max-h-12 hover:-translate-y-1 transition-all font-title border bg-accent text-secondary rounded-3xl px-3 py-3 text-sm font-medium">
                     <svg class="w-6 h-6 text-background" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -54,11 +54,13 @@
             </div>
         </div>
 
-        <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Prix unitaire&nbsp;:</h2> 
+        <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Catégorie&nbsp;:</h2> 
         <div class="flex align-center mt-2 gap-4">
-            @foreach($categories as $category)
-                <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{category}}</p>
-            @endforeach
+            @if($categories)
+                @foreach($categories as $category)
+                    <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{$category}}</p>
+                @endforeach
+            @endif
             <div class="flex">
                 <a href="{{route("product.edit", $product)}}" class="max-h-12 hover:-translate-y-1 transition-all font-title border bg-accent text-secondary rounded-3xl px-3 py-3 text-sm font-medium">
                     <svg class="w-6 h-6 text-background" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -104,7 +106,7 @@
             </div>
         </div>
 
-        <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Notes&nbsp;:</h2> 
+        <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Note&nbsp;:</h2> 
         <div class="flex align-center mt-2 gap-4">
             @for($j = 1; $j < 6; $j++)
                 @if($j <= $product->reviews_mean)

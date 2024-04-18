@@ -68,7 +68,7 @@ class ProductController extends Controller
     {
         $categories = Category::whereHas("products", function ($query) use ($product) {
             $query->where("product_id", $product->id);
-        })->get()->pluck("name")->join(", ");
+        })->get()->pluck("name");
 
         return view('product.show', compact("product"), ["categories" => $categories]);
     }
@@ -78,8 +78,10 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $product = $product->price_ht / 100;
-        return view('product.edit', compact("product"), ["categories" => Category::all(), "manufacturers" => Manufacturer::all()]);
+        $product->price_ht = $product->price_ht / 100;
+
+        $selectedCategories = $product->categories->pluck("id")->toArray(); // dd() is a function that dumps the variable and ends the script
+        return view('product.edit', compact("product"), ["categories" => Category::all(), "manufacturers" => Manufacturer::all(), "selectedCategories" => $selectedCategories]);
     }
 
     /**
@@ -93,12 +95,13 @@ class ProductController extends Controller
             $product->update([
                 ...$request->validated(),
                 "image" => $request->file("image")->hashName(),
-                "price_ht" => $request->input("price") * 100
+                "price_ht" => ($request->input("price_ht") * 100)
             ]);
         } else {
-            $product->update(
-                $request->validated()
-            );
+            $product->update([
+                ...$request->validated(),
+                "price_ht" => ($request->input("price_ht") * 100)
+            ]);
         };
 
         $request->input("categories") 
