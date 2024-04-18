@@ -39,7 +39,7 @@ const ProductList = (props: productListProps) => {
                             <p className="text-sm font-medium text-gray-900">
                                 {((product.price_ht + 0.2) / 100).toFixed(2)}€
                             </p>
-                            <ReviewsStars review={product.reviews_sum} />
+                            <ReviewsStars review={product.reviews_mean} />
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"

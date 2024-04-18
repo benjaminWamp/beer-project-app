@@ -50,7 +50,7 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
                 {/* Reviews */}
                 <div className="mt-6">
                     <h3 className="sr-only">Reviews</h3>
-                    <ReviewsStars review={product.reviews_sum} />{" "}
+                    <ReviewsStars review={product.reviews_mean} />{" "}
                     <a href="#" onClick={(e) => onScrollToReviews(e)}>
                         {reviews.length} avis
                     </a>

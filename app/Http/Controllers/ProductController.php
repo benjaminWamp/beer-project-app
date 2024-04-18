@@ -51,7 +51,7 @@ class ProductController extends Controller
         $product->price_ht = $request->input("price_ht") * 100;
         $product->image = $request->file("image")->hashName();
         $product->manufacturer_id = $request->input("manufacturer_id");
-        $product->reviews_sum = 0;
+        $product->reviews_mean = 0;
         $product->save();
 
         foreach ($request->input("categories") as $category) {
@@ -66,7 +66,11 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('product.show', compact("product"));
+        $categories = Category::whereHas("products", function ($query) use ($product) {
+            $query->where("product_id", $product->id);
+        })->get()->pluck("name")->join(", ");
+
+        return view('product.show', compact("product"), ["categories" => $categories]);
     }
 
     /**

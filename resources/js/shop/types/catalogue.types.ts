@@ -10,7 +10,7 @@ export interface CatalogueProduct {
     manufacturer_id: number;
     name: string;
     price_ht: number;
-    reviews_sum: number;
+    reviews_mean: number;
     stock: number;
     created_at: string;
     delivered_at: string;

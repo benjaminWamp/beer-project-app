@@ -28,7 +28,7 @@ class ProductFactory extends Factory
             ]),
             "price_ht" => fake()->numberBetween(100, 10000),
             "manufacturer_id" => "1",
-            "reviews_sum" => fake()->numberBetween(0, 5),
+            "reviews_mean" => fake()->numberBetween(0, 5),
         ];
     }
 }
