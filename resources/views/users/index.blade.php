@@ -1,13 +1,13 @@
 <x-layout>
 
 <x-breadcrumbs :breadcrumbs="[
-            ['title' => 'Tableau de bord (définir route quand tableau de bord sera complété)', 'url' => '/'],
+            ['title' => 'Tableau de bord', 'url' => route('index')],
             ['title' => 'Utilisateurs', 'url' => ''],
         ]"/>
 <div class="px-6 mb-4">
     <div class="flex flex-row gap-4">
         <h1 class="text-3xl font-bold mt-4 mb-2 font-title text-accent">Liste des Utilisateurs</h1>
-        <a href="{{ URL::previous() }}" class="bg-accent rounded-3xl mt-3 mb-2 px-2 pt-2 text-sm font-medium hover:-translate-y-1 transition-all">
+        <a href="{{route("users.create")}}" class="bg-accent rounded-3xl mt-3 mb-2 px-2 pt-2 text-sm font-medium hover:-translate-y-1 transition-all">
             <svg class="w-6 h-6 text-background" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
             </svg>
@@ -16,10 +16,10 @@
 
     {{ $users->links() }}
 
-    <div class="relative">
+    <div class="relative rounded-md overflow-hidden my-4">
 
-    <table class="w-full text-sm text-left rtl:text-right text-zinc-50 my-4">
-        <thead class="text-xs text-zinc-50 uppercase bg-accent ">
+    <table class="w-full text-sm text-left rtl:text-right text-zinc-50">
+        <thead class="text-xs text-zinc-50 uppercase bg-accent">
             <tr>
                 <th scope="col" class="font-title font-bold text-background px-6 py-3">
                     Nom
@@ -73,9 +73,11 @@
         </tbody>
     </table>
 
+    </div>
+
     {{ $users->links() }}
 
-    </div>
+    
 
 </div>
 
