@@ -7,9 +7,11 @@ use App\Http\Requests\CreateproductRequest;
 use App\Http\Requests\UpdateproductRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\Manufacturer;
 use Illuminate\Http\Request;
 
-class productController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +27,7 @@ class productController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        return view('product.create', ["categories" => Category::all(), "manufacturers" => Manufacturer::all()]);
     }
 
     /**
@@ -35,15 +37,26 @@ class productController extends Controller
     {
         $request->file("image")->store("public/images");
 
-        $product = Product::create(
-            [
-                ...$request->validated(),
-                "image" => $request->file("image")->hashName(), 
-                "price_ht" => $request->input("price_ht") * 100,
-                'manufacturer_id' => 1,
-                'reviews_sum' => 1,
-            ]
-        );
+        try {
+            $request->validate($request->rules());
+        } catch (\Exception $e) {
+            return response()->json(["error" => $e->getMessage()], 400);
+        }
+
+        $product = new Product();
+        $product->name = $request->input("name");
+        $product->description = $request->input("description");
+        $product->stock = $request->input("stock");
+        $product->delivered_at = $request->input("delivered_at");
+        $product->price_ht = $request->input("price_ht") * 100;
+        $product->image = $request->file("image")->hashName();
+        $product->manufacturer_id = $request->input("manufacturer_id");
+        $product->reviews_sum = 0;
+        $product->save();
+
+        foreach ($request->input("categories") as $category) {
+            $product->categories()->attach($category);
+        }
 
         return redirect()->route("product.show", $product);
     }
@@ -61,7 +74,8 @@ class productController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('product.edit', compact("product"),);
+        $product = $product->price_ht / 100;
+        return view('product.edit', compact("product"), ["categories" => Category::all(), "manufacturers" => Manufacturer::all()]);
     }
 
     /**
@@ -82,6 +96,11 @@ class productController extends Controller
                 $request->validated()
             );
         };
+
+        $request->input("categories") 
+            ? $product->categories()->sync($request->input("categories")) 
+            : $product->categories()->detach();
+
         return redirect()->route("product.show", $product);
     }
 

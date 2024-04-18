@@ -29,12 +29,39 @@
             </div>
         </div>
         <div class="mb-4">
+            <label for="categories" class="font-title block text-m font-semibold leading-6 text-gray-900">Catégorie</label>
+            @error("categories")
+            <div class="text-red-500">{{$message}}</div>
+            @enderror
+            <div class="mt-2.5">
+            <select multiple name="categories[]" id="categories">
+                @foreach($categories as $category)
+                    <option value="{{$category->id}}">{{$category->name}}</option>
+                @endforeach
+            </select>
+
+            </div>
+        </div>
+        <div class="mb-4">
             <label for="description" class="font-title block text-m font-semibold leading-6 text-gray-900">Description</label>
                 @error("description")
             <div class="text-red-500">{{$message}}</div>
             @enderror
             <div class="mt-2.5">
                 <textarea name="description" id="description" class="block border w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">{{old("resume")}}</textarea>
+            </div>
+        </div>
+        <div>
+            <label for="manufacturer_id" class="block text-sm font-semibold leading-6 text-gray-900">Editeur</label>
+                @error("manufacturer_id")
+            <div class="text-red-500">{{$message}}</div>
+            @enderror
+            <div class="mb-4">
+                <select  name="manufacturer_id" id="manufacturer_id" placeholder="Selectionnez un éditeur" class="block border w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    @foreach($manufacturers as $manufacturer)
+                        <option value="{{$manufacturer->id}}"@if("manufacturer_id"==$manufacturer->id)selected @endif>{{$manufacturer->name}}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
         <div class="mb-4">
@@ -73,23 +100,6 @@
                 <input type="number" min="0" name="stock" id="stock" value="{{old("stock")}}" class="block border w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
             </div>
         </div>
-
-        
-        {{-- <div>
-            <label for="manufacturer_id" class="block text-sm font-semibold leading-6 text-gray-900">Editeur</label>
-                @error("manufacturer_id")
-            <div class="text-red-500">{{$message}}</div>
-            @enderror
-            <div class="mt-2.5">
-                <select  name="manufacturer_id" id="manufacturer_id" placeholder="Selectionnez un éditeur" class="block border w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-            @foreach($manufacturers as $manufacturer)
-                <option value="{{$manufacturer->id}}"@if("manufacturer_id"==$manufacturer->id)selected @endif>{{$manufacturer->name}}</option>
-            @endforeach
-                </select>
-                </div>
-                
-        </div> --}}
-
         <div class="mt-10">
             <button type="submit" class="block w-full font-title border bg-accent text-background rounded-3xl px-3 py-3 text-m font-bold hover:-translate-y-1 transition-all">
                 Ajouter

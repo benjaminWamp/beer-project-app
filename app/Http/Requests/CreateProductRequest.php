@@ -28,7 +28,8 @@ class CreateProductRequest extends FormRequest
             "image" => "required|file|image|mimes:jpg,png,jpeg|max:10024",
             "stock" => "required|numeric",
             "price_ht" => "required|numeric|min:0",
-            // "manufacturer_id" => "required|exists:App\Models\Manufacturer,id",
+            "manufacturer_id" => "required|exists:App\Models\Manufacturer,id",
+            "categories" => "required",
             "reviews_sum" => "numeric|max:5",
         ];
     }

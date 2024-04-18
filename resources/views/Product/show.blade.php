@@ -31,10 +31,10 @@
         <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Image&nbsp;:</h2>
         <div class="mt-2 flex gap-4">
             @if($product->image)
-                <img src="{{asset("storage/images/$product->image")}}" alt="Image {{$product->name}}" class="mt-2"/>
+                <img src="{{asset("storage/images/$product->image")}}" alt="Image {{$product->name}}" class="mt-2 max-w-screen-sm"/>
             @endif
             <div class="flex">
-                <a href="{{route("product.edit", $product)}}" class="hover:-translate-y-1 transition-all font-title border bg-accent text-secondary rounded-3xl px-3 py-3 text-sm font-medium">
+                <a href="{{route("product.edit", $product)}}" class="max-h-12 hover:-translate-y-1 transition-all font-title border bg-accent text-secondary rounded-3xl px-3 py-3 text-sm font-medium">
                     <svg class="w-6 h-6 text-background" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                     </svg>
@@ -92,7 +92,7 @@
 
         <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Avis&nbsp;:</h2> 
         <div class="flex align-center mt-2 gap-4">
-            <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{$product->reviews_sum}} / 5</p>
+            <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{$product->reviews_sum}} avis</p>
             <div class="flex">
                 <a href="{{route("product.edit", $product)}}" class="max-h-12 hover:-translate-y-1 transition-all font-title border bg-accent text-secondary rounded-3xl px-3 py-3 text-sm font-medium">
                     <svg class="w-6 h-6 text-background" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
