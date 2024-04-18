@@ -1,10 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import InputCart from "./Cart/InputCart";
 import { fetchCartList } from "../utils/services/CartService";
+import { Cart as CartType } from "../types/cart.types";
 const Cart = () => {
+    const [cartList, setCartList] = useState<CartType>();
+
+    const getCartList = async () => {
+        const response = await fetchCartList();
+        console.log('response', response);
+        setCartList(response);
+    }
+
     useEffect(() => {
-        fetchCartList();
+        getCartList();
     }, [])
+
     return (
         <div className="flex">
             {/* <InputCart title="Adresse mail" type="" /> */}
@@ -20,21 +30,28 @@ const Cart = () => {
             </div>
             <aside className="bg-blue h-full flex-1" >
                 <h2>Cart</h2>
-                <ul>
-                    <div className="flex py-4">
-                        <div>
-                            <img src="" alt="" />
+                {cartList ? cartList.order_items.map((product, index) => {
+                    return (
+                        <div className="flex py-4" key={`product-${index}`}>
                             <div>
-                                <p className="w-1/2">Vital Seamless 2.0 Crop Top - Woodland Green Marl</p>
-                                <p className="text-xs">Taille: XS</p>
+                                <img src={product.product.image} alt={product.product.name} />
+                                <div>
+                                    <p className="w-1/2">{product.product.name}</p>
+                                    <p className="text-xs">{
+                                        product.product.categories.map((category, index) => {
+                                            return (
+                                                <span key={`category-${index}`}>{category.name}</span>
+                                            )
+                                        })
+                                    }</p>
+                                </div>
                             </div>
+                            <p>{product.price_ht / 100}€</p>
                         </div>
-                        <p>40€</p>
-                    </div>
-                    <li>Product 1</li>
-                    <li>Product 2</li>
-                    <li>Product 3</li>
-                </ul>
+                    )
+                }) : 
+                    <p>Pas de produits dans le panier</p>
+                } 
             </aside>
         </div>
     )

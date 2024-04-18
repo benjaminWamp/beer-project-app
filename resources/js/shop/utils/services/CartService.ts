@@ -32,7 +32,14 @@ export const addProductToCart = async (cartItem: any) => {
 
 export const fetchCartList = async () => {
     try{
-        const response = await fetch("http://127.0.0.1:8000/api/user/cart");
+        const response = await fetch("http://127.0.0.1:8000/api/user/cart", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${user}`,
+            },
+        
+        });
         console.log(response);
         
 
