@@ -23,14 +23,13 @@ export const fetchProducts = async (
         });
     }
     if (sorting) {
-        console.log("sorting", sorting);
         searchParams.set("sorting", sorting);
     }
     if (order) {
         searchParams.set("order", order);
     }
     searchParams.set("page", page.toString());
-    console.log(searchParams.toString());
+
     try {
         const response = await fetch(
             `http://127.0.0.1:8000/api/catalogue?${searchParams.toString()}`

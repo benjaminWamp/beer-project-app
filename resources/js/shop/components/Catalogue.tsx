@@ -4,21 +4,24 @@ import { fetchProducts } from "../utils/services/CatalogueServices";
 import Filters from "./catalogue/Filters";
 import { fetchCategories } from "../utils/services/CategoryService";
 import { fetchManufacturers } from "../utils/services/ManufacturerService";
+import { Category } from "../types/category.types";
+import { Manufacturer } from "../types/manufacturer.types";
+import { Product } from "../types/product.types";
 
 const Catalogue = () => {
-    const [productList, setProductList] = useState<any>();
-    const [categories, setCategories] = useState<any>();
-    const [manufacturers, setManufacturers] = useState<any>();
-    const [currentPage, setCurrentPage] = useState<number>();
-    const [totalPages, setTotalPages] = useState<number>();
-    const [totalProducts, setTotalProducts] = useState<number>();
+    const [productList, setProductList] = useState<Product[]>();
+    const [categories, setCategories] = useState<Category[]>();
+    const [manufacturers, setManufacturers] = useState<Manufacturer[]>();
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [totalPages, setTotalPages] = useState<number>(0);
+    const [totalProducts, setTotalProducts] = useState<number>(0);
 
     const getProducts = async (
-        page,
-        categories?,
-        manufacturers?,
-        sorting?,
-        order?
+        page: number,
+        categories?: string[],
+        manufacturers?: string[],
+        sorting?: string,
+        order?: string
     ) => {
         const response = await fetchProducts(
             page,

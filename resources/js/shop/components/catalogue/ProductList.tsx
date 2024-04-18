@@ -1,10 +1,10 @@
 import React from "react";
 import ProductCategories from "./ProdcutCategories";
-import { CatalogueProduct } from "../../types/Catalogue.types";
 import ReviewsStars from "../shared/ReviewsStars";
+import { Product } from "../../types/product.types";
 
 interface productListProps {
-    products: Array<CatalogueProduct>;
+    products: Array<Product>;
 }
 
 const ProductList = (props: productListProps) => {

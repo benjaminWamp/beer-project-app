@@ -11,21 +11,43 @@ import {
 } from "@heroicons/react/20/solid";
 import ProductList from "./ProductList";
 import { SortingType } from "../../types/sorting.enum";
-import { fetchProducts } from "../../utils/services/CatalogueServices";
 import Pagination from "../shared/Pagination";
+import { Product } from "../../types/product.types";
+import { Category } from "../../types/category.types";
+import { Manufacturer } from "../../types/manufacturer.types";
+import { FilterType } from "../../types/filters.enum";
 
 const sortOptions = [
-    { name: "Meilleur note", value: SortingType.BEST },
-    { name: "Récent", value: SortingType.NEW },
-    { name: "Prix: croissant", value: SortingType.UP },
-    { name: "Price: décroissant", value: SortingType.DOWN },
+    { name: FilterType.BEST, value: SortingType.BEST },
+    { name: FilterType.NEW, value: SortingType.NEW },
+    { name: FilterType.ASC, value: SortingType.PRICE },
+    { name: FilterType.DESC, value: SortingType.PRICE },
 ];
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
-const Filters = (props) => {
+interface FilterProps {
+    products: Product[];
+    categories: Category[];
+    manufacturers: Manufacturer[];
+    currentPage: number;
+    setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+    totalPages: number;
+    setTotalPages: React.Dispatch<React.SetStateAction<number>>;
+    totalProducts: number;
+    setTotalProducts: React.Dispatch<React.SetStateAction<number>>;
+    getProducts: (
+        page: number,
+        categories?: string[],
+        manufacturers?: string[],
+        sorting?: string,
+        order?: string
+    ) => Promise<any>;
+}
+
+const Filters = (props: FilterProps) => {
     const {
         products,
         categories,
@@ -38,7 +60,8 @@ const Filters = (props) => {
         setTotalProducts,
         getProducts,
     } = props;
-    const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+
+    const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
     const [categoriesChecked, setCategoriesChecked] = useState<Array<string>>(
         []
     );
@@ -47,7 +70,7 @@ const Filters = (props) => {
     >([]);
 
     const [filteredProducts, setFilteredProducts] =
-        useState<Array<any>>(products);
+        useState<Array<Product>>(products);
 
     const [sortingValue, setSortingValue] = useState<SortingType | undefined>(
         undefined
@@ -55,8 +78,8 @@ const Filters = (props) => {
     const [orderValue, setOrderValue] = useState<string | undefined>("desc");
 
     const addCatergoryChecked = (e) => {
-        const isChecked = e.target.checked;
-        const categoryChecked = e.target.value;
+        const isChecked: boolean = e.target.checked;
+        const categoryChecked: string = e.target.value;
         if (isChecked) {
             setCategoriesChecked([...categoriesChecked, categoryChecked]);
         } else {
@@ -68,8 +91,8 @@ const Filters = (props) => {
     };
 
     const addManufacturerChecked = (e) => {
-        const isChecked = e.target.checked;
-        const manufacturerChecked = e.target.value;
+        const isChecked: boolean = e.target.checked;
+        const manufacturerChecked: string = e.target.value;
 
         if (isChecked) {
             setManufacturersChecked([
@@ -92,34 +115,15 @@ const Filters = (props) => {
     };
 
     const handleOrderValue = (e) => {
-        if (e.target.value === SortingType.UP) {
+        if (e.target.name === FilterType.ASC && orderValue === "desc") {
             setOrderValue("asc");
-        } else if (e.target.value === SortingType.DOWN) {
+        } else if (e.target.name === FilterType.DESC && orderValue === "asc") {
             setOrderValue("desc");
         }
     };
 
-    // const getProducts = async (
-    //     page,
-    //     categories?,
-    //     manufacturers?,
-    //     sorting?,
-    //     order?
-    // ) => {
-    //     const response = await fetchProducts(
-    //         page,
-    //         categories,
-    //         manufacturers,
-    //         sorting,
-    //         order
-    //     );
-
-    //     return response;
-    // };
-
     useEffect(() => {
         const getDatas = async () => {
-            console.log("hello");
             const ProductsData = await getProducts(
                 currentPage,
                 categoriesChecked,
@@ -130,7 +134,6 @@ const Filters = (props) => {
             setFilteredProducts(ProductsData.data);
             setTotalPages(ProductsData.last_page);
             setTotalProducts(ProductsData.total);
-            console.log("cpoucou", ProductsData.total);
         };
         getDatas();
         window.scrollTo(0, 0);
@@ -142,46 +145,28 @@ const Filters = (props) => {
         currentPage,
     ]);
 
-    // const handleSorting = (e) => {
-    //     const sortingType = e.target.value;
-    //     setSortingValue(sortingType);
-    //     let sorted: any[] = [];
-    //     switch (sortingType) {
-    //         case SortingType.BEST:
-    //             sorted = filteredProducts.sort(
-    //                 (a, b) => b.reviews_sum - a.reviews_sum
-    //             );
-    //             break;
-    //         case SortingType.NEW:
-    //             sorted = filteredProducts.sort(
-    //                 (a, b) =>
-    //                     new Date(b.created_at).getTime() -
-    //                     new Date(a.created_at).getTime()
-    //             );
-    //             break;
-    //         case SortingType.UP:
-    //             console.log("coucou");
-    //             sorted = filteredProducts.sort(
-    //                 (a, b) => a.price_ht - b.price_ht
-    //             );
-    //             break;
-    //         case SortingType.DOWN:
-    //             sorted = filteredProducts.sort(
-    //                 (a, b) => b.price_ht - a.price_ht
-    //             );
-    //             break;
-    //         default:
-    //             sorted = filteredProducts;
-    //             break;
-    //     }
+    const findNameByValue = (value: string) => {
+        if (orderValue === "desc" && value === SortingType.PRICE) {
+            return FilterType.DESC;
+        } else if (orderValue === "asc" && value === SortingType.PRICE) {
+            return FilterType.ASC;
+        } else {
+            const option = sortOptions.find((option) => option.value === value);
+            return option ? option.name : "";
+        }
+    };
 
-    //     setFilteredProducts([...sorted]);
-    // };
-
-    const findNameByValue = (value) => {
-        const option = sortOptions.find((option) => option.value === value);
-
-        return option ? option.name : "";
+    const isChecked = (option) => {
+        if (
+            option.name === FilterType.DESC &&
+            sortingValue === SortingType.PRICE
+        ) {
+            return orderValue === "desc";
+        } else if (option.name === FilterType.ASC) {
+            return orderValue === "asc";
+        } else {
+            return sortingValue === option.value;
+        }
     };
 
     return (
@@ -384,15 +369,16 @@ const Filters = (props) => {
                                                             >
                                                                 <input
                                                                     id={`filter-${option.name}-${index}`}
-                                                                    name={`filter-${option.name}-${index}`}
+                                                                    name={
+                                                                        option.name
+                                                                    }
                                                                     defaultValue={
                                                                         option.value
                                                                     }
                                                                     type="radio"
-                                                                    checked={
-                                                                        sortingValue ===
-                                                                        option.value
-                                                                    }
+                                                                    checked={isChecked(
+                                                                        option
+                                                                    )}
                                                                     onChange={(
                                                                         e
                                                                     ) =>
