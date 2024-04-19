@@ -16,6 +16,7 @@ import { Product } from "../../types/product.types";
 import { Category } from "../../types/category.types";
 import { Manufacturer } from "../../types/manufacturer.types";
 import { FilterType } from "../../types/filters.enum";
+import SearchIntput from "../shared/SearchInput";
 
 const sortOptions = [
     { name: FilterType.BEST, value: SortingType.BEST },
@@ -43,7 +44,8 @@ interface FilterProps {
         categories?: string[],
         manufacturers?: string[],
         sorting?: string,
-        order?: string
+        order?: string,
+        search?: string
     ) => Promise<any>;
 }
 
@@ -76,6 +78,9 @@ const Filters = (props: FilterProps) => {
         undefined
     );
     const [orderValue, setOrderValue] = useState<string | undefined>("desc");
+    const [searchValue, setSearchValue] = useState<string | undefined>(
+        undefined
+    );
 
     const addCatergoryChecked = (e) => {
         const isChecked: boolean = e.target.checked;
@@ -129,7 +134,8 @@ const Filters = (props: FilterProps) => {
                 categoriesChecked,
                 manufacturersChecked,
                 sortingValue,
-                orderValue
+                orderValue,
+                searchValue
             );
             setFilteredProducts(ProductsData.data);
             setTotalPages(ProductsData.last_page);
@@ -143,6 +149,7 @@ const Filters = (props: FilterProps) => {
         orderValue,
         sortingValue,
         currentPage,
+        searchValue,
     ]);
 
     const findNameByValue = (value: string) => {
@@ -167,6 +174,12 @@ const Filters = (props: FilterProps) => {
         } else {
             return sortingValue === option.value;
         }
+    };
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        const search = e.target.search.value;
+        setSearchValue(search);
     };
 
     return (
@@ -333,6 +346,7 @@ const Filters = (props: FilterProps) => {
                                 as="div"
                                 className="relative inline-block text-left"
                             >
+                                <SearchIntput onSubmit={handleSearch} />
                                 <div>
                                     <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
                                         {sortingValue

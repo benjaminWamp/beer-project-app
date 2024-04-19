@@ -21,6 +21,7 @@ class ProductController extends Controller
         $manufacturers = $request->input('manufacturer');
         $sorting = $request->input('sorting');
         $order = $request->input('order');
+        $search = $request->input('search');
 
         $products = Product::query(); // Commencez par initialiser la requête de base
 
@@ -37,6 +38,10 @@ class ProductController extends Controller
 
         if ($sorting) {
             $products->orderBy($sorting, $order);
+        }
+
+        if ($search) {
+            $products->where("name", "LIKE", "%$search%");
         }
 
         // Exécutez la requête et récupérez les résultats paginés

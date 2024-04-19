@@ -25,9 +25,8 @@ const ProductReview = (props: ProductReviewProps) => {
     const { userId } = useContext(UserContext);
     const [userReview, setUserReview] = useState<Review | undefined>(undefined);
     const [remainingReviews, setRemainingReviews] = useState<Review[]>([]);
-    console.log(reviews);
+
     useEffect(() => {
-        console.log(userId);
         // Trouver et retirer l'avis de l'utilisateur spécifié
         const tempReview = [...reviews];
 

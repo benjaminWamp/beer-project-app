@@ -21,14 +21,16 @@ const Catalogue = () => {
         categories?: string[],
         manufacturers?: string[],
         sorting?: string,
-        order?: string
+        order?: string,
+        search?: string
     ) => {
         const response = await fetchProducts(
             page,
             categories,
             manufacturers,
             sorting,
-            order
+            order,
+            search
         );
 
         return response;

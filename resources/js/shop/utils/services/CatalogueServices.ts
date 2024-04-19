@@ -6,7 +6,8 @@ export const fetchProducts = async (
     categories?: string[],
     manufacturers?: string[],
     sorting?: string,
-    order?: string
+    order?: string,
+    search?: string
 ) => {
     const url = "catalogue";
     const searchParams = new URLSearchParams();
@@ -28,6 +29,10 @@ export const fetchProducts = async (
     if (order) {
         searchParams.set("order", order);
     }
+    if (search) {
+        searchParams.set("search", search);
+    }
+
     searchParams.set("page", page.toString());
 
     try {
