@@ -17,7 +17,7 @@ export default {
             background: "#f6f5f0",
             offWhite: "f6f7f7",
             table: "#e8e5d9",
-            black: colors.black,
+            black: "#161616",
             blue: colors.blue,
             cyan: colors.cyan,
             emerald: colors.emerald,
@@ -46,9 +46,11 @@ export default {
             serif: ["Merriweather", "serif"],
             title: ["QTGraveure", "serif"],
         },
-        backgroundImage: {
-            'headerHome': "url('images/contact-bg.png')",
-            'histoire': "url('images/notre-histoire.png')"
+        extend: {
+            backgroundImage: {
+                'headerHome': "url('images/contact-bg.png')",
+                'histoire': "url('images/notre-histoire.png')"
+            }
         }
     },
     plugins: [require('flowbite/plugin'),
