@@ -1,6 +1,6 @@
 <x-layout>
 <x-breadcrumbs :breadcrumbs="[
-            ['title' => 'Tableau de bord (définir route quand tableau de bord sera complété)', 'url' => '/'],
+            ['title' => 'Tableau de bord', 'url' => route('index')],
             ['title' => 'Utilisateurs', 'url' => route('users.index')],
             ['title' => $user->name, 'url' => ''],
         ]"/>

@@ -1,6 +1,7 @@
 <x-layout>
+<x-slot name="title">Producteurs - Ajouter</x-slot>
 <x-breadcrumbs :breadcrumbs="[
-            ['title' => 'Tableau de bord (définir route quand tableau de bord sera complété)', 'url' => '/'],
+            ['title' => 'Tableau de bord', 'url' => route('index')],
             ['title' => 'Producteurs', 'url' => route('manufacturer.index')],
             ['title' => 'Ajouter', 'url' => ''],
         ]"/>

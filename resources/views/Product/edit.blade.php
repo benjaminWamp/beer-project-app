@@ -1,6 +1,7 @@
 <x-layout>
+<x-slot name="title">Modifier - {{$product->name}}</x-slot>
 <x-breadcrumbs :breadcrumbs="[
-            ['title' => 'Tableau de bord (définir route quand tableau de bord sera complété)', 'url' => '/'],
+            ['title' => 'Tableau de bord', 'url' => route('index')],
             ['title' => 'Bières', 'url' => route('product.index')],
             ['title' => $product->name, 'url' => ''],
         ]"/>
