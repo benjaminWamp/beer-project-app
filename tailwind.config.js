@@ -48,7 +48,8 @@ export default {
         },
         extend: {
             backgroundImage: {
-                'headerHome': "url('contact-bg.png')",
+                'headerHome': "url('images/contact-bg.png')",
+                'histoire': "url('images/notre-histoire.png')"
             }
         }
     },
