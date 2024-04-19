@@ -46,6 +46,10 @@ export default {
             serif: ["Merriweather", "serif"],
             title: ["QTGraveure", "serif"],
         },
+        backgroundImage: {
+            'headerHome': "url('images/contact-bg.png')",
+            'histoire': "url('images/notre-histoire.png')"
+        }
     },
     plugins: [require('flowbite/plugin'),
     require('@tailwindcss/aspect-ratio'), require('@tailwindcss/forms'),],
