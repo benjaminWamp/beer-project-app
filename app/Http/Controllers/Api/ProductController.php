@@ -22,7 +22,9 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return $product->load(["categories", "manufacturer", "reviews.user:id,name"]);
+        return $product->load(["categories", "manufacturer", "reviews" => function ($query) {
+            $query->orderBy('updated_at', 'desc')->with(['user:id,name']); // Trie les reviews par date de mise à jour (du plus récent au plus ancien)
+        }]);
     }
 
     public function showReviews(Product $product)
