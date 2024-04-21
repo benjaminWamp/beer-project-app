@@ -4,11 +4,12 @@ import Catalogue from "../components/Catalogue";
 import Contact from "../components/Contact";
 import ProductLayer from "../components/Product";
 import Login from "../components/Login";
+import Accueil from "../components/Accueil";
 
 export const routes = {
     home: {
         path: "/",
-        element: <div>Acceuil</div>,
+        element: <Accueil />,
     },
     about: {
         path: "/a-propos",

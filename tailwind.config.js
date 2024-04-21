@@ -47,6 +47,15 @@ export default {
             title: ["QTGraveure", "serif"],
         },
         extend: {
+            boxShadow: {
+                'buttonLightBase': 'inset 0 0 0 -1px #F8E7BC',
+                'buttonLightHover': 'inset 0 -70px 0 -1px #F8E7BC',
+                'buttonDarkBase': 'inset 0 0 0 -1px #514339',
+                'buttonDarkHover': 'inset 0 -70px 0 -1px #514339',
+            },
+            height: {
+                'heroVh': '70vh',
+            },
             backgroundImage: {
                 'headerHome': "url('images/contact-bg.png')",
                 'histoire': "url('images/notre-histoire.png')"
