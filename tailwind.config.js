@@ -58,7 +58,8 @@ export default {
             },
             backgroundImage: {
                 'headerHome': "url('images/contact-bg.png')",
-                'histoire': "url('images/notre-histoire.png')"
+                'histoire': "url('images/notre-histoire.png')",
+                'connexion': "url('images/connexion.png')",
             }
         }
     },

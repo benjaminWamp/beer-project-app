@@ -1,47 +1,25 @@
 import React from "react";
+import { Mode } from "../../types/style.enum";
 
 interface ButtonProps {
     href: string;
     text: string;
-    textColor: string;
-    borderColor: string;
-    textColorHover: string;
-    buttonShadowHover: string;
-    buttonShadow: string;
     startCenterEnd: string;
+    mode: Mode;
 }
 
 const Button = (props: ButtonProps) => {
-    const { href } = props;
-    const { text } = props;
-    const { textColor } = props;
-    const { borderColor } = props;
-    const { textColorHover } = props;
-    const { buttonShadowHover } = props;
-    const { buttonShadow } = props;
-    const { startCenterEnd } = props;
+    const { href, mode, text, startCenterEnd} = props;
 
+    const light = 'rounded-md transition-all text-xl inline-block font-title font-bold border-2 py-4 px-10 shadow-buttonLightBase hover:shadow-buttonLightHover hover:text-accent text-secondary border-secondary'
+    const dark = 'rounded-md transition-all text-xl inline-block font-title font-bold border-2 py-4 px-10 shadow-buttonDarkBase hover:shadow-buttonDarkHover hover:text-secondary text-accent border-accent'
 
     return <>
         <div className={`flex justify-${startCenterEnd}`}>
-            <a href={href} className={`
-                rounded-md
-                transition-all
-                text-xl
-                inline-block
-                font-title
-                font-bold
-                border-2
-                py-4
-                px-10
-                
-                shadow-${buttonShadow}
-                hover:text-${textColorHover}
-                hover:shadow-${buttonShadowHover}
-                text-${textColor}
-                border-${borderColor}
-                
-                `}
+            {
+
+            }
+            <a href={href} className={mode === Mode.LIGHT ? light : dark}
                 >
                 {text}
             </a>
