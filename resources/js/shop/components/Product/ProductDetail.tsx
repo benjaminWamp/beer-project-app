@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import ReviewsStars from "../shared/ReviewsStars";
 import { Product } from "../../types/product.types";
 import { addProductToCart } from "../../utils/services/CartService";
+import UserContext from "../../context/Context";
 
 interface ProdcutDetailProps {
     product: Product;
@@ -18,12 +19,18 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
     const { reviews } = product;
     const [selectedQuantity, setselectedQuantity] = useState(1);
     const [selectedQuantityType, setselectedQuantityType] = useState(1);
+    const { isLogged } = useContext(UserContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const quantity = e.target.quantity.value * e.target.quantityType.value;
-        const addedProduct = { product_id: product.id, quantity: quantity };
-        await addProductToCart(addedProduct);
+        if (isLogged) {
+            const quantity =
+                e.target.quantity.value * e.target.quantityType.value;
+            const addedProduct = { product_id: product.id, quantity: quantity };
+            await addProductToCart(addedProduct);
+        } else {
+            // TODO : mettre une alerte "veuillez vous connecter pour ajouter un élément au panier" à faire dans une branche alerte
+        }
     };
 
     return (
@@ -96,7 +103,7 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
                         <option value="720">Camion (720 Bouteilles)</option>
                         <option value="5000">Citerne (5000 Bouteilles)</option>
                     </select>
-
+                    {/* TODO : METTRE EN GRIS LE BUTTON SI ISLOGGED EST FALSE */}
                     <button
                         type="submit"
                         className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
