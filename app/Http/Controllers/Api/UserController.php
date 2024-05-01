@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -66,13 +67,23 @@ class UserController extends Controller
 
     public function removeUser(Request $request)
     {
-        $user = $request->user();
+        try {
+            $user = $request->user();
 
-        if (Auth::id() !== $user->id) {
-            return response()->json(["error" => "Vous n'êtes pas autorisé à supprimer cet utilisateur"], 403);
+            $user->update([
+                'name' => null,
+                'email' => null,
+                'password' => null,
+                'number' => null,
+                'street' => null,
+                'city' => null,
+                'zip_code' => null,
+            ]);
+
+            return response()->json(['message' => 'User deleted successfully']);
+        } catch (QueryException $e) {
+            // Vous pouvez obtenir des informations sur l'erreur en accédant à $e->getMessage()
+            return response()->json(['error' => 'An error occurred while deleting user data.'], 500);
         }
-
-        $user->delete();
-        return response()->json(["message" => "User deleted successfully"], 200);
     }
 }
