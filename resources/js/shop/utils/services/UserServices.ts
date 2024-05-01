@@ -48,3 +48,19 @@ export const updateUserPassword = async (userData, token) => {
         console.error("Erreur lors de la récupération des données:", error);
     }
 };
+
+export const deleteUser = async (token) => {
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+        },
+    };
+    try {
+        await fetch("http://127.0.0.1:8000/api/user/delete", options);
+    } catch (error) {
+        console.error("Erreur lors de la récupération des données:", error);
+    }
+};

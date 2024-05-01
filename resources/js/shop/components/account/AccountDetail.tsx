@@ -2,11 +2,14 @@ import React, { useContext, useEffect } from "react";
 import { User } from "../../types/user.types";
 import UpdateForm from "./UpdateForm";
 import {
+    deleteUser,
     updateUser,
     updateUserPassword,
 } from "../../utils/services/UserServices";
 import UserContext from "../../context/Context";
 import UpdatePasswordForm from "./UpdatePasswordForm";
+import DeleteUserModal from "./DeleteUserModal";
+import { useNavigate } from "react-router-dom";
 
 interface AccountDetailProps {
     user: User;
@@ -15,9 +18,12 @@ interface AccountDetailProps {
 
 const AccountDetails = (props: AccountDetailProps) => {
     const { user, getUser } = props;
-    const { token } = useContext(UserContext);
+    const { token, logOut } = useContext(UserContext);
+    const navigate = useNavigate();
+
     const [openUserForm, setUserForm] = React.useState(false);
     const [openUserPasswordForm, setUserPasswordForm] = React.useState(false);
+    const [openDeleteUserModal, setDeleteUserModal] = React.useState(false);
 
     const handleClosUserForm = () => {
         setUserForm(false);
@@ -25,6 +31,10 @@ const AccountDetails = (props: AccountDetailProps) => {
 
     const handleClosePasswordForm = () => {
         setUserPasswordForm(false);
+    };
+
+    const handleCloseDeleteUser = () => {
+        setDeleteUserModal(false);
     };
 
     const handleUpdateUser = async (e) => {
@@ -61,6 +71,14 @@ const AccountDetails = (props: AccountDetailProps) => {
         getUser();
     };
 
+    const handleDeleteUser = async () => {
+        console.log("coucou");
+        await deleteUser(token);
+        setDeleteUserModal(false);
+        logOut();
+        navigate("/");
+    };
+
     return (
         <>
             <UpdateForm
@@ -73,6 +91,11 @@ const AccountDetails = (props: AccountDetailProps) => {
                 open={openUserPasswordForm}
                 onClose={handleClosePasswordForm}
                 onSubmit={handleUpdateUserPassword}
+            />
+            <DeleteUserModal
+                open={openDeleteUserModal}
+                onClose={handleCloseDeleteUser}
+                onDelete={handleDeleteUser}
             />
             <div className="bg-white overflow-hidden shadow rounded-lg border">
                 <div className="px-4 py-5 sm:px-6">
@@ -120,7 +143,7 @@ const AccountDetails = (props: AccountDetailProps) => {
                 </div>
                 <button
                     type="button"
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    className="inline-flex w-full justify-center rounded-md bg-orange-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
                     onClick={() => {
                         setUserPasswordForm(true);
                     }}
@@ -129,8 +152,10 @@ const AccountDetails = (props: AccountDetailProps) => {
                 </button>
                 <button
                     type="button"
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    onClick={() => {}}
+                    className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                    onClick={() => {
+                        setDeleteUserModal(true);
+                    }}
                 >
                     Supprimer mon compte
                 </button>
