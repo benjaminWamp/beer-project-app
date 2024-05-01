@@ -34,7 +34,6 @@ class ProductController extends Controller
         if ($manufacturers) {
             $products->whereIn("manufacturer_id", $manufacturers);
         }
-        // created_at price_ht review_sum 
 
         if ($sorting) {
             $products->orderBy($sorting, $order);

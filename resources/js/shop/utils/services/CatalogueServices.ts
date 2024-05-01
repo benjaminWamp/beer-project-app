@@ -1,5 +1,3 @@
-// {{URL}}/catalogue?categories[]=3&categories[]=2&manufacturer[]=1&manufacturer[]=2&sorting=created_at&order=desc
-// searchParams.set("topic", "More webdev");
 
 export const fetchProducts = async (
     page: number,
