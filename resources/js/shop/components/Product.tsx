@@ -31,7 +31,6 @@ const ProductLayer = () => {
 
     const getDatas = async () => {
         const productData = await fetchProduct(id!);
-        console.log("coucou", productData);
 
         setProduct(productData);
         setIsModifing(false);

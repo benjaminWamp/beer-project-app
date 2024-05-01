@@ -18,4 +18,3 @@ package-lock.json
 node_modules
 DockerFile
 .dockerignore
-vite.config.js

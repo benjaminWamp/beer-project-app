@@ -14,17 +14,12 @@ const AccountPage = () => {
     const getUser = async () => {
         const response = await fetchUser(token);
 
-        return response;
+        setUser(response);
     };
 
     useEffect(() => {
-        const getDatas = async () => {
-            const userData = await getUser();
-
-            setUser(userData);
-        };
         if (token) {
-            getDatas();
+            getUser();
         }
     }, [token]);
 
@@ -32,7 +27,7 @@ const AccountPage = () => {
         <div>
             {user && token && (
                 <div className="flex flex-row justify-around items-start">
-                    <AccountDetails user={user} />
+                    <AccountDetails user={user} getUser={getUser} />
                     <FavoriteList token={token} />
                 </div>
             )}

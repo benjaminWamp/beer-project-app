@@ -15,14 +15,21 @@ class UserController extends Controller
         return $request->user();
     }
 
-    public function updateUser(UserRequest $request)
+    public function updateUser(Request $request)
     {
         if (!Auth::check()) {
             return response()->json(["message" => "Unauthorized1"], 401);
         }
 
         $request->user()->update(
-            $request->validated()
+            $request->validate([
+                "name" => "required|max:255|min:2",
+                "email" => "required|email",
+                "number" => "numeric",
+                "street" => "max:1000",
+                "city" => "max:1000",
+                "zip_code" => "max:5|min:5"
+            ])
         );
 
         return $request->user();

@@ -1,22 +1,49 @@
-import React from "react";
+import React, { useContext } from "react";
 import { User } from "../../types/user.types";
 import UpdateForm from "./UpdateForm";
+import { updateUser } from "../../utils/services/UserServices";
+import UserContext from "../../context/Context";
 
 interface AccountDetailProps {
     user: User;
+    getUser: () => void;
 }
 
 const AccountDetails = (props: AccountDetailProps) => {
-    const { user } = props;
+    const { user, getUser } = props;
+    const { token } = useContext(UserContext);
     const [openUserForm, setUserForm] = React.useState(false);
 
     const handleClosUserForm = () => {
         setUserForm(false);
     };
 
+    const handleUpdateUser = async (e) => {
+        e.preventDefault();
+
+        const { name, email, number, street, city, zip_code } = e.target;
+
+        const userData = {
+            name: name.value,
+            email: email.value,
+            number: number.value,
+            street: street.value,
+            city: city.value,
+            zip_code: zip_code.value,
+        };
+        await updateUser(userData, token);
+        setUserForm(false);
+        getUser();
+    };
+
     return (
         <>
-            <UpdateForm open={openUserForm} onClose={handleClosUserForm} />
+            <UpdateForm
+                open={openUserForm}
+                onClose={handleClosUserForm}
+                onSubmit={handleUpdateUser}
+                user={user}
+            />
             <div className="bg-white overflow-hidden shadow rounded-lg border">
                 <div className="px-4 py-5 sm:px-6">
                     <h3 className="text-lg leading-6 font-medium text-gray-900">
