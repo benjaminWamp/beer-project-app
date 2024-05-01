@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { loginUser } from "../utils/services/AuthService";
 
 type UserContextType = {
     isLogged: boolean;
@@ -8,6 +9,7 @@ type UserContextType = {
     userId: string | null;
     setUserId: (_: string) => void;
     logOut: () => void;
+    logIn: (_: any) => Promise<void>;
     url: string;
 };
 // Create a context
@@ -19,6 +21,7 @@ const UserContext = createContext<UserContextType>({
     userId: null,
     setUserId: (_: string) => {},
     logOut: () => {},
+    logIn: async (userInfo: any) => {},
     url: "http://127.0.0.1:8000",
 });
 
@@ -62,6 +65,15 @@ export const UserContextProvider = (props: UserContextProps) => {
         setUserId(null);
     };
 
+    const logIn = async (userInfo) => {
+        const tokenData = await loginUser(userInfo);
+
+        setToken(tokenData);
+
+        localStorage.setItem("token", tokenData.token);
+        localStorage.setItem("user_id", tokenData.user);
+    };
+
     return (
         <UserContext.Provider
             value={{
@@ -73,6 +85,7 @@ export const UserContextProvider = (props: UserContextProps) => {
                 setUserId,
                 logOut,
                 url,
+                logIn,
             }}
         >
             {children}

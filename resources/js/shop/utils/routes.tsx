@@ -4,6 +4,7 @@ import Catalogue from "../components/Catalogue";
 import ProductLayer from "../components/Product";
 import Login from "../components/Login";
 import AccountPage from "../components/Account";
+import Register from "../components/Register";
 
 export const routes = {
     home: {
@@ -33,6 +34,10 @@ export const routes = {
     account: {
         path: "/account",
         element: <AccountPage />,
+    },
+    register: {
+        path: "/register",
+        element: <Register />,
     },
     cart: {
         path: "/cart",
