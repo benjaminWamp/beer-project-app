@@ -1,24 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import ProductCategories from "./ProdcutCategories";
-import { CatalogueProduct } from "../../types/Catalogue.types";
 import ReviewsStars from "../shared/ReviewsStars";
+import { Product } from "../../types/product.types";
+import UserContext from "../../context/Context";
 
 interface productListProps {
-    products: Array<CatalogueProduct>;
+    products: Array<Product>;
 }
 
 const ProductList = (props: productListProps) => {
     const { products } = props;
+    const { url } = useContext(UserContext);
 
     return (
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {products.map((product, index) => {
                 const categories = product.categories;
                 return (
-                    <div className="group relative" key={`product-${index}`}>
+                    <div
+                        className="group relative"
+                        key={`${product.id}-${index}`}
+                    >
                         <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                             <img
-                                src={product.image}
+                                src={`${url}/storage/images/${product.image}`}
                                 alt={product.name}
                                 className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                             />

@@ -15,17 +15,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post("/login", "App\Http\Controllers\Api\AuthController@login")->name("login");
+Route::post("/register", "App\Http\Controllers\Api\RegisterController@register")->name("register");
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 // Route::get("/catalogue", ProductController::class . "@index")->name("product.index");
 Route::get("/catalogue", "App\Http\Controllers\Api\ProductController@index")->name("product.index");
+
 Route::get("/product/{product}", "App\Http\Controllers\Api\ProductController@show")->name("product.show");
 Route::get("/product/{product}/reviews", "App\Http\Controllers\Api\ProductController@showReviews")->name("product.reviews");
 
-Route::post("/login", "App\Http\Controllers\Api\AuthController@login")->name("login");
-Route::post("/register", "App\Http\Controllers\Api\RegisterController@register")->name("register");
+Route::get("/categories", "App\Http\Controllers\Api\CategoryController@index")->name("categories.index");
+Route::get("/manufacturers", "App\Http\Controllers\Api\ManufacturerController@index")->name("manufacturers.index");
 
 
 Route::middleware('auth:sanctum')->group(
