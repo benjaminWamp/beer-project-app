@@ -1,12 +1,15 @@
-export const fetchUserFavorite = async (user) => {
+export const fetchUserFavorite = async (token: string, page: number) => {
+    const searchParams = new URLSearchParams();
+    searchParams.set("page", page.toString());
+
     try {
         const response = await fetch(
-            "http://127.0.0.1:8000/api/user/favorites",
+            `http://127.0.0.1:8000/api/user/favorites?${searchParams.toString()}`,
             {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${user}`,
+                    Authorization: `Bearer ${token}`,
                 },
             }
         );

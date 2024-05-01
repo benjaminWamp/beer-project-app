@@ -3,6 +3,7 @@ import { createHashRouter } from "react-router-dom";
 import Catalogue from "../components/Catalogue";
 import ProductLayer from "../components/Product";
 import Login from "../components/Login";
+import AccountPage from "../components/Account";
 
 export const routes = {
     home: {
@@ -31,7 +32,7 @@ export const routes = {
     },
     account: {
         path: "/account",
-        element: <div>Account</div>,
+        element: <AccountPage />,
     },
     cart: {
         path: "/cart",

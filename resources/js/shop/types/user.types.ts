@@ -8,7 +8,7 @@ export interface User {
     number: number;
     street: string;
     city: string;
-    zipcode: string;
+    zip_code: string;
     role: string;
 }
 

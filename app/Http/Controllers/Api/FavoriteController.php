@@ -14,7 +14,7 @@ class FavoriteController extends Controller
      */
     public function index(Request $request)
     {
-        return $request->user()->favorites;
+        return $request->user()->favorites()->with('product')->orderBy('created_at', 'desc')->paginate(5);
     }
 
     /**
@@ -37,7 +37,7 @@ class FavoriteController extends Controller
                 "user_id" => $request->user()->id,
             ]);
 
-            return $favorite;
+            return Favorite::where("user_id", "=", $request->user()->id)->with(["product"])->paginate(15);
         }
     }
 

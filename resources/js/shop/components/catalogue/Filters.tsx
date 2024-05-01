@@ -558,7 +558,8 @@ const Filters = (props: FilterProps) => {
                                     currentPage={currentPage}
                                     setCurrentPage={setCurrentPage}
                                     totalPages={totalPages}
-                                    totalProducts={totalProducts}
+                                    totalElements={totalProducts}
+                                    numberOfElements={15}
                                 />
                             </div>
                         </div>

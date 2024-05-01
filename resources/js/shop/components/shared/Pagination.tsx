@@ -5,11 +5,18 @@ interface PaginationProps {
     currentPage: number;
     setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
     totalPages: number;
-    totalProducts: number;
+    totalElements: number;
+    numberOfElements: number;
 }
 
 const Pagination = (props: PaginationProps) => {
-    const { currentPage, setCurrentPage, totalPages, totalProducts } = props;
+    const {
+        currentPage,
+        setCurrentPage,
+        totalPages,
+        totalElements,
+        numberOfElements,
+    } = props;
 
     const handleNextPage = () => {
         setCurrentPage(currentPage + 1);
@@ -19,9 +26,9 @@ const Pagination = (props: PaginationProps) => {
         setCurrentPage(currentPage - 1);
     };
     return (
-        totalProducts > 0 && (
+        totalElements > 0 && (
             <div className="flex">
-                <p>{`15 produits sur ${totalProducts}`}</p>
+                <p>{`${numberOfElements} éléments sur ${totalElements}`}</p>
                 <p>{`Page ${currentPage} sur ${totalPages}`}</p>
 
                 <button
