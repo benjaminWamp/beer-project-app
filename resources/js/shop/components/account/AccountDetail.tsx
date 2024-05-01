@@ -1,8 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { User } from "../../types/user.types";
 import UpdateForm from "./UpdateForm";
-import { updateUser } from "../../utils/services/UserServices";
+import {
+    updateUser,
+    updateUserPassword,
+} from "../../utils/services/UserServices";
 import UserContext from "../../context/Context";
+import UpdatePasswordForm from "./UpdatePasswordForm";
 
 interface AccountDetailProps {
     user: User;
@@ -13,9 +17,14 @@ const AccountDetails = (props: AccountDetailProps) => {
     const { user, getUser } = props;
     const { token } = useContext(UserContext);
     const [openUserForm, setUserForm] = React.useState(false);
+    const [openUserPasswordForm, setUserPasswordForm] = React.useState(false);
 
     const handleClosUserForm = () => {
         setUserForm(false);
+    };
+
+    const handleClosePasswordForm = () => {
+        setUserPasswordForm(false);
     };
 
     const handleUpdateUser = async (e) => {
@@ -36,6 +45,22 @@ const AccountDetails = (props: AccountDetailProps) => {
         getUser();
     };
 
+    const handleUpdateUserPassword = async (e) => {
+        e.preventDefault();
+
+        const { currentPassword, newPassword, newPassword_confirmation } =
+            e.target;
+
+        const userData = {
+            currentPassword: currentPassword.value,
+            newPassword: newPassword.value,
+            newPassword_confirmation: newPassword_confirmation.value,
+        };
+        await updateUserPassword(userData, token);
+        setUserPasswordForm(false);
+        getUser();
+    };
+
     return (
         <>
             <UpdateForm
@@ -43,6 +68,11 @@ const AccountDetails = (props: AccountDetailProps) => {
                 onClose={handleClosUserForm}
                 onSubmit={handleUpdateUser}
                 user={user}
+            />
+            <UpdatePasswordForm
+                open={openUserPasswordForm}
+                onClose={handleClosePasswordForm}
+                onSubmit={handleUpdateUserPassword}
             />
             <div className="bg-white overflow-hidden shadow rounded-lg border">
                 <div className="px-4 py-5 sm:px-6">
@@ -88,6 +118,22 @@ const AccountDetails = (props: AccountDetailProps) => {
                         </div>
                     </dl>
                 </div>
+                <button
+                    type="button"
+                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    onClick={() => {
+                        setUserPasswordForm(true);
+                    }}
+                >
+                    Modifier mon mot de passe
+                </button>
+                <button
+                    type="button"
+                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    onClick={() => {}}
+                >
+                    Supprimer mon compte
+                </button>
             </div>
         </>
     );

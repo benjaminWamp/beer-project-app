@@ -7,6 +7,8 @@ use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -39,6 +41,27 @@ class UserController extends Controller
     {
         $user = $request->user();
         return $user->reviews;
+    }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'currentPassword' => 'required',
+            'newPassword' => 'required|confirmed|min:6',
+        ]);
+
+        if (!Hash::check($request->currentPassword, $request->user()->password)) {
+            throw ValidationException::withMessages([
+                'currentPassword' => 'The current password is incorrect.',
+            ]);
+        }
+
+        $request->user()->update([
+            'password' => Hash::make($request->newPassword),
+        ]);
+
+
+        return response()->json(['message' => 'Password updated successfully']);
     }
 
     public function removeUser(Request $request)
