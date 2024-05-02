@@ -2,8 +2,25 @@ import React, { useEffect, useState } from "react";
 import InputCart from "./Cart/InputCart";
 import { fetchCartList } from "../utils/services/CartService";
 import { Cart as CartType } from "../types/cart.types";
+import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
+import CartPayment from "./Cart/CartPayment";
+
+const stripePromise = loadStripe('pk_test_51P7HxBIvgCNdAzyGQvbsSdlBBNixi3ZSsQA51phuRXn3ePYTkWrWOUPwIs0bhBcwqnIVq35P25Qd5t6dgxDR5jSD00SSsNWJ2r');
+
 const Cart = () => {
     const [cartList, setCartList] = useState<CartType>();
+
+    // const options = {
+    //     // passing the client secret obtained from the server
+    //     amount: 1099,
+    //     currency: 'usd',
+    //     payment_method_types: ['card'],
+    //     billing_details: {
+    //       name: 'Jenny Rosen',
+    //     },
+    //     clientSecret: 'sk_test_51P7HxBIvgCNdAzyGFtNcHYStYKyWmyEJxj4wad4KG1DUW5njNS2N1xrUAY71flyg36KiepJDgUhk2m0LqQU2I9DG00NTDquJGj'
+    //   };
 
     const getCartList = async () => {
         const response = await fetchCartList();
@@ -15,10 +32,15 @@ const Cart = () => {
         getCartList();
     }, [])
 
+
     return (
         <div className="flex">
             {/* <InputCart title="Adresse mail" type="" /> */}
-            <div className="flex flex-2">
+            {/*<Elements stripe={stripePromise} options={options}>*/}
+            <Elements stripe={stripePromise}>
+                <CartPayment />
+            </Elements>
+            {/* <div className="flex flex-2">
                 <div className="flex flex-col">
                     <label htmlFor="email">Adresse mail</label>
                     <input type="string" name="email" placeholder="Adresse mail"/>
@@ -27,10 +49,10 @@ const Cart = () => {
                     <label htmlFor="email">Adresse mail</label>
                     <input type="string" name="email" placeholder="Adresse mail"/>
                 </div>
-            </div>
-            <aside className="bg-blue h-full flex-1" >
+            </div> */}
+            {/* <aside className="bg-blue h-full flex-1" >
                 <h2>Cart</h2>
-                {cartList ? cartList.order_items.map((product, index) => {
+                {cartList && cartList.order_items.length > 0 ? cartList.order_items.map((product, index) => {
                     return (
                         <div className="flex py-4" key={`product-${index}`}>
                             <div>
@@ -52,7 +74,7 @@ const Cart = () => {
                 }) : 
                     <p>Pas de produits dans le panier</p>
                 } 
-            </aside>
+            </aside> */}
         </div>
     )
 }

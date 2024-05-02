@@ -35,7 +35,7 @@ class OrderController extends Controller
     {
         $user = $request->user();
         $cart = $user->cart();
-        return $cart->load("orderItems.product");
+        return $cart->load(["orderItems.product", "orderItems.product.categories"]);
     }
 
     /**
