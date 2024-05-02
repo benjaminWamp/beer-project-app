@@ -72,7 +72,6 @@ const AccountDetails = (props: AccountDetailProps) => {
     };
 
     const handleDeleteUser = async () => {
-        console.log("coucou");
         await deleteUser(token);
         setDeleteUserModal(false);
         logOut();
