@@ -78,6 +78,8 @@ export const FavoriteContextProvider = (props: FavoriteContextProps) => {
         if (token) {
             const favoritesData = await fetchUserFavorite(token, 0, false);
             setUserAllFavorites(favoritesData);
+        } else {
+            setUserAllFavorites(undefined);
         }
     };
 
