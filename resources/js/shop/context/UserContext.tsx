@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { loginUser } from "../utils/services/AuthService";
+import { loginUser, loginUserTest } from "../utils/services/AuthService";
 
 type UserContextType = {
     isLogged: boolean;
@@ -66,12 +66,18 @@ export const UserContextProvider = (props: UserContextProps) => {
     };
 
     const logIn = async (userInfo) => {
-        const tokenData = await loginUser(userInfo);
+        await loginUserTest(userInfo);
+        try {
+            const tokenData = await loginUserTest(userInfo);
 
-        setToken(tokenData);
+            setToken(tokenData.token);
 
-        localStorage.setItem("token", tokenData.token);
-        localStorage.setItem("user_id", tokenData.user);
+            localStorage.setItem("token", tokenData.token);
+            localStorage.setItem("user_id", tokenData.user);
+        } catch (error) {
+            console.log("error");
+            //TODO Alert
+        }
     };
 
     return (

@@ -1,8 +1,20 @@
 import { UserLogin } from "../../types/user.types";
+import axios from "axios";
 
 const userData = {
     email: "cecile.valente@email.com",
     password: "password",
+};
+
+export const loginUserTest = async (userInfo: UserLogin) => {
+    return await axios
+        .post("http://127.0.0.1:8000/api/login", userInfo)
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 };
 
 export const loginUser = async (userInfo: UserLogin) => {
