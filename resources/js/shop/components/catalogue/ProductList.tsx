@@ -2,27 +2,19 @@ import React, { useContext, useEffect, useState } from "react";
 import ProductCategories from "./ProdcutCategories";
 import ReviewsStars from "../shared/ReviewsStars";
 import { Product } from "../../types/product.types";
-import UserContext from "../../context/Context";
+import UserContext from "../../context/UserContext";
 import FavoriteHeart from "../shared/FavoriteHeart";
 import { fetchUserFavorite } from "../../utils/services/FavoriteService";
 import { Favorite } from "../../types/favorite.types";
 
 interface productListProps {
     products: Array<Product>;
-    handleAddToFavorite: (token: string, productId: number) => void;
-    userFavorites: Favorite[];
-    handleDeleteFavorite: (token: string, productId: number) => void;
 }
 
 const ProductList = (props: productListProps) => {
-    const {
-        products,
-        handleAddToFavorite,
-        userFavorites,
-        handleDeleteFavorite,
-    } = props;
+    const { products } = props;
 
-    const { url, token } = useContext(UserContext);
+    const { url } = useContext(UserContext);
 
     return (
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
@@ -55,13 +47,7 @@ const ProductList = (props: productListProps) => {
                                 {((product.price_ht + 0.2) / 100).toFixed(2)}€
                             </p>
                             <ReviewsStars review={product.reviews_sum} />
-                            <FavoriteHeart
-                                productId={product.id}
-                                handleAddToFavorite={handleAddToFavorite}
-                                handleDeleteFavorite={handleDeleteFavorite}
-                                token={token}
-                                userFavorites={userFavorites}
-                            />
+                            <FavoriteHeart productId={product.id} />
                         </div>
                     </div>
                 );

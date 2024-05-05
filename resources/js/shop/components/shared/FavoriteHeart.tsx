@@ -1,37 +1,32 @@
 import React, { useContext, useEffect, useState } from "react";
-import UserContext from "../../context/Context";
+import UserContext from "../../context/UserContext";
 import { fetchUserFavorite } from "../../utils/services/FavoriteService";
 import { Favorite } from "../../types/favorite.types";
+import FavoriteContext from "../../context/FavoriteContext";
 
 interface FavoriteHeartProps {
     productId: number;
-    handleAddToFavorite: (token: string, productId: number) => void;
-    token: string | null;
-    userFavorites: Favorite[] | undefined;
-    handleDeleteFavorite: (token: string, productId: number) => void;
 }
 
 const FavoriteHeart = (props: FavoriteHeartProps) => {
-    const {
-        productId,
-        handleAddToFavorite,
-        token,
-        userFavorites,
-        handleDeleteFavorite,
-    } = props;
+    const { productId } = props;
+
+    const { token } = useContext(UserContext);
+    const { userAllFavorites, handleAddToFavorite, handleDeleteFavorite } =
+        useContext(FavoriteContext);
 
     const isFavorite =
-        userFavorites &&
-        userFavorites.find((favorite) => favorite.product_id === productId);
+        userAllFavorites &&
+        userAllFavorites.find((favorite) => favorite.product_id === productId);
 
     return (
         <button
             onClick={() => {
                 if (token) {
                     if (!isFavorite) {
-                        handleAddToFavorite(token, productId);
+                        handleAddToFavorite(productId);
                     } else {
-                        handleDeleteFavorite(token, productId);
+                        handleDeleteFavorite(productId);
                     }
                 } else {
                     // TODO alerte, créer un compte

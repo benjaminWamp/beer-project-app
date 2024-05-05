@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Product } from "../../types/product.types";
-import UserContext from "../../context/Context";
+import UserContext from "../../context/UserContext";
 
 interface ProductImageProps {
     product: Product;

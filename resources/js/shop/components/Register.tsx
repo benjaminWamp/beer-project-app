@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Accordion } from "flowbite-react";
 import { registerUser } from "../utils/services/UserServices";
-import UserContext from "../context/Context";
+import UserContext from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {

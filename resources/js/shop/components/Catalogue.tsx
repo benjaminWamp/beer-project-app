@@ -12,7 +12,8 @@ import {
     deleteFavorites,
     fetchUserFavorite,
 } from "../utils/services/FavoriteService";
-import UserContext from "../context/Context";
+import UserContext from "../context/UserContext";
+import FavoriteContext from "../context/FavoriteContext";
 
 const Catalogue = () => {
     const [productList, setProductList] = useState<Product[]>();
@@ -23,6 +24,8 @@ const Catalogue = () => {
     const [totalProducts, setTotalProducts] = useState<number>(0);
     const [userFavorites, setUserFavorites] = useState<any>();
     const { token } = useContext(UserContext);
+    const { userAllFavorites, handleDeleteFavorite, handleAddToFavorite } =
+        useContext(FavoriteContext);
 
     const getProducts = async (
         page: number,
@@ -56,39 +59,22 @@ const Catalogue = () => {
         return response;
     };
 
-    const getUserFavorites = async () => {
-        if (token) {
-            return await fetchUserFavorite(token, 0, false);
-        }
-    };
-
     const getDatas = async () => {
         const productsData = await getProducts(1);
         const categoriesData = await getCategories();
         const manufacturersData = await getManufacturers();
-        const favoritesDatas = await getUserFavorites();
         setProductList(productsData.data);
         setCurrentPage(productsData.current_page);
         setTotalPages(productsData.last_page);
         setTotalProducts(productsData.total);
         setCategories(categoriesData);
         setManufacturers(manufacturersData);
-        setUserFavorites(favoritesDatas.data);
+        setUserFavorites(userAllFavorites);
     };
 
     useEffect(() => {
         getDatas();
     }, [token]);
-
-    const handleAddToFavorite = async (token: string, productId: number) => {
-        const newFavoriteDatas = await addToFavorites(token, productId);
-        await getDatas();
-    };
-
-    const handleDeleteFavorite = async (token: string, productId: number) => {
-        await deleteFavorites(token, productId);
-        await getDatas();
-    };
 
     return (
         productList &&
@@ -105,9 +91,6 @@ const Catalogue = () => {
                 setTotalProducts={setTotalProducts}
                 totalProducts={totalProducts}
                 getProducts={getProducts}
-                handleAddToFavorite={handleAddToFavorite}
-                userFavorites={userFavorites}
-                handleDeleteFavorite={handleDeleteFavorite}
             />
         )
     );

@@ -15,12 +15,14 @@ class FavoriteController extends Controller
      */
     public function index(Request $request)
     {
+
         $query =  $request->user()->favorites()->with('product')->orderBy('created_at', 'desc');
 
-        $pagination = $request->has('pagination') ? filter_var($request->pagination, FILTER_VALIDATE_BOOLEAN) : true;
+        $pagination = $request->input('pagination');
 
         // Si la pagination est activée, retourne les données paginées
         if ($pagination) {
+
             return $query->paginate(5);
         }
 

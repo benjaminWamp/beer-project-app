@@ -1,38 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Favorite } from "../../types/favorite.types";
-import UserContext from "../../context/Context";
+import UserContext from "../../context/UserContext";
 import Pagination from "../shared/Pagination";
-import { User } from "../../types/user.types";
-import {
-    deleteFavorites,
-    fetchUserFavorite,
-} from "../../utils/services/FavoriteService";
+import FavoriteContext from "../../context/FavoriteContext";
 
-interface FavoriteListProps {
-    token: string;
-}
-
-const FavoriteList = (props: FavoriteListProps) => {
-    const { token } = props;
+const FavoriteList = () => {
     const [favorites, setFavorites] = useState<Favorite[]>();
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [totalFavorite, setTotalFavorite] = useState<number>(0);
     const { url } = useContext(UserContext);
-
-    const getFavorite = async (page: number) => {
-        const response = await fetchUserFavorite(token, page, true);
-
-        return response;
-    };
-
-    const handleDeleteFavorite = async (productId: number) => {
-        await deleteFavorites(token, productId);
-        await getDatas();
-    };
+    const { getUserFavorites, handleDeleteFavorite } =
+        useContext(FavoriteContext);
 
     const getDatas = async () => {
-        const favoritesData = await getFavorite(currentPage);
+        const favoritesData = await getUserFavorites(currentPage, true);
         setFavorites(favoritesData.data);
         setCurrentPage(favoritesData.current_page);
         setTotalPages(favoritesData.last_page);
@@ -40,10 +22,8 @@ const FavoriteList = (props: FavoriteListProps) => {
     };
 
     useEffect(() => {
-        if (token) {
-            getDatas();
-        }
-    }, [token, currentPage]);
+        getDatas();
+    }, [currentPage]);
 
     return (
         favorites && (
@@ -100,11 +80,12 @@ const FavoriteList = (props: FavoriteListProps) => {
                                             <button
                                                 type="button"
                                                 className="font-medium text-indigo-600 hover:text-indigo-500"
-                                                onClick={() =>
+                                                onClick={() => {
                                                     handleDeleteFavorite(
                                                         favorite.product_id
-                                                    )
-                                                }
+                                                    );
+                                                    getDatas();
+                                                }}
                                             >
                                                 Supprimer
                                             </button>
