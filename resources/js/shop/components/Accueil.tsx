@@ -1,11 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "./shared/Button";
 import H2Bars from "./shared/H2Bars";
 import { Mode } from "../types/style.enum";
+import ProductList from "./catalogue/ProductList";
+import { fetchProducts } from "../utils/services/CatalogueServices";
+import { Product } from "../types/product.types";
 
 
 
 const Accueil = () => {
+    const [fiveProducts, setFiveProducts] = useState<Product[]>();
+
+    const [bestProducts, setBestProducts] = useState<Product[]>();
+
+    const getProduct = async (sorting? : string, order? : string) => {
+        const response = await fetchProducts(1, undefined, undefined, sorting, order);
+
+        return response.data.slice(0,4);
+    };
+
+    const getBestProduct = async () => {
+        const response = await getProduct("reviews_sum", "desc");
+
+        return response.slice(0,4);
+    };
+
+    useEffect(() => {
+        const getDatas = async () => {
+            const listData = await getProduct();
+            const bestData = await getBestProduct();
+            setFiveProducts(listData);
+            setBestProducts(bestData);
+        };
+        getDatas();
+    }, []);
 
     return <>
         <section className="bg-cover bg-headerHome bg-no-repeat h-heroVh">
@@ -22,6 +50,7 @@ const Accueil = () => {
         <section className="py-12 max-w-screen-xl w-full mx-auto px-4">
             <div className="bg-offWhite flex flex-col justify-center">
                 <H2Bars textColor={"text-accent"} hrColor={"border-accent"} text={"Nos Bières"} />
+                {fiveProducts && <ProductList products={fiveProducts}/>}
                 <Button href={"#"} text={"Les bières"} startCenterEnd={"center"} mode={Mode.DARK}/>
             </div>
         </section>
@@ -37,6 +66,12 @@ const Accueil = () => {
         <section className="py-12 max-w-screen-xl w-full mx-auto px-4">
             <div className="bg-offWhite flex flex-col justify-center">
                 <H2Bars textColor={"text-accent"} hrColor={"border-accent"} text={"Catégories"} />
+            </div>
+        </section>
+        <section className="py-12 max-w-screen-xl w-full mx-auto px-4">
+            <div className="bg-offWhite flex flex-col justify-center">
+                <H2Bars textColor={"text-accent"} hrColor={"border-accent"} text={"Les 4 Glorieuses"} />
+                {bestProducts && <ProductList products={bestProducts}/>}
             </div>
         </section>
         <section className="bg-cover bg-connexion bg-no-repeat w-full mx-auto">
