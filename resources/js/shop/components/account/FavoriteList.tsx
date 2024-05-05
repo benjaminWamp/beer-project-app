@@ -19,7 +19,7 @@ const FavoriteList = (props: FavoriteListProps) => {
     const { url } = useContext(UserContext);
 
     const getFavorite = async (page: number) => {
-        const response = await fetchUserFavorite(token, page);
+        const response = await fetchUserFavorite(token, page, true);
 
         return response;
     };

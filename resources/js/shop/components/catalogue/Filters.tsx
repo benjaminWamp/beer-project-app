@@ -17,6 +17,7 @@ import { Category } from "../../types/category.types";
 import { Manufacturer } from "../../types/manufacturer.types";
 import { FilterType } from "../../types/filters.enum";
 import SearchIntput from "../shared/SearchInput";
+import { Favorite } from "../../types/favorite.types";
 
 const sortOptions = [
     { name: FilterType.BEST, value: SortingType.BEST },
@@ -47,6 +48,9 @@ interface FilterProps {
         order?: string,
         search?: string
     ) => Promise<any>;
+    handleAddToFavorite: (token: string, productId: number) => void;
+    userFavorites: Favorite[];
+    handleDeleteFavorite: (token: string, productId: number) => void;
 }
 
 const Filters = (props: FilterProps) => {
@@ -61,6 +65,9 @@ const Filters = (props: FilterProps) => {
         totalProducts,
         setTotalProducts,
         getProducts,
+        handleAddToFavorite,
+        userFavorites,
+        handleDeleteFavorite,
     } = props;
 
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
@@ -547,7 +554,16 @@ const Filters = (props: FilterProps) => {
                             {/* Product grid */}
                             <div className="lg:col-span-3">
                                 {filteredProducts.length > 0 ? (
-                                    <ProductList products={filteredProducts} />
+                                    <ProductList
+                                        products={filteredProducts}
+                                        handleAddToFavorite={
+                                            handleAddToFavorite
+                                        }
+                                        handleDeleteFavorite={
+                                            handleDeleteFavorite
+                                        }
+                                        userFavorites={userFavorites}
+                                    />
                                 ) : (
                                     <h2>
                                         Aucune bière ne correspond à vos
