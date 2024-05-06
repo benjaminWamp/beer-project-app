@@ -13,7 +13,6 @@ const Contact = () => {
             rgpd : e.target.rgpd.checked
         };
 
-        console.log(contactEntry)
         setThankU(true);
     }
 
