@@ -49,7 +49,7 @@ const ReviewForm = (props: ReviewFormProps) => {
             </button>
         </form>
     ) : (
-        <h3>Veillez vous connecter pour laisser un avis</h3>
+        <h3>Veuillez vous connecter pour laisser un avis</h3>
     );
 };
 
