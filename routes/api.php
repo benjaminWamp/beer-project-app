@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\StripePaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::get("/product/{product}/reviews", "App\Http\Controllers\Api\ProductContro
 
 Route::post("/login", "App\Http\Controllers\Api\AuthController@login")->name("login");
 Route::post("/register", "App\Http\Controllers\Api\RegisterController@register")->name("register");
+Route::post("/payment", "App\Http\Controllers\Api\StripePaymentController@stripePost")->name("payment");
 
 
 Route::middleware('auth:sanctum')->group(
