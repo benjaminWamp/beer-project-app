@@ -90,9 +90,8 @@ const ProductLayer = () => {
                         onScrollToReviews={handleScrollToReviews}
                     />
                 </div>
-                {!isLoading && !isModifing && hasAReview && (
+                {!isLoading && !isModifing && !hasAReview && (
                     <>
-                        <h2>Votre avis</h2>
                         <ReviewForm onReviewSubmit={handleReviewSubmit} />
                     </>
                 )}
