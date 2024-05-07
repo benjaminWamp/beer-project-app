@@ -47,7 +47,7 @@ class UserController extends Controller
             "zip_code" => $request->input("zip_code"),
         ]);
 
-        $request->session()->flash("success", "Vous avez bien créer un nouvel utilisateur");
+        $request->session()->flash("success", "Vous avez bien créé un nouvel utilisateur");
 
         return redirect()->route("users.index");
 

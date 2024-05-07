@@ -1,16 +1,19 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { useState } from "react";
-import { StarIcon } from "@heroicons/react/20/solid";
-import { RadioGroup } from "@headlessui/react";
-import ProductBreadCrumb from "./Product/ProductBreadCrumb";
 import ProductImage from "./Product/ProductImage";
 import ProdcutDetails from "./Product/ProductDetail";
 import { fetchProduct } from "../utils/services/ProductServices";
 import Loader from "./Loader";
-import { useParams, useSearchParams } from "react-router-dom";
-import { fetchProductReviews } from "../utils/services/ReviewsService";
+import { useParams } from "react-router-dom";
+import {
+    addProductReviews,
+    deleteProductReviews,
+    updateProductReviews,
+} from "../utils/services/ReviewsService";
 import ProductReview from "./Product/ProductReview";
 import { Product } from "../types/product.types";
+import ReviewForm from "./Product/ReviewForm";
+import UserContext from "../context/Context";
 
 const reviews = { href: "#", average: 4, totalCount: 117 };
 
@@ -20,23 +23,20 @@ function classNames(...classes) {
 
 const ProductLayer = () => {
     const [product, setProduct] = useState<Product>();
-
-    const queryParameters = new URLSearchParams(window.location.search);
+    const [isModifing, setIsModifing] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const { userId } = useContext(UserContext);
 
     const { id } = useParams();
 
-    const getProduct = async () => {
-        if (id) {
-            const response = await fetchProduct(id);
-            return response;
-        }
-    };
+    const getDatas = async () => {
+        const productData = await fetchProduct(id!);
 
+        setProduct(productData);
+        setIsModifing(false);
+        setIsLoading(false);
+    };
     useEffect(() => {
-        const getDatas = async () => {
-            const productData = await getProduct();
-            setProduct(productData);
-        };
         getDatas();
     }, []);
 
@@ -48,6 +48,34 @@ const ProductLayer = () => {
             divRef.current.scrollIntoView({ behavior: "smooth" });
         }
     };
+
+    const handleReviewSubmit = async (e, reviewId?) => {
+        e.preventDefault();
+        setIsLoading(true);
+        const newReviewData = {
+            stars: e.target.rating.value,
+            message: e.target.review.value,
+            product_id: product?.id?.toString(),
+        };
+        if (!isModifing) {
+            await addProductReviews(newReviewData);
+        } else {
+            await updateProductReviews(newReviewData, reviewId);
+        }
+
+        await getDatas();
+    };
+
+    const handleDeleteReview = async (reviewId: number) => {
+        setIsLoading(true);
+        await deleteProductReviews(reviewId);
+        await getDatas();
+    };
+
+    const hasAReview =
+        product?.reviews.some(
+            (review) => review.user_id === parseInt(userId!)
+        ) || false;
 
     return product ? (
         <div className="bg-white">
@@ -62,9 +90,25 @@ const ProductLayer = () => {
                         onScrollToReviews={handleScrollToReviews}
                     />
                 </div>
-                <div ref={divRef}>
-                    <ProductReview reviews={product.reviews} />
-                </div>
+                {!isLoading && !isModifing && !hasAReview && (
+                    <>
+                        <h2>Votre avis</h2>
+                        <ReviewForm onReviewSubmit={handleReviewSubmit} />
+                    </>
+                )}
+                {!isLoading &&
+                    product.reviews &&
+                    product.reviews.length > 0 && (
+                        <div ref={divRef}>
+                            <ProductReview
+                                reviews={product.reviews}
+                                onReviewSubmit={handleReviewSubmit}
+                                isModifing={isModifing}
+                                setIsModifing={setIsModifing}
+                                onDeleteReview={handleDeleteReview}
+                            />
+                        </div>
+                    )}
             </div>
         </div>
     ) : (

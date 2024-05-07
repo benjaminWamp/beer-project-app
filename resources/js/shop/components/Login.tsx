@@ -23,6 +23,7 @@ const Login = () => {
         setToken(tokenData);
 
         localStorage.setItem("token", tokenData.token);
+        localStorage.setItem("user_id", tokenData.user);
     };
 
     useEffect(() => {
@@ -30,7 +31,6 @@ const Login = () => {
             navigate("/");
         }
     }, [token]);
-
 
     return (
         <>

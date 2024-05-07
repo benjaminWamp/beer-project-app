@@ -52,7 +52,7 @@ Route::middleware(["auth"])->group(function () {
     Route::delete('/admin/categories/{category}', CategoryController::class . "@destroy")->name("category.destroy");
     Route::post('/admin/categories', CategoryController::class . "@store")->name("category.store");
     Route::get('/admin/categories/modifier/{category}', CategoryController::class . "@edit")->name("category.edit");
-    Route::put('/admin/modifier/{category}', CategoryController::class . "@update")->name("category.update");
+    Route::put('/admin/categories/modifier/{category}', CategoryController::class . "@update")->name("category.update");
 
     Route::get('/admin/producteurs', ManufacturerController::class . "@index")->name("manufacturer.index");
     Route::get('/admin/producteurs/ajouter', ManufacturerController::class . "@create")->name("manufacturer.create");

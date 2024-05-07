@@ -16,18 +16,24 @@ use App\Http\Controllers\Api\StripePaymentController;
 |
 */
 
+Route::post("/login", "App\Http\Controllers\Api\AuthController@login")->name("login");
+Route::post("/register", "App\Http\Controllers\Api\RegisterController@register")->name("register");
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 // Route::get("/catalogue", ProductController::class . "@index")->name("product.index");
 Route::get("/catalogue", "App\Http\Controllers\Api\ProductController@index")->name("product.index");
+
 Route::get("/product/{product}", "App\Http\Controllers\Api\ProductController@show")->name("product.show");
 Route::get("/product/{product}/reviews", "App\Http\Controllers\Api\ProductController@showReviews")->name("product.reviews");
 
+Route::get("/categories", "App\Http\Controllers\Api\CategoryController@index")->name("categories.index");
+Route::get("/manufacturers", "App\Http\Controllers\Api\ManufacturerController@index")->name("manufacturers.index");
+Route::post("/payment", "App\Http\Controllers\Api\StripePaymentController@stripePost")->name("payment");
 Route::post("/login", "App\Http\Controllers\Api\AuthController@login")->name("login");
 Route::post("/register", "App\Http\Controllers\Api\RegisterController@register")->name("register");
-Route::post("/payment", "App\Http\Controllers\Api\StripePaymentController@stripePost")->name("payment");
 
 
 Route::middleware('auth:sanctum')->group(
@@ -43,7 +49,8 @@ Route::middleware('auth:sanctum')->group(
 
         Route::get("/user", "App\Http\Controllers\Api\UserController@show")->name("user.show");
         Route::post("/user", "App\Http\Controllers\Api\UserController@updateUser")->name("user.updateUser");
-        Route::delete("/user", "App\Http\Controllers\Api\UserController@removeUser")->name("user.removeUser");
+        Route::post("/user/password", "App\Http\Controllers\Api\UserController@changePassword")->name("user.changePassword");
+        Route::post("/user/delete", "App\Http\Controllers\Api\UserController@removeUser")->name("user.removeUser");
 
         Route::get("/user/orders", "App\Http\Controllers\Api\OrderController@index")->name("order.index");
         Route::get("/user/cart", "App\Http\Controllers\Api\OrderController@showCart")->name("order.showCart");

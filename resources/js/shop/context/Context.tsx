@@ -1,17 +1,28 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { loginUser } from "../utils/services/AuthService";
 
 type UserContextType = {
     isLogged: boolean;
     setIsLogged: (_: boolean) => void;
-    token: string;
+    token: string | null;
     setToken: (_: string) => void;
+    userId: string | null;
+    setUserId: (_: string) => void;
+    logOut: () => void;
+    logIn: (_: any) => Promise<void>;
+    url: string;
 };
 // Create a context
 const UserContext = createContext<UserContextType>({
     isLogged: false,
     setIsLogged: (_: boolean) => {},
-    token: "",
+    token: null,
     setToken: (_: string) => {},
+    userId: null,
+    setUserId: (_: string) => {},
+    logOut: () => {},
+    logIn: async (userInfo: any) => {},
+    url: "http://127.0.0.1:8000",
 });
 
 export default UserContext;
@@ -30,21 +41,52 @@ export function useUser() {
 
 export const UserContextProvider = (props: UserContextProps) => {
     const { children } = props;
-    const [token, setToken] = useState<string>("");
+    const [token, setToken] = useState<string | null>(null);
+    const [userId, setUserId] = useState<string | null>(null);
     const [isLogged, setIsLogged] = useState(false);
+    const url = "http://127.0.0.1:8000";
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token && !isLogged) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            setToken(token);
+        const localToken = localStorage.getItem("token");
+        const localUser = localStorage.getItem("user_id");
+
+        if (localToken && localUser && !isLogged) {
+            setToken(localToken);
+            setUserId(localUser);
             setIsLogged(true);
         }
     }, [token]);
 
+    const logOut = () => {
+        setIsLogged(false);
+        localStorage.removeItem("token");
+        localStorage.removeItem("user_id");
+        setToken(null);
+        setUserId(null);
+    };
+
+    const logIn = async (userInfo) => {
+        const tokenData = await loginUser(userInfo);
+
+        setToken(tokenData);
+
+        localStorage.setItem("token", tokenData.token);
+        localStorage.setItem("user_id", tokenData.user);
+    };
+
     return (
         <UserContext.Provider
-            value={{ token, setToken, isLogged, setIsLogged }}
+            value={{
+                token,
+                setToken,
+                isLogged,
+                setIsLogged,
+                userId,
+                setUserId,
+                logOut,
+                url,
+                logIn,
+            }}
         >
             {children}
         </UserContext.Provider>

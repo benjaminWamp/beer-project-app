@@ -1,14 +1,18 @@
 import React from "react";
 import { createHashRouter } from "react-router-dom";
 import Catalogue from "../components/Catalogue";
+import Contact from "../components/Contact";
 import ProductLayer from "../components/Product";
 import Login from "../components/Login";
+import Accueil from "../components/Accueil";
+import AccountPage from "../components/Account";
+import Register from "../components/Register";
 import Cart from "../components/Cart";
 
 export const routes = {
     home: {
         path: "/",
-        element: <div>Acceuil</div>,
+        element: <Accueil />,
     },
     about: {
         path: "/a-propos",
@@ -16,7 +20,7 @@ export const routes = {
     },
     contact: {
         path: "/contact",
-        element: <div>Contact</div>,
+        element: <Contact />,
     },
     catalogue: {
         path: "/catalogue",
@@ -32,7 +36,11 @@ export const routes = {
     },
     account: {
         path: "/account",
-        element: <div>Account</div>,
+        element: <AccountPage />,
+    },
+    register: {
+        path: "/register",
+        element: <Register />,
     },
     cart: {
         path: "/cart",

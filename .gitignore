@@ -16,3 +16,5 @@ yarn-error.log
 /.vscode
 package-lock.json
 node_modules
+DockerFile
+.dockerignore

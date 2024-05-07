@@ -1,6 +1,7 @@
 <x-layout>
+<x-slot name="title">Commandes - Monsieur Bière</x-slot>
 <x-breadcrumbs :breadcrumbs="[
-            ['title' => 'Tableau de bord (définir route quand tableau de bord sera complété)', 'url' => '/'],
+            ['title' => 'Tableau de bord', 'url' => route('index')],
             ['title' => 'Commandes', 'url' => ''],
         ]"/>
 
@@ -10,8 +11,8 @@
 
     {{ $orders->links() }}
 
-    <div class="relative">
-        <table class="w-full text-sm text-left rtl:text-right text-zinc-50 my-4">
+    <div class="relative rounded-md overflow-hidden my-4">
+        <table class="w-full text-sm text-left rtl:text-right text-zinc-50">
         <thead class="text-xs text-zinc-50 uppercase bg-accent ">
             <tr>
                 <th scope="col" class="font-title font-bold text-background px-6 py-3">
