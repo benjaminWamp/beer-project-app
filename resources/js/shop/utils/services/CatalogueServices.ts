@@ -8,7 +8,6 @@ export const fetchProducts = async (
     order?: string,
     search?: string
 ) => {
-    const url = "catalogue";
     const searchParams = new URLSearchParams();
 
     if (categories) {
