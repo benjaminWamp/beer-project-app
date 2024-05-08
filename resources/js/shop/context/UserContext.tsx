@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { loginUser, loginUserTest } from "../utils/services/AuthService";
+import { loginUser, logoutUser } from "../utils/services/AuthService";
 
 type UserContextType = {
     isLogged: boolean;
@@ -57,18 +57,21 @@ export const UserContextProvider = (props: UserContextProps) => {
         }
     }, [token]);
 
-    const logOut = () => {
-        setIsLogged(false);
-        localStorage.removeItem("token");
-        localStorage.removeItem("user_id");
-        setToken(null);
-        setUserId(null);
+    const logOut = async () => {
+        if (token) {
+            await logoutUser(token);
+            setIsLogged(false);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user_id");
+            setToken(null);
+            setUserId(null);
+        }
     };
 
     const logIn = async (userInfo) => {
-        await loginUserTest(userInfo);
+        await loginUser(userInfo);
         try {
-            const tokenData = await loginUserTest(userInfo);
+            const tokenData = await loginUser(userInfo);
 
             setToken(tokenData.token);
 
