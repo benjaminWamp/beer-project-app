@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const fetchUserFavorite = async (
     token: string,
     page: number,
@@ -8,66 +10,54 @@ export const fetchUserFavorite = async (
         searchParams.set("page", page.toString());
     }
 
-    try {
-        const response = await fetch(
+    return axios
+        .get(
             `http://127.0.0.1:8000/api/user/favorites${
                 pagination
                     ? "?" + "pagination=true&" + searchParams.toString()
                     : ""
             }`,
             {
-                method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
             }
+        )
+        .then((response) => response.data)
+        .catch((error) =>
+            console.error("Erreur lors de la récupération des données:", error)
         );
-
-        const jsonData = await response.json();
-        return jsonData;
-    } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
-    }
 };
 
 export const addToFavorites = async (token: string, productId: number) => {
-    try {
-        const response = await fetch(
+    return axios
+        .post(
             `http://127.0.0.1:8000/api/user/favorites`,
+            { product_id: productId },
             {
-                method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify({ product_id: productId }),
             }
+        )
+        .then((response) => response.data)
+        .catch((error) =>
+            console.error("Erreur lors de la récupération des données:", error)
         );
-
-        const jsonData = await response.json();
-        return jsonData;
-    } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
-    }
 };
 
 export const deleteFavorites = async (token: string, productId: number) => {
-    try {
-        const response = await fetch(
-            `http://127.0.0.1:8000/api/user/favorites/${productId}`,
-            {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            }
+    return axios
+        .delete(`http://127.0.0.1:8000/api/user/favorites/${productId}`, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        })
+        .then((response) => response.data)
+        .catch((error) =>
+            console.error("Erreur lors de la récupération des données:", error)
         );
-
-        const jsonData = await response.json();
-        return jsonData;
-    } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
-    }
 };
