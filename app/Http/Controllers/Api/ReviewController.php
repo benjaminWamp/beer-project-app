@@ -61,18 +61,22 @@ class ReviewController extends Controller
 
     public function update(ReviewRequest $request, Review $review)
     {
-        $this->authorize("reviews", $review);
-        $product = Product::find($request->input("product_id"));
-        $review->update($request->validated());
-        $product->calculateReviewsSum();
-        return response()->json(["message" => "Votre avis a été modifié"], 200);
+        try {
+            $this->authorize("reviews", $review);
+            $product = Product::find($request->input("product_id"));
+            $review->update($request->validated());
+            $product->calculateReviewsSum();
+            return response()->json(["message" => "Votre avis a été modifié"], 200);
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
+        }
     }
 
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, Review $review)
+    public function destroy(Review $review)
     {
         $this->authorize("reviews", $review);
         $product = Product::find($review->product_id);

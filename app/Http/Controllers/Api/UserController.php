@@ -20,21 +20,25 @@ class UserController extends Controller
 
     public function updateUser(Request $request)
     {
-        if (!Auth::check()) {
-            return response()->json(["message" => "Veuillez vous authentifier"], 401);
-        }
+        try {
+            if (!Auth::check()) {
+                return response()->json(["message" => "Veuillez vous authentifier"], 401);
+            }
 
-        $request->user()->update(
-            $request->validate([
-                "name" => "required|max:255|min:2",
-                "email" => "required|email",
-                "number" => "numeric",
-                "street" => "max:1000",
-                "city" => "max:1000",
-                "zip_code" => "max:5|min:5"
-            ])
-        );
-        return response()->json(["message" => "Vos informations on été mise à jour"], 200);
+            $request->user()->update(
+                $request->validate([
+                    "name" => "required|max:255|min:2",
+                    "email" => "required|email",
+                    "number" => "numeric",
+                    "street" => "max:1000",
+                    "city" => "max:1000",
+                    "zip_code" => "max:5|min:5"
+                ])
+            );
+            return response()->json(["message" => "Vos informations on été mise à jour"], 200);
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
+        }
     }
 
     public function showReviews(Request $request)
@@ -45,23 +49,27 @@ class UserController extends Controller
 
     public function changePassword(Request $request)
     {
-        $request->validate([
-            'currentPassword' => 'required',
-            'newPassword' => 'required|confirmed|min:6',
-        ]);
-
-        if (!Hash::check($request->currentPassword, $request->user()->password)) {
-            throw ValidationException::withMessages([
-                'currentPassword' => 'Un problème est survenue avec la vérification de votre mot de passe, veuillez réessayer',
+        try {
+            $request->validate([
+                'currentPassword' => 'required',
+                'newPassword' => 'required|confirmed|min:6',
             ]);
+
+            if (!Hash::check($request->currentPassword, $request->user()->password)) {
+                throw ValidationException::withMessages([
+                    'message' => 'Un problème est survenue avec la vérification de votre mot de passe, veuillez réessayer',
+                ]);
+            }
+
+            $request->user()->update([
+                'password' => Hash::make($request->newPassword),
+            ]);
+
+
+            return response()->json(['message' => 'Mot de passe mis à jour avec succès']);
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
         }
-
-        $request->user()->update([
-            'password' => Hash::make($request->newPassword),
-        ]);
-
-
-        return response()->json(['message' => 'Mot de passe mis à jour avec succès']);
     }
 
     public function removeUser(Request $request)
