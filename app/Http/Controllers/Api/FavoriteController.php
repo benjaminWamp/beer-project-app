@@ -49,8 +49,7 @@ class FavoriteController extends Controller
                 "product_id" => $request->input("product_id"),
                 "user_id" => $request->user()->id,
             ]);
-
-            return Favorite::where("user_id", "=", $request->user()->id)->with(["product"])->paginate(15);
+            return response()->json([$favorite, "message" => "Le produit a été ajouté à vos favoris."], 200);
         }
     }
 
@@ -78,6 +77,6 @@ class FavoriteController extends Controller
 
         $favorite->delete();
 
-        return response()->json(['message' => 'Vous avez bien supprimé votre favoris']);
+        return response()->json(['message' => 'Favoris supprimé']);
     }
 }

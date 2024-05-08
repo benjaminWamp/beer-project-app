@@ -42,6 +42,6 @@ class RegisterController extends Controller
 
         Auth::login($user);
 
-        return response()->json(["message" => "User register successfully"], 200);
+        return response()->json(["message" => "Compte créé avec succès"], 200);
     }
 }

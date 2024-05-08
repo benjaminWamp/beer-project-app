@@ -39,7 +39,7 @@ class ReviewController extends Controller
 
             $product->calculateReviewsSum();
 
-            return $review;
+            return response()->json(["message" => "Votre avis a été crée"], 200);
         } catch (ValidationException $e) {
             // Renvoie une réponse JSON avec les erreurs de validation
             return response()->json(['errors' => $e->errors()], 422);
@@ -65,7 +65,7 @@ class ReviewController extends Controller
         $product = Product::find($request->input("product_id"));
         $review->update($request->validated());
         $product->calculateReviewsSum();
-        return $review;
+        return response()->json(["message" => "Votre avis a été modifié"], 200);
     }
 
 
@@ -78,6 +78,6 @@ class ReviewController extends Controller
         $product = Product::find($review->product_id);
         $review->delete();
         $product->calculateReviewsSum();
-        return $review;
+        return response()->json(["message" => "Votre avis a été supprimé"], 200);
     }
 }

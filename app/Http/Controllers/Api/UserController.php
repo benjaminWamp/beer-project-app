@@ -21,7 +21,7 @@ class UserController extends Controller
     public function updateUser(Request $request)
     {
         if (!Auth::check()) {
-            return response()->json(["message" => "Unauthorized1"], 401);
+            return response()->json(["message" => "Veuillez vous authentifier"], 401);
         }
 
         $request->user()->update(
@@ -34,8 +34,7 @@ class UserController extends Controller
                 "zip_code" => "max:5|min:5"
             ])
         );
-
-        return $request->user();
+        return response()->json(["message" => "Vos informations on été mise à jour"], 200);
     }
 
     public function showReviews(Request $request)
@@ -53,7 +52,7 @@ class UserController extends Controller
 
         if (!Hash::check($request->currentPassword, $request->user()->password)) {
             throw ValidationException::withMessages([
-                'currentPassword' => 'The current password is incorrect.',
+                'currentPassword' => 'Un problème est survenue avec la vérification de votre mot de passe, veuillez réessayer',
             ]);
         }
 
@@ -62,7 +61,7 @@ class UserController extends Controller
         ]);
 
 
-        return response()->json(['message' => 'Password updated successfully']);
+        return response()->json(['message' => 'Mot de passe mis à jour avec succès']);
     }
 
     public function removeUser(Request $request)
@@ -71,7 +70,7 @@ class UserController extends Controller
             $user = $request->user();
 
             $user->update([
-                'name' => null,
+                'name' => "Utilisateur supprimé",
                 'email' => null,
                 'password' => null,
                 'number' => null,
@@ -80,10 +79,10 @@ class UserController extends Controller
                 'zip_code' => null,
             ]);
 
-            return response()->json(['message' => 'User deleted successfully']);
+            return response()->json(['message' => 'Utilisateur supprimé avec succès']);
         } catch (QueryException $e) {
-            // Vous pouvez obtenir des informations sur l'erreur en accédant à $e->getMessage()
-            return response()->json(['error' => 'An error occurred while deleting user data.'], 500);
+            // Obtenir des informations sur l'erreur avec $e->getMessage()
+            return response()->json([$e->getMessage(), 'error' => 'Un erreur sur le serveur est survenue'], 500);
         }
     }
 }

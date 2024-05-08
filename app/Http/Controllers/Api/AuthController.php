@@ -37,9 +37,9 @@ class AuthController extends Controller
             // Révoque tous les jetons d'authentification de l'utilisateur
             $user->tokens()->delete();
 
-            return response()->json(["message" => "User logged out successfully"], 200);
+            return response()->json(["message" => "Utilisateur déconnecté avec succès"], 200);
         } else {
-            return response()->json(["message" => "User not authenticated"], 401);
+            return response()->json(["message" => "Aucun utilisateur connecté"], 401);
         }
     }
 }
