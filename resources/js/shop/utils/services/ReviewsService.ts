@@ -1,98 +1,77 @@
+import axios from "axios";
+
 const user = localStorage.getItem("token");
 
+//TO USE
 export const fetchUserReviews = async (user) => {
-    try {
-        const response = await fetch("http://127.0.0.1:8000/api/user/reviews", {
-            method: "GET",
+    return await axios
+        .get("http://127.0.0.1:8000/api/user/reviews", {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${user}`,
             },
-        });
-
-        const jsonData = await response.json();
-        return jsonData;
-    } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
-    }
+        })
+        .then((response) => response.data)
+        .catch((error) =>
+            console.error("Erreur lors de la récupération des données:", error)
+        );
 };
 
+//OLD
 export const fetchProductReviews = async (productId: string) => {
-    try {
-        const response = await fetch(
-            `http://127.0.0.1:8000/api/product/${productId}/reviews`
+    return axios
+        .get(`http://127.0.0.1:8000/api/product/${productId}/reviews`)
+        .then((response) => response.data)
+        .catch((error) =>
+            console.error("Erreur lors de la récupération des données:", error)
         );
-
-        return await response.json();
-    } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
-    }
 };
 
 export const addProductReviews = async (reviewData) => {
-    const options = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${user}`,
-        },
-        body: JSON.stringify(reviewData),
-    };
-    try {
-        const response = await fetch(
-            `http://127.0.0.1:8000/api/user/reviews`,
-            options
+    return await axios
+        .post(`http://127.0.0.1:8000/api/user/reviews`, reviewData, {
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: `Bearer ${user}`,
+            },
+        })
+        .then((response) => response.data)
+        .catch((error) =>
+            console.error("Erreur lors de la récupération des données:", error)
         );
-
-        const jsonData = await response.json();
-        return jsonData;
-    } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
-    }
 };
 
 export const updateProductReviews = async (reviewData, reviewId) => {
-    const options = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${user}`,
-        },
-        body: JSON.stringify(reviewData),
-    };
-    try {
-        const response = await fetch(
+    return await axios
+        .post(
             `http://127.0.0.1:8000/api/user/reviews/${reviewId}`,
-            options
+            reviewData,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization: `Bearer ${user}`,
+                },
+            }
+        )
+        .then((response) => response.data)
+        .catch((error) =>
+            console.error("Erreur lors de la récupération des données:", error)
         );
-
-        const jsonData = await response.json();
-        return jsonData;
-    } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
-    }
 };
 
 export const deleteProductReviews = async (reviewId) => {
-    const options = {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${user}`,
-        },
-    };
-    try {
-        const response = await fetch(
-            `http://127.0.0.1:8000/api/user/reviews/${reviewId}`,
-            options
+    return await axios
+        .delete(`http://127.0.0.1:8000/api/user/reviews/${reviewId}`, {
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: `Bearer ${user}`,
+            },
+        })
+        .then((response) => response.data)
+        .catch((error) =>
+            console.error("Erreur lors de la récupération des données:", error)
         );
-
-        const jsonData = await response.json();
-        return jsonData;
-    } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
-    }
 };
