@@ -182,6 +182,10 @@ const Filters = (props: FilterProps) => {
         setSearchValue(search);
     };
 
+    const handleEmptySearch = () => {
+        setSearchValue("");
+    };
+
     return (
         <div className="bg-white">
             <div>
@@ -346,7 +350,10 @@ const Filters = (props: FilterProps) => {
                                 as="div"
                                 className="relative inline-block text-left"
                             >
-                                <SearchIntput onSubmit={handleSearch} />
+                                <SearchIntput
+                                    onSubmit={handleSearch}
+                                    onEmptyValue={handleEmptySearch}
+                                />
                                 <div>
                                     <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
                                         {sortingValue

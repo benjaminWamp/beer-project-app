@@ -2,10 +2,11 @@ import React from "react";
 
 interface SearchInputProps {
     onSubmit: (e) => void;
+    onEmptyValue: () => void;
 }
 
 const SearchIntput = (props: SearchInputProps) => {
-    const { onSubmit } = props;
+    const { onSubmit, onEmptyValue } = props;
     return (
         <form className="max-w-md mx-auto" onSubmit={(e) => onSubmit(e)}>
             <label
@@ -38,6 +39,12 @@ const SearchIntput = (props: SearchInputProps) => {
                     name="search"
                     className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Rechercher un produit"
+                    onChange={(e) => {
+                        const value = e.target.value;
+                        if (!value) {
+                            onEmptyValue();
+                        }
+                    }}
                     required
                 />
                 <button
