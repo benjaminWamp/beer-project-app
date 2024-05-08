@@ -59,4 +59,14 @@ class Product extends Model
             "reviews_sum" => $sum,
         ]);
     }
+
+    public function calculateStock($quantity): void
+    {
+        $stock = $this->stock;
+
+
+        $this->update([
+            "stock" => $stock - $quantity
+        ]);
+    }
 }
