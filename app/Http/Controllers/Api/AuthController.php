@@ -19,7 +19,7 @@ class AuthController extends Controller
 
             //Vérifie que l'email et le mdp correspond
             if (!Auth::attempt($credentials)) {
-                return response()->json(["message" => "Votre email ou mot de passe est incorrect"], 401);
+                throw ValidationException::withMessages(["message" => "Votre email ou mot de passe est incorrect"], 401);
             }
             //Permet de faire fonctionné le createToken dans VSCode, le com permet de paramétrer le type var $user
             /** @var User $user */
@@ -27,7 +27,7 @@ class AuthController extends Controller
 
             $token = $user->createToken("auth_token");
             // Auth::login();
-            return ["token" => $token->plainTextToken, "user" => $user->id];
+            return response()->json(["token" => $token->plainTextToken, "user" => $user->id, "message" => "Utilisateur connecté avec succès"], 200);
         } catch (ValidationException $e) {
             // Renvoie une réponse JSON avec les erreurs de validation
             return response()->json(['errors' => $e->errors()], 422);

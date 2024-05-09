@@ -1,15 +1,13 @@
 import React, { useContext, useEffect } from "react";
 import UserContext from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../utils/services/AuthService";
 import { UserLogin } from "../types/user.types";
+import AlertContext from "../context/AlertContext";
 
 const Login = () => {
-    const { token, setToken, isLogged, logIn } = useContext(UserContext);
+    const { token, isLogged, logIn } = useContext(UserContext);
     const navigate = useNavigate();
-    const login = async (userInfo: UserLogin) => {
-        return await loginUser(userInfo);
-    };
+    const { addAlert } = useContext(AlertContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,15 +15,12 @@ const Login = () => {
             email: e.target.email.value,
             password: e.target.password.value,
         };
-
-        await logIn(userInfo);
-
-        // const tokenData = await login(userInfo);
-
-        // setToken(tokenData);
-
-        // localStorage.setItem("token", tokenData.token);
-        // localStorage.setItem("user_id", tokenData.user);
+        try {
+            const result = await logIn(userInfo);
+            addAlert("success", result);
+        } catch (e) {
+            addAlert("failure", e);
+        }
     };
 
     useEffect(() => {
