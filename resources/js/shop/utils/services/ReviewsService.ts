@@ -12,9 +12,9 @@ export const fetchUserReviews = async (user) => {
             },
         })
         .then((response) => response.data)
-        .catch((error) =>
-            console.error("Erreur lors de la récupération des données:", error)
-        );
+        .catch((error) => {
+            throw (Object.values(error.response.data.errors)[0] as string[])[0];
+        });
 };
 
 //OLD
@@ -22,9 +22,9 @@ export const fetchProductReviews = async (productId: string) => {
     return axios
         .get(`http://127.0.0.1:8000/api/product/${productId}/reviews`)
         .then((response) => response.data)
-        .catch((error) =>
-            console.error("Erreur lors de la récupération des données:", error)
-        );
+        .catch((error) => {
+            throw (Object.values(error.response.data.errors)[0] as string[])[0];
+        });
 };
 
 export const addProductReviews = async (reviewData) => {
@@ -37,9 +37,9 @@ export const addProductReviews = async (reviewData) => {
             },
         })
         .then((response) => response.data)
-        .catch((error) =>
-            console.error("Erreur lors de la récupération des données:", error)
-        );
+        .catch((error) => {
+            throw (Object.values(error.response.data.errors)[0] as string[])[0];
+        });
 };
 
 export const updateProductReviews = async (reviewData, reviewId) => {
@@ -56,9 +56,9 @@ export const updateProductReviews = async (reviewData, reviewId) => {
             }
         )
         .then((response) => response.data)
-        .catch((error) =>
-            console.error("Erreur lors de la récupération des données:", error)
-        );
+        .catch((error) => {
+            throw (Object.values(error.response.data.errors)[0] as string[])[0];
+        });
 };
 
 export const deleteProductReviews = async (reviewId) => {
@@ -71,7 +71,7 @@ export const deleteProductReviews = async (reviewId) => {
             },
         })
         .then((response) => response.data)
-        .catch((error) =>
-            console.error("Erreur lors de la récupération des données:", error)
-        );
+        .catch((error) => {
+            throw (Object.values(error.response.data.errors)[0] as string[])[0];
+        });
 };
