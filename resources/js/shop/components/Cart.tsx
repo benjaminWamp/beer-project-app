@@ -11,16 +11,10 @@ const stripePromise = loadStripe('pk_test_51P7HxBIvgCNdAzyGQvbsSdlBBNixi3ZSsQA51
 const Cart = () => {
     const [cartList, setCartList] = useState<CartType>();
 
-    // const options = {
-    //     // passing the client secret obtained from the server
-    //     amount: 1099,
-    //     currency: 'usd',
-    //     payment_method_types: ['card'],
-    //     billing_details: {
-    //       name: 'Jenny Rosen',
-    //     },
-    //     clientSecret: 'sk_test_51P7HxBIvgCNdAzyGFtNcHYStYKyWmyEJxj4wad4KG1DUW5njNS2N1xrUAY71flyg36KiepJDgUhk2m0LqQU2I9DG00NTDquJGj'
-    //   };
+    const options = {
+        // passing the client secret obtained from the server
+        clientSecret: 'sk_test_51P7HxBIvgCNdAzyGFtNcHYStYKyWmyEJxj4wad4KG1DUW5njNS2N1xrUAY71flyg36KiepJDgUhk2m0LqQU2I9DG00NTDquJGj'
+    };
 
     const getCartList = async () => {
         const response = await fetchCartList();
@@ -36,9 +30,9 @@ const Cart = () => {
     return (
         <div className="flex">
             {/* <InputCart title="Adresse mail" type="" /> */}
-            {/*<Elements stripe={stripePromise} options={options}>*/}
-            <Elements stripe={stripePromise}>
-                <CartPayment />
+            <Elements stripe={stripePromise} options={options}>
+                <PaymentElement />
+                {/* <CartPayment /> */}
             </Elements>
             {/* <div className="flex flex-2">
                 <div className="flex flex-col">

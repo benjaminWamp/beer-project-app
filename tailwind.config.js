@@ -60,10 +60,10 @@ export default {
                 'headerHome': "url('images/contact-bg.png')",
                 'histoire': "url('images/notre-histoire.png')",
                 'connexion': "url('images/connexion.png')",
-            }
+            },
             flex: {
                 '2': '2 2 0%'
-              }        
+            }        
         }
     },
     plugins: [require('flowbite/plugin'),

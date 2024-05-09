@@ -10,7 +10,8 @@ export default defineConfig({
     server: {
         hmr: {
             overlay: true, // Désactiver l'overlay de rechargement en direct
-        },},
+        }
+    },
     plugins: [
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.js', 'resources/js/shop/main.tsx'],
