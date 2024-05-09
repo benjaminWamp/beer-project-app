@@ -10,6 +10,7 @@ import UserContext from "../../context/UserContext";
 import UpdatePasswordForm from "./UpdatePasswordForm";
 import DeleteUserModal from "./DeleteUserModal";
 import { useNavigate } from "react-router-dom";
+import AlertContext from "../../context/AlertContext";
 
 interface AccountDetailProps {
     user: User;
@@ -19,6 +20,7 @@ interface AccountDetailProps {
 const AccountDetails = (props: AccountDetailProps) => {
     const { user, getUser } = props;
     const { token, logOut } = useContext(UserContext);
+    const { addAlert } = useContext(AlertContext);
     const navigate = useNavigate();
 
     const [openUserForm, setUserForm] = React.useState(false);
@@ -50,7 +52,15 @@ const AccountDetails = (props: AccountDetailProps) => {
             city: city.value,
             zip_code: zip_code.value,
         };
-        await updateUser(userData, token);
+        try {
+            const result = await updateUser(userData, token);
+            addAlert("success", result.message);
+        } catch (err) {
+            const message: string = (Object.values(err)[0] as string[])[0];
+            addAlert("failure", message);
+            return;
+        }
+
         setUserForm(false);
         getUser();
     };
@@ -66,13 +76,27 @@ const AccountDetails = (props: AccountDetailProps) => {
             newPassword: newPassword.value,
             newPassword_confirmation: newPassword_confirmation.value,
         };
-        await updateUserPassword(userData, token);
+        try {
+            const result = await updateUserPassword(userData, token);
+            addAlert("success", result.message);
+        } catch (err: any) {
+            const message: string = (Object.values(err)[0] as string[])[0];
+            addAlert("failure", message);
+            return;
+        }
         setUserPasswordForm(false);
         getUser();
     };
 
     const handleDeleteUser = async () => {
-        await deleteUser(token);
+        try {
+            const result = await deleteUser(token);
+            addAlert("success", result.message);
+        } catch (err) {
+            const message: string = (Object.values(err)[0] as string[])[0];
+            addAlert("failure", message);
+            return;
+        }
         setDeleteUserModal(false);
         logOut();
         navigate("/");
