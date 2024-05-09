@@ -64,6 +64,7 @@ const UpdatePasswordForm = (props: DialogProps) => {
                                                     </label>
                                                     <div className="mt-2">
                                                         <input
+                                                            required
                                                             type="password"
                                                             name="currentPassword"
                                                             id="currentPassword"
@@ -81,6 +82,7 @@ const UpdatePasswordForm = (props: DialogProps) => {
                                                     </label>
                                                     <div className="mt-2">
                                                         <input
+                                                            required
                                                             type="password"
                                                             name="newPassword"
                                                             id="newPassword"
@@ -99,6 +101,7 @@ const UpdatePasswordForm = (props: DialogProps) => {
                                                     </label>
                                                     <div className="mt-2">
                                                         <input
+                                                            required
                                                             type="password"
                                                             name="newPassword_confirmation"
                                                             id="newPassword_confirmation"

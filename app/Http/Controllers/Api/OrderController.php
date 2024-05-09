@@ -69,8 +69,9 @@ class OrderController extends Controller
         }
 
         $order->calculateTotal();
+        $added = $order->load("orderItems.product");
 
-        return $order->load("orderItems.product");
+        return response()->json([$added, "message" => "Produit ajouté au panier"], 200);
     }
 
     public function RemoveFromCart(Request $request, OrderItem $orderItem)
@@ -82,7 +83,7 @@ class OrderController extends Controller
         $orderItem->delete();
         $order->calculateTotal();
 
-        return $order->load("orderItems.product");
+        return response()->json(["message" => "Produit supprimé du panier"], 200);
     }
 
     /**
@@ -96,7 +97,8 @@ class OrderController extends Controller
             "status" => "complete",
         ]);
 
-        return $order->load("orderItems.product");
+        // return $order->load("orderItems.product");
+        return response()->json(["message" => "Votre panier a été complété"], 200);
     }
 
     /**
@@ -108,6 +110,7 @@ class OrderController extends Controller
         $order->delete();
         $order->calculateTotal();
 
-        return $order->load("orderItems.product");
+        // return $order->load("orderItems.product");
+        return response()->json(["message" => "Votre panier a été supprimé"], 200);
     }
 }
