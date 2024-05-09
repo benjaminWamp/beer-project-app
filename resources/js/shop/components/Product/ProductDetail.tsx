@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ReviewsStars from "../shared/ReviewsStars";
 import { Product } from "../../types/product.types";
 import { addProductToCart } from "../../utils/services/CartService";
+import FavoriteHeart from "../shared/FavoriteHeart";
 
 interface ProdcutDetailProps {
     product: Product;
@@ -16,7 +17,6 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
     const { product, onScrollToReviews } = props;
     const { categories } = product;
     const { reviews } = product;
-    const [selectedQuantity, setselectedQuantity] = useState(1);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -37,6 +37,7 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
                     {product.name}
                 </h1>
             </div>
+            <FavoriteHeart productId={product.id} />
 
             {/* Options */}
             <div className="mt-4 lg:row-span-3 lg:mt-0">
@@ -80,11 +81,7 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
                         max="100"
                         aria-describedby="Selectionnez une quantité"
                         className="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        value={selectedQuantity}
-                        onChange={(e) => {
-                            e.preventDefault();
-                            setselectedQuantity(parseInt(e.target.value));
-                        }}
+                        defaultValue="1"
                         required
                     />
 

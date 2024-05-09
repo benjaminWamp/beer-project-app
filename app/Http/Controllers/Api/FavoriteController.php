@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Favorite;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
@@ -14,7 +15,19 @@ class FavoriteController extends Controller
      */
     public function index(Request $request)
     {
-        return $request->user()->favorites()->with('product')->orderBy('created_at', 'desc')->paginate(5);
+
+        $query =  $request->user()->favorites()->with('product')->orderBy('created_at', 'desc');
+
+        $pagination = $request->input('pagination');
+
+        // Si la pagination est activée, retourne les données paginées
+        if ($pagination) {
+
+            return $query->paginate(5);
+        }
+
+        // Sinon, retourne toutes les données sans pagination
+        return $query->get();
     }
 
     /**
@@ -53,10 +66,18 @@ class FavoriteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Favorite $favorite)
+    public function destroy($productId)
     {
-        $this->authorize("favorites", $favorite);
+        $userId = Auth::id();
+
+        $favorite = Favorite::where('user_id', $userId)
+            ->where('product_id', $productId)
+            ->firstOrFail();
+
+        $this->authorize('favorites', $favorite);
+
         $favorite->delete();
-        return $favorite;
+
+        return response()->json(['message' => 'Vous avez bien supprimé votre favoris']);
     }
 }

@@ -17,6 +17,7 @@ import { Category } from "../../types/category.types";
 import { Manufacturer } from "../../types/manufacturer.types";
 import { FilterType } from "../../types/filters.enum";
 import SearchIntput from "../shared/SearchInput";
+import { Favorite } from "../../types/favorite.types";
 
 const sortOptions = [
     { name: FilterType.BEST, value: SortingType.BEST },
@@ -61,6 +62,9 @@ const Filters = (props: FilterProps) => {
         totalProducts,
         setTotalProducts,
         getProducts,
+        // handleAddToFavorite,
+        // userFavorites,
+        // handleDeleteFavorite,
     } = props;
 
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
