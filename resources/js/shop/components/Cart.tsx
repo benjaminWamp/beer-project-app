@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import InputCart from "./Cart/InputCart";
-import { fetchCartList } from "../utils/services/CartService";
+import { fetchCartList, fetchPrivateKey } from "../utils/services/CartService";
 import { Cart as CartType } from "../types/cart.types";
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
@@ -10,27 +10,28 @@ const stripePromise = loadStripe('pk_test_51P7HxBIvgCNdAzyGQvbsSdlBBNixi3ZSsQA51
 
 const Cart = () => {
     const [cartList, setCartList] = useState<CartType>();
+    const [clientSecret, setClientSecret] = useState<string | undefined>(undefined);
 
-    const options = {
-        // passing the client secret obtained from the server
-        clientSecret: 'sk_test_51P7HxBIvgCNdAzyGFtNcHYStYKyWmyEJxj4wad4KG1DUW5njNS2N1xrUAY71flyg36KiepJDgUhk2m0LqQU2I9DG00NTDquJGj'
-    };
-
+    
     const getCartList = async () => {
         const response = await fetchCartList();
+        const privateKey = await fetchPrivateKey();
+        if (privateKey.clientSecret) setClientSecret(privateKey.clientSecret)
         console.log('response', response);
         setCartList(response);
     }
 
+
+    
     useEffect(() => {
         getCartList();
     }, [])
-
-
+    
+    
     return (
         <div className="flex">
             {/* <InputCart title="Adresse mail" type="" /> */}
-            <Elements stripe={stripePromise} options={options}>
+            <Elements stripe={stripePromise} options={{clientSecret}}>
                 <PaymentElement />
                 {/* <CartPayment /> */}
             </Elements>

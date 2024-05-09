@@ -40,14 +40,30 @@ export const fetchCartList = async () => {
             },
         
         });
-        console.log(response);
-        
-
         const jsonData = await response.json();
 
         return jsonData;
     } catch (error) {
         console.error("Erreur lors de la récupération des données:", error);
         
+    }
+}
+
+export const fetchPrivateKey = async () => {
+    try {
+        const res = await fetch("https://127.0.0.1:8000/api/paymentIntent", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${user}`,
+            },
+            body: JSON.stringify({
+                amount: 1000,
+            }),
+        })
+        const jsonData = await res.json();
+        return jsonData
+    } catch (error) {
+        console.error("Erreur lors de la récupération de la clé :", error);
     }
 }

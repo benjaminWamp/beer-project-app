@@ -60,6 +60,6 @@ Route::middleware('auth:sanctum')->group(
         
         Route::post("/logout", "App\Http\Controllers\Api\AuthController@logout")->name("logout");
         
+        Route::post("/paymentIntent", "App\Http\Controllers\Api\StripePaymentController@stripePaymentIntent")->name("payment");
     }
 );
-Route::post("/payment", "App\Http\Controllers\Api\StripePaymentController@stripePost")->name("payment");
