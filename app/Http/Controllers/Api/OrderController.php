@@ -70,7 +70,7 @@ class OrderController extends Controller
 
         $order->calculateTotal();
         $added = $order->load("orderItems.product");
-
+        $product->calculateStock($request->input("quantity"));
         return response()->json([$added, "message" => "Produit ajouté au panier"], 200);
     }
 
