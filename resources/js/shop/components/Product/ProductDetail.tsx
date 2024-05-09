@@ -4,6 +4,7 @@ import { Product } from "../../types/product.types";
 import { addProductToCart } from "../../utils/services/CartService";
 import UserContext from "../../context/UserContext";
 import FavoriteHeart from "../shared/FavoriteHeart";
+import AlertContext from "../../context/AlertContext";
 
 interface ProdcutDetailProps {
     product: Product;
@@ -19,6 +20,7 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
     const { categories } = product;
     const { reviews } = product;
     const { isLogged } = useContext(UserContext);
+    const { addAlert } = useContext(AlertContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -32,11 +34,16 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
                 };
                 await addProductToCart(addedProduct);
             } else {
-                console.log("Product unavailable");
-                //TODO : alert
+                addAlert(
+                    "failure",
+                    "Le produit est en rupture de stock ou vous avez séléctionner une trop grande quantité"
+                );
             }
         } else {
-            // TODO : mettre une alerte "veuillez vous connecter pour ajouter un élément au panier" à faire dans une branche alerte
+            addAlert(
+                "warning",
+                "Veuillez vous connecter pour effectuer cette action"
+            );
         }
     };
 
