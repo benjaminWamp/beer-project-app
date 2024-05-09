@@ -73,6 +73,6 @@ export const registerUser = async (user) => {
         })
         .then((response) => response.data)
         .catch((error) => {
-            throw error.response.data.errors;
+            throw (Object.values(error.response.data.errors)[0] as string[])[0];
         });
 };
