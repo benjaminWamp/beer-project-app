@@ -69,7 +69,7 @@ class OrderController extends Controller
         }
 
         $order->calculateTotal();
-
+        $product->calculateStock($request->input("quantity"));
         return $order->load("orderItems.product");
     }
 

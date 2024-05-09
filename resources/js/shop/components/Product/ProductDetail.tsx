@@ -17,13 +17,17 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
     const { categories } = product;
     const { reviews } = product;
     const [selectedQuantity, setselectedQuantity] = useState(1);
-    const [selectedQuantityType, setselectedQuantityType] = useState(1);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const quantity = e.target.quantity.value * e.target.quantityType.value;
-        const addedProduct = { product_id: product.id, quantity: quantity };
-        await addProductToCart(addedProduct);
+        if (quantity <= product.stock) {
+            const addedProduct = { product_id: product.id, quantity: quantity };
+            await addProductToCart(addedProduct);
+        } else {
+            console.log("Product unavailable");
+            //TODO : alert
+        }
     };
 
     return (
@@ -46,6 +50,12 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
                         <h3>{category.name}</h3>
                     ))}
                 </div>
+
+                <p className="text-3xl tracking-tight text-gray-900">
+                    {product.stock > 0
+                        ? `En Stock : ${product.stock}`
+                        : "En rupture de stock"}
+                </p>
 
                 {/* Reviews */}
                 <div className="mt-6">
