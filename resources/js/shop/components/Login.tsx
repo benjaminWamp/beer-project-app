@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from "react";
-import UserContext from "../context/Context";
+import UserContext from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../utils/services/AuthService";
 import { UserLogin } from "../types/user.types";
 
 const Login = () => {
-    const { token, setToken, isLogged } = useContext(UserContext);
+    const { token, setToken, isLogged, logIn } = useContext(UserContext);
     const navigate = useNavigate();
     const login = async (userInfo: UserLogin) => {
         return await loginUser(userInfo);
@@ -18,19 +18,21 @@ const Login = () => {
             password: e.target.password.value,
         };
 
-        const tokenData = await login(userInfo);
+        await logIn(userInfo);
 
-        setToken(tokenData);
+        // const tokenData = await login(userInfo);
 
-        localStorage.setItem("token", tokenData.token);
-        localStorage.setItem("user_id", tokenData.user);
+        // setToken(tokenData);
+
+        // localStorage.setItem("token", tokenData.token);
+        // localStorage.setItem("user_id", tokenData.user);
     };
 
     useEffect(() => {
         if (isLogged) {
             navigate("/");
         }
-    }, [token]);
+    }, [token, isLogged]);
 
     return (
         <>

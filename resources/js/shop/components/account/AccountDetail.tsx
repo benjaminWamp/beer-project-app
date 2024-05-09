@@ -6,7 +6,7 @@ import {
     updateUser,
     updateUserPassword,
 } from "../../utils/services/UserServices";
-import UserContext from "../../context/Context";
+import UserContext from "../../context/UserContext";
 import UpdatePasswordForm from "./UpdatePasswordForm";
 import DeleteUserModal from "./DeleteUserModal";
 import { useNavigate } from "react-router-dom";

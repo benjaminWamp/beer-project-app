@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { loginUser } from "../utils/services/AuthService";
+import { loginUser, logoutUser } from "../utils/services/AuthService";
 
 type UserContextType = {
     isLogged: boolean;
@@ -57,21 +57,30 @@ export const UserContextProvider = (props: UserContextProps) => {
         }
     }, [token]);
 
-    const logOut = () => {
-        setIsLogged(false);
-        localStorage.removeItem("token");
-        localStorage.removeItem("user_id");
-        setToken(null);
-        setUserId(null);
+    const logOut = async () => {
+        if (token) {
+            await logoutUser(token);
+            setIsLogged(false);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user_id");
+            setToken(null);
+            setUserId(null);
+        }
     };
 
     const logIn = async (userInfo) => {
-        const tokenData = await loginUser(userInfo);
+        await loginUser(userInfo);
+        try {
+            const tokenData = await loginUser(userInfo);
 
-        setToken(tokenData);
+            setToken(tokenData.token);
 
-        localStorage.setItem("token", tokenData.token);
-        localStorage.setItem("user_id", tokenData.user);
+            localStorage.setItem("token", tokenData.token);
+            localStorage.setItem("user_id", tokenData.user);
+        } catch (error) {
+            console.log("error");
+            //TODO Alert
+        }
     };
 
     return (

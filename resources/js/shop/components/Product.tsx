@@ -13,7 +13,7 @@ import {
 import ProductReview from "./Product/ProductReview";
 import { Product } from "../types/product.types";
 import ReviewForm from "./Product/ReviewForm";
-import UserContext from "../context/Context";
+import UserContext from "../context/UserContext";
 
 const reviews = { href: "#", average: 4, totalCount: 117 };
 

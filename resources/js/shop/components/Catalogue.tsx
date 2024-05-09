@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ProductList from "./catalogue/ProductList";
 import { fetchProducts } from "../utils/services/CatalogueServices";
 import Filters from "./catalogue/Filters";
@@ -7,6 +7,13 @@ import { fetchManufacturers } from "../utils/services/ManufacturerService";
 import { Category } from "../types/category.types";
 import { Manufacturer } from "../types/manufacturer.types";
 import { Product } from "../types/product.types";
+import {
+    addToFavorites,
+    deleteFavorites,
+    fetchUserFavorite,
+} from "../utils/services/FavoriteService";
+import UserContext from "../context/UserContext";
+import FavoriteContext from "../context/FavoriteContext";
 
 const Catalogue = () => {
     const [productList, setProductList] = useState<Product[]>();
@@ -15,6 +22,10 @@ const Catalogue = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [totalProducts, setTotalProducts] = useState<number>(0);
+    const [userFavorites, setUserFavorites] = useState<any>();
+    const { token } = useContext(UserContext);
+    const { userAllFavorites, handleDeleteFavorite, handleAddToFavorite } =
+        useContext(FavoriteContext);
 
     const getProducts = async (
         page: number,
@@ -48,20 +59,22 @@ const Catalogue = () => {
         return response;
     };
 
+    const getDatas = async () => {
+        const productsData = await getProducts(1);
+        const categoriesData = await getCategories();
+        const manufacturersData = await getManufacturers();
+        setProductList(productsData.data);
+        setCurrentPage(productsData.current_page);
+        setTotalPages(productsData.last_page);
+        setTotalProducts(productsData.total);
+        setCategories(categoriesData);
+        setManufacturers(manufacturersData);
+        setUserFavorites(userAllFavorites);
+    };
+
     useEffect(() => {
-        const getDatas = async () => {
-            const ProductsData = await getProducts(1);
-            const categoriesData = await getCategories();
-            const manufacturersData = await getManufacturers();
-            setProductList(ProductsData.data);
-            setCurrentPage(ProductsData.current_page);
-            setTotalPages(ProductsData.last_page);
-            setTotalProducts(ProductsData.total);
-            setCategories(categoriesData);
-            setManufacturers(manufacturersData);
-        };
         getDatas();
-    }, []);
+    }, [token]);
 
     return (
         productList &&
