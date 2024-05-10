@@ -60,6 +60,7 @@ export default {
                 'headerHome': "url('images/contact-bg.png')",
                 'histoire': "url('images/notre-histoire.png')",
                 'connexion': "url('images/connexion.png')",
+                'tonneau': "url('images/tonneau.png')",
             }
         }
     },
