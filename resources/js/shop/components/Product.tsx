@@ -79,7 +79,7 @@ const ProductLayer = () => {
 
     return product ? (
         <div className="bg-background">
-            <div className="pt-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 {/* <ProductBreadCrumb product={product} /> */}
 
                 <div className="flex flex-row">

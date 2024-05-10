@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import ReviewsStars from "../shared/ReviewsStars";
 import { Product } from "../../types/product.types";
 import { addProductToCart } from "../../utils/services/CartService";
+import { Button } from "flowbite-react";
+import { Mode } from "../../types/style.enum";
 
 interface ProdcutDetailProps {
     product: Product;
@@ -99,7 +101,7 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
 
                     <button
                         type="submit"
-                        className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white"
+                        className="w-full rounded-md transition-all text-xl inline-block font-title font-bold border-2 py-4 px-10 shadow-buttonDarkBase hover:shadow-buttonDarkHover hover:text-secondary text-accent border-accent"
                     >
                         Ajouter au panier
                     </button>
