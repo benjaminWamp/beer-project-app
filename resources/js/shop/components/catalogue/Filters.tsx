@@ -371,7 +371,7 @@ const Filters = (props: FilterProps) => {
                                     leaveTo="transform opacity-0 scale-95"
                                 >
                                     {/* Button Sort */}
-                                    <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                    <Menu.Items className="absolute p-2.5 font-title right-0 z-10 mt-2 w-52 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                                         <div className="py-1">
                                             {sortOptions.map(
                                                 (option, index) => (

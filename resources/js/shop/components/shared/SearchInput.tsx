@@ -42,7 +42,7 @@ const SearchIntput = (props: SearchInputProps) => {
                 />
                 <button
                     type="submit"
-                    className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-4 py-2"
+                    className="absolute end-2.5 bottom-2.5 rounded-md transition-all text-xs inline-block font-title font-bold border-2 py-2 px-4 shadow-buttonLightBase hover:shadow-buttonLightHover hover:text-accent text-secondary border-secondary"
                 >
                     Rechercher
                 </button>
