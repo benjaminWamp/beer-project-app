@@ -9,7 +9,7 @@ const ProductCategories = (props: ProductCategoriesProps) => {
     const { categories } = props;
 
     return categories.map((category, index) => (
-        <p className="mt-1 text-sm text-gray-500" key={`category-${index}`}>
+        <p className="font-title mt-1 text-xs text-gray-500" key={`category-${index}`}>
             {category.name}
         </p>
     ));
