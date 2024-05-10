@@ -63,9 +63,26 @@ const Accueil = () => {
                 </div>
             </div>
         </section>
-        <section className="py-12 max-w-screen-xl w-full mx-auto px-4">
+        <section className="pt-12 max-w-screen-xl w-full mx-auto px-4">
             <div className="bg-offWhite flex flex-col justify-center">
                 <H2Bars textColor={"text-accent"} hrColor={"border-accent"} text={"Catégories"} />
+                <div className="flex flex-between gap-8 my-8">
+                    <div className="flex flex-col gap-8">
+                        <img src="\images\categorie-blanche.png" alt="Bière blanche" className="max-w-full rounded-md"/>
+                        <Button href={"#"} text={"Blanche"} startCenterEnd={"center"} mode={Mode.DARK}/> 
+                    </div>
+                    <div className="flex flex-col gap-8">
+                        <img src="\images\categorie-blonde.png" alt="Bière blonde" className="max-w-full rounded-md"/>
+                        <Button href={"#"} text={"Blonde"} startCenterEnd={"center"} mode={Mode.DARK}/> 
+                    </div>
+                    <div className="flex flex-col gap-8">
+                         <img src="\images\categorie-brune.png" alt="Bière brune" className="max-w-full rounded-md"/>
+                        <Button href={"#"} text={"Brune"} startCenterEnd={"center"} mode={Mode.DARK}/> 
+                    </div>
+                    
+                    
+                   
+                </div>
             </div>
         </section>
         <section className="py-12 max-w-screen-xl w-full mx-auto px-4">
