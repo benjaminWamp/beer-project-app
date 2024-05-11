@@ -369,8 +369,6 @@ const Filters = (props: FilterProps) => {
                                         />
                                     </Menu.Button>
                                 </div>
-                            </div>
-
                                 <Transition
                                     as={Fragment}
                                     enter="transition ease-out duration-100"
@@ -431,6 +429,8 @@ const Filters = (props: FilterProps) => {
                                     </Menu.Items>
                                 </Transition>
                             </Menu>
+                        </div>
+
 
                             <button
                                 type="button"
@@ -444,7 +444,6 @@ const Filters = (props: FilterProps) => {
                                 />
                             </button>
                         </div>
-                    </div>
 
                     <section
                         aria-labelledby="products-heading"
