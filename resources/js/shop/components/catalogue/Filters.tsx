@@ -191,7 +191,7 @@ const Filters = (props: FilterProps) => {
     };
 
     return (
-        <div className="bg-white">
+        <div className="bg-background">
             <div>
                 {/* Mobile filter dialog */}
                 <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -261,11 +261,11 @@ const Filters = (props: FilterProps) => {
                                                                 category.id
                                                             }
                                                             type="checkbox"
-                                                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                            className="h-4 w-4 rounded border-accent/50 text-accent focus:ring-accent"
                                                         />
                                                         <label
                                                             htmlFor={`filter-${category.name}-${index}`}
-                                                            className="ml-3 text-sm text-gray-600"
+                                                            className="font-title font-bold ml-3 text-sm text-gray-600"
                                                         >
                                                             {category.name}
                                                         </label>
@@ -282,7 +282,7 @@ const Filters = (props: FilterProps) => {
                                                 <>
                                                     <h3 className="-my-3 flow-root">
                                                         <Disclosure.Button className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
-                                                            <span className="font-medium text-gray-900">
+                                                            <span className="font-title font-bolder text-gray-900">
                                                                 Producteurs
                                                             </span>
                                                             <span className="ml-6 flex items-center">
@@ -318,7 +318,7 @@ const Filters = (props: FilterProps) => {
                                                                                 manufacturer.id
                                                                             }
                                                                             type="checkbox"
-                                                                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                                            className="h-4 w-4 rounded border-accent/50 text-accent focus:ring-accent"
                                                                         />
                                                                         <label
                                                                             htmlFor={`filter-${manufacturer.name}-${index}`}
@@ -343,9 +343,9 @@ const Filters = (props: FilterProps) => {
                     </Dialog>
                 </Transition.Root>
 
-                <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <main className="pt-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-4">
-                        <h1 className="text-4xl font-bold tracking-tight text-gray-900">
+                        <h1 className="text-4xl font-title font-bold tracking-tight text-accent">
                             Nos Bières
                         </h1>
 
@@ -359,7 +359,7 @@ const Filters = (props: FilterProps) => {
                                     onEmptyValue={handleEmptySearch}
                                 />
                                 <div>
-                                    <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                                    <Menu.Button className="group inline-flex justify-center text-m font-title font-bold text-accent hover:text-gray-900">
                                         {sortingValue
                                             ? findNameByValue(sortingValue)
                                             : "Trier"}
@@ -369,6 +369,7 @@ const Filters = (props: FilterProps) => {
                                         />
                                     </Menu.Button>
                                 </div>
+                            </div>
 
                                 <Transition
                                     as={Fragment}
@@ -380,7 +381,7 @@ const Filters = (props: FilterProps) => {
                                     leaveTo="transform opacity-0 scale-95"
                                 >
                                     {/* Button Sort */}
-                                    <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                    <Menu.Items className="absolute p-2.5 font-title right-0 z-10 mt-2 w-52 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                                         <div className="py-1">
                                             {sortOptions.map(
                                                 (option, index) => (
@@ -411,7 +412,7 @@ const Filters = (props: FilterProps) => {
                                                                             e
                                                                         )
                                                                     }
-                                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                                    className="h-4 w-4 rounded border-accent text-accent focus:ring-accent"
                                                                 />
                                                                 <label
                                                                     htmlFor={`filter-${option.name}-${index}`}
@@ -471,11 +472,11 @@ const Filters = (props: FilterProps) => {
                                                 onChange={(e) =>
                                                     addCatergoryChecked(e)
                                                 }
-                                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                className="h-4 w-4 rounded border-accent/50 text-accent focus:ring-accent"
                                             />
                                             <label
                                                 htmlFor={`filter-${category.name}-${index}`}
-                                                className="ml-3 text-sm text-gray-600"
+                                                className="font-title font-bold ml-3 text-sm text-gray-600"
                                             >
                                                 {category.name}
                                             </label>
@@ -491,19 +492,19 @@ const Filters = (props: FilterProps) => {
                                     {({ open }) => (
                                         <>
                                             <h3 className="-my-3 flow-root">
-                                                <Disclosure.Button className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
-                                                    <span className="font-medium text-gray-900">
+                                                <Disclosure.Button className="flex w-full items-center justify-between py-3 text-sm text-gray-400 hover:text-gray-500">
+                                                    <span className="font-title font-bold text-accent text-xl">
                                                         Producteurs
                                                     </span>
                                                     <span className="ml-6 flex items-center">
                                                         {open ? (
                                                             <MinusIcon
-                                                                className="h-5 w-5"
+                                                                className="text-accent h-5 w-5"
                                                                 aria-hidden="true"
                                                             />
                                                         ) : (
                                                             <PlusIcon
-                                                                className="h-5 w-5"
+                                                                className="text-accent h-5 w-5"
                                                                 aria-hidden="true"
                                                             />
                                                         )}
@@ -535,11 +536,11 @@ const Filters = (props: FilterProps) => {
                                                                             e
                                                                         )
                                                                     }
-                                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                                    className="h-4 w-4 rounded border-accent/50 text-accent focus:ring-accent"
                                                                 />
                                                                 <label
                                                                     htmlFor={`filter-${manufacturer.name}-${index}`}
-                                                                    className="ml-3 text-sm text-gray-600"
+                                                                    className="font-title font-bold ml-3 text-sm text-gray-600"
                                                                 >
                                                                     {
                                                                         manufacturer.name

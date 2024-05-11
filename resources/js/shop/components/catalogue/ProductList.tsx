@@ -34,20 +34,30 @@ const ProductList = (props: productListProps) => {
                                 />
                             </a>
                         </div>
-                        <div className="mt-4 flex justify-between">
-                            <div>
-                                <h3 className="text-sm text-gray-700">
-                                    <a href={`#/produit/${product.id}`}>
-                                        {product.name}
-                                    </a>
-                                </h3>
-                                <ProductCategories categories={categories} />
+                        <div className="mt-4">
+                    
+                            <h3 className="font-title font-bold text-sm text-gray-700">
+                                <a href={`#/produit/${product.id}`}>
+                                    <span
+                                        aria-hidden="true"
+                                        className="absolute inset-0"
+                                    ></span>
+                                    {product.name}
+                                </a>
+                            </h3>
+
+                            <div className="flex justify-between">
+                                <div>
+                                    <ProductCategories categories={categories} />
+        
+                                    <p className="text-sm font-medium text-gray-900">
+                                        {((product.price_ht + 0.2) / 100).toFixed(2)}€
+                                    </p>
+                                </div>
+                                <ReviewsStars review={product.reviews_sum} />
+                                <FavoriteHeart productId={product.id} />
                             </div>
-                            <p className="text-sm font-medium text-gray-900">
-                                {((product.price_ht + 0.2) / 100).toFixed(2)}€
-                            </p>
-                            <ReviewsStars review={product.reviews_sum} />
-                            <FavoriteHeart productId={product.id} />
+
                         </div>
                     </div>
                 );

@@ -78,8 +78,8 @@ const ProductLayer = () => {
         ) || false;
 
     return product ? (
-        <div className="bg-white">
-            <div className="pt-6">
+        <div className="bg-background">
+            <div className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 {/* <ProductBreadCrumb product={product} /> */}
 
                 <div className="flex flex-row">
@@ -92,14 +92,13 @@ const ProductLayer = () => {
                 </div>
                 {!isLoading && !isModifing && !hasAReview && (
                     <>
-                        <h2>Votre avis</h2>
                         <ReviewForm onReviewSubmit={handleReviewSubmit} />
                     </>
                 )}
                 {!isLoading &&
                     product.reviews &&
                     product.reviews.length > 0 && (
-                        <div ref={divRef}>
+                        <div ref={divRef} className="grid grid-cols-3 gap-6">
                             <ProductReview
                                 reviews={product.reviews}
                                 onReviewSubmit={handleReviewSubmit}

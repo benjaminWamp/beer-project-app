@@ -60,6 +60,9 @@ export default {
                 'headerHome': "url('images/contact-bg.png')",
                 'histoire': "url('images/notre-histoire.png')",
                 'connexion': "url('images/connexion.png')",
+                'blanche': "url('images/categorie-blanche.png')",
+                'blonde': "url('images/categorie-blonde.png')",
+                'brune': "url('images/categorie-brune.png')",
             }
         }
     },
