@@ -25,9 +25,9 @@ export const fetchUserFavorite = async (
             }
         )
         .then((response) => response.data)
-        .catch((error) =>
-            console.error("Erreur lors de la récupération des données:", error)
-        );
+        .catch((error) => {
+            throw (Object.values(error.response.data.errors)[0] as string[])[0];
+        });
 };
 
 export const addToFavorites = async (token: string, productId: number) => {
@@ -43,9 +43,9 @@ export const addToFavorites = async (token: string, productId: number) => {
             }
         )
         .then((response) => response.data)
-        .catch((error) =>
-            console.error("Erreur lors de la récupération des données:", error)
-        );
+        .catch((error) => {
+            throw (Object.values(error.response.data.errors)[0] as string[])[0];
+        });
 };
 
 export const deleteFavorites = async (token: string, productId: number) => {
@@ -57,7 +57,7 @@ export const deleteFavorites = async (token: string, productId: number) => {
             },
         })
         .then((response) => response.data)
-        .catch((error) =>
-            console.error("Erreur lors de la récupération des données:", error)
-        );
+        .catch((error) => {
+            throw (Object.values(error.response.data.errors)[0] as string[])[0];
+        });
 };

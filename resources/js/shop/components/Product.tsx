@@ -14,6 +14,7 @@ import ProductReview from "./Product/ProductReview";
 import { Product } from "../types/product.types";
 import ReviewForm from "./Product/ReviewForm";
 import UserContext from "../context/UserContext";
+import AlertContext from "../context/AlertContext";
 
 const reviews = { href: "#", average: 4, totalCount: 117 };
 
@@ -26,6 +27,7 @@ const ProductLayer = () => {
     const [isModifing, setIsModifing] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const { userId } = useContext(UserContext);
+    const { addAlert } = useContext(AlertContext);
 
     const { id } = useParams();
 
@@ -58,9 +60,22 @@ const ProductLayer = () => {
             product_id: product?.id?.toString(),
         };
         if (!isModifing) {
-            await addProductReviews(newReviewData);
+            try {
+                const response = await addProductReviews(newReviewData);
+                addAlert("success", response.message);
+            } catch (err) {
+                addAlert("failure", err);
+            }
         } else {
-            await updateProductReviews(newReviewData, reviewId);
+            try {
+                const response = await updateProductReviews(
+                    newReviewData,
+                    reviewId
+                );
+                addAlert("success", response.message);
+            } catch (err) {
+                addAlert("failure", err);
+            }
         }
 
         await getDatas();
@@ -68,7 +83,12 @@ const ProductLayer = () => {
 
     const handleDeleteReview = async (reviewId: number) => {
         setIsLoading(true);
-        await deleteProductReviews(reviewId);
+        try {
+            const response = await deleteProductReviews(reviewId);
+            addAlert("success", response.message);
+        } catch (err) {
+            addAlert("failure", err);
+        }
         await getDatas();
     };
 

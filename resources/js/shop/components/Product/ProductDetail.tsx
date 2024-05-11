@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import ReviewsStars from "../shared/ReviewsStars";
 import { Product } from "../../types/product.types";
 import { addProductToCart } from "../../utils/services/CartService";
 import { Button } from "flowbite-react";
 import { Mode } from "../../types/style.enum";
+import UserContext from "../../context/UserContext";
 import FavoriteHeart from "../shared/FavoriteHeart";
+import AlertContext from "../../context/AlertContext";
 
 interface ProdcutDetailProps {
     product: Product;
@@ -19,16 +21,31 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
     const { product, onScrollToReviews } = props;
     const { categories } = product;
     const { reviews } = product;
+    const { isLogged } = useContext(UserContext);
+    const { addAlert } = useContext(AlertContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const quantity = e.target.quantity.value * e.target.quantityType.value;
-        if (quantity <= product.stock) {
-            const addedProduct = { product_id: product.id, quantity: quantity };
-            await addProductToCart(addedProduct);
+        if (isLogged) {
+            const quantity =
+                e.target.quantity.value * e.target.quantityType.value;
+            if (quantity <= product.stock) {
+                const addedProduct = {
+                    product_id: product.id,
+                    quantity: quantity,
+                };
+                await addProductToCart(addedProduct);
+            } else {
+                addAlert(
+                    "failure",
+                    "Le produit est en rupture de stock ou vous avez séléctionner une trop grande quantité"
+                );
+            }
         } else {
-            console.log("Product unavailable");
-            //TODO : alert
+            addAlert(
+                "warning",
+                "Veuillez vous connecter pour effectuer cette action"
+            );
         }
     };
 
@@ -111,7 +128,7 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
                         <option value="720">Camion (720 Bouteilles)</option>
                         <option value="5000">Citerne (5000 Bouteilles)</option>
                     </select>
-
+                    {/* TODO : METTRE EN GRIS LE BUTTON SI ISLOGGED EST FALSE */}
                     <button
                         type="submit"
                         className="w-full rounded-md transition-all text-xl inline-block font-title font-bold border-2 py-4 px-10 shadow-buttonDarkBase hover:shadow-buttonDarkHover hover:text-secondary text-accent border-accent"

@@ -35,7 +35,7 @@ class UserController extends Controller
                     "zip_code" => "max:5|min:5"
                 ])
             );
-            return response()->json(["message" => "Vos informations on été mise à jour"], 200);
+            return response()->json(["message" => "Vos informations ont été mise à jour"], 200);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
         }

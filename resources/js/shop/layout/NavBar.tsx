@@ -1,10 +1,22 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
+import AlertContext from "../context/AlertContext";
 
 const NavBar = () => {
     const navigate = useNavigate();
     const { isLogged, logOut } = useContext(UserContext);
+    const { addAlert } = useContext(AlertContext);
+
+    const handleLogOut = async () => {
+        try {
+            const result = await logOut();
+            addAlert("success", result);
+            navigate("/");
+        } catch (e) {
+            addAlert("failure", e);
+        }
+    };
 
     return (
         <nav className="bg-accent fixed w-full z-20 top-0 start-0">
@@ -38,8 +50,7 @@ const NavBar = () => {
                                 type="button"
                                 className="rounded-md transition-all text-sm inline-block font-title font-bold border-2 py-2 px-4 shadow-buttonLightBase hover:shadow-buttonLightHover hover:text-accent text-secondary border-secondary"
                                 onClick={() => {
-                                    logOut();
-                                    navigate("/");
+                                    handleLogOut();
                                 }}
                             >
                                 Se déconnecter

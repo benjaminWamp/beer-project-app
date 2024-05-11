@@ -3,6 +3,7 @@ import UserContext from "../../context/UserContext";
 import { fetchUserFavorite } from "../../utils/services/FavoriteService";
 import { Favorite } from "../../types/favorite.types";
 import FavoriteContext from "../../context/FavoriteContext";
+import AlertContext from "../../context/AlertContext";
 
 interface FavoriteHeartProps {
     productId: number;
@@ -12,6 +13,7 @@ const FavoriteHeart = (props: FavoriteHeartProps) => {
     const { productId } = props;
 
     const { token } = useContext(UserContext);
+    const { addAlert } = useContext(AlertContext);
     const { userAllFavorites, handleAddToFavorite, handleDeleteFavorite } =
         useContext(FavoriteContext);
 
@@ -29,7 +31,10 @@ const FavoriteHeart = (props: FavoriteHeartProps) => {
                         handleDeleteFavorite(productId);
                     }
                 } else {
-                    // TODO alerte, créer un compte
+                    addAlert(
+                        "warning",
+                        "Veuillez vous connecter pour effectuer cette action"
+                    );
                 }
             }}
         >

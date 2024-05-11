@@ -7,6 +7,7 @@ import {
     fetchUserFavorite,
 } from "../utils/services/FavoriteService";
 import UserContext from "./UserContext";
+import AlertContext from "./AlertContext";
 
 type FavoriteContextType = {
     userAllFavorites: Favorite[] | undefined;
@@ -49,20 +50,39 @@ export const FavoriteContextProvider = (props: FavoriteContextProps) => {
         Favorite[] | undefined
     >(undefined);
     const { token } = useContext(UserContext);
+    const { addAlert } = useContext(AlertContext);
     const [toLoad, setToLoad] = useState(false);
 
     const handleDeleteFavorite = async (productId: number) => {
         if (token) {
-            await deleteFavorites(token, productId);
+            try {
+                await deleteFavorites(token, productId);
+                setToLoad(true);
+            } catch (err) {
+                addAlert("error", err);
+            }
+        } else {
+            addAlert(
+                "warning",
+                "Veuillez vous connecter pour effectuer cette action"
+            );
         }
-        setToLoad(true);
     };
 
     const handleAddToFavorite = async (productId: number) => {
         if (token) {
-            await addToFavorites(token, productId);
+            try {
+                await addToFavorites(token, productId);
+                setToLoad(true);
+            } catch (err) {
+                addAlert("failure", err);
+            }
+        } else {
+            addAlert(
+                "warning",
+                "Veuillez vous connecter pour effectuer cette action"
+            );
         }
-        setToLoad(true);
     };
 
     const getUserFavorites = async (
@@ -70,14 +90,22 @@ export const FavoriteContextProvider = (props: FavoriteContextProps) => {
         pagination: boolean
     ) => {
         if (token) {
-            return await fetchUserFavorite(token, currentPage, pagination);
+            try {
+                return await fetchUserFavorite(token, currentPage, pagination);
+            } catch (err) {
+                addAlert("error", err);
+            }
         }
     };
 
     const getAllUserFavorites = async () => {
         if (token) {
-            const favoritesData = await fetchUserFavorite(token, 0, false);
-            setUserAllFavorites(favoritesData);
+            try {
+                const favoritesData = await fetchUserFavorite(token, 0, false);
+                setUserAllFavorites(favoritesData);
+            } catch (err) {
+                addAlert("error", err);
+            }
         } else {
             setUserAllFavorites(undefined);
         }

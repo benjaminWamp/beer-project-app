@@ -1,11 +1,6 @@
 import { UserLogin } from "../../types/user.types";
 import axios from "axios";
 
-const userData = {
-    email: "cecile.valente@email.com",
-    password: "password",
-};
-
 export const loginUser = async (userInfo: UserLogin) => {
     return await axios
         .post("http://127.0.0.1:8000/api/login", userInfo)
@@ -13,7 +8,7 @@ export const loginUser = async (userInfo: UserLogin) => {
             return response.data;
         })
         .catch((error) => {
-            console.log(error);
+            throw (Object.values(error.response.data.errors)[0] as string[])[0];
         });
 };
 
@@ -33,6 +28,6 @@ export const logoutUser = async (token: string) => {
             return response.data;
         })
         .catch((error) => {
-            console.log(error);
+            throw (Object.values(error.response.data.errors)[0] as string[])[0];
         });
 };

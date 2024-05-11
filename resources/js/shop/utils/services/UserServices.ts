@@ -24,9 +24,9 @@ export const updateUser = async (userData, token) => {
             },
         })
         .then((response) => response.data)
-        .catch((error) =>
-            console.error("Erreur lors de la récupération des données:", error)
-        );
+        .catch((error) => {
+            throw error.response.data.errors;
+        });
 };
 
 export const updateUserPassword = async (userData, token) => {
@@ -39,9 +39,9 @@ export const updateUserPassword = async (userData, token) => {
             },
         })
         .then((response) => response.data)
-        .catch((error) =>
-            console.error("Erreur lors de la récupération des données:", error)
-        );
+        .catch((error) => {
+            throw error.response.data.errors;
+        });
 };
 
 export const deleteUser = async (token) => {
@@ -58,9 +58,9 @@ export const deleteUser = async (token) => {
             }
         )
         .then((response) => response.data)
-        .catch((error) =>
-            console.error("Erreur lors de la récupération des données:", error)
-        );
+        .catch((error) => {
+            throw error.response.data.errors;
+        });
 };
 
 export const registerUser = async (user) => {
@@ -72,7 +72,7 @@ export const registerUser = async (user) => {
             },
         })
         .then((response) => response.data)
-        .catch((error) =>
-            console.error("Erreur lors de la récupération des données:", error)
-        );
+        .catch((error) => {
+            throw (Object.values(error.response.data.errors)[0] as string[])[0];
+        });
 };
