@@ -41,7 +41,7 @@ export const AlertContextProvider = (props: AlertContextProps) => {
         setOpen(true);
         setTimeout(() => {
             setOpen(false);
-        }, 5000);
+        }, 10000);
     };
 
     return (
