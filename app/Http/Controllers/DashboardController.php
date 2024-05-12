@@ -33,7 +33,7 @@ class DashboardController extends Controller
 
         $listProductEmpty = Product::where("stock", "<", 31)->get();
 
-        $lastReview = Review::where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"), $currentMonth)->take(3)->get();
+        $lastReview = Review::latest()->take(3)->get();
 
         return view('Dashboard.dashboard', ["totalSold" => $totalSold, "countOrderInProgress" => $countOrderInProgress, "countOrderDelivered" => $countOrderDelivered, "listProductEmpty" => $listProductEmpty, "lastReview" => $lastReview, "lastFavoris" => $lastFavoris]);
     }
