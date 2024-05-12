@@ -6,9 +6,10 @@
             ['title' => 'Gestion Base de données', 'url' => ''],
         ]"/>
 
-<div class="px-6">
-    <div class="flex flex-row gap-4">
+<div class="mt-6 px-6">
+    <div class="flex flex-row gap-4 justify-between">
         <h1 class="text-3xl font-bold mt-4 mb-2 font-title text-accent">Gérer le base de données</h1>
+        <a href="http://localhost/phpmyadmin/index.php?route=/database/structure&db=mister_beer" class="text-table font-bold bg-accent flex items-center py-0 px-5 rounded-full" >Accéder à la base de données</a>
     </div>
     <div class="grid grid-cols-2 mt-4 mb-8 gap-6">
         <div class="bg-table border-b border-accent p-6 rounded-md flex flex-col justify-between items-center gap-4 text-center">
