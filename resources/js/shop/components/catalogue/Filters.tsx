@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -17,7 +16,7 @@ import { Category } from "../../types/category.types";
 import { Manufacturer } from "../../types/manufacturer.types";
 import { FilterType } from "../../types/filters.enum";
 import SearchIntput from "../shared/SearchInput";
-import { Favorite } from "../../types/favorite.types";
+import { useSearchParams } from "react-router-dom";
 
 const sortOptions = [
     { name: FilterType.BEST, value: SortingType.BEST },
@@ -62,15 +61,12 @@ const Filters = (props: FilterProps) => {
         totalProducts,
         setTotalProducts,
         getProducts,
-        // handleAddToFavorite,
-        // userFavorites,
-        // handleDeleteFavorite,
     } = props;
-
+    const [searchParams, setSearchParams] = useSearchParams();
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
-    const [categoriesChecked, setCategoriesChecked] = useState<Array<string>>(
-        []
-    );
+    const [categoriesChecked, setCategoriesChecked] = useState<Array<string>>([
+        searchParams.get("category") || "",
+    ]);
     const [manufacturersChecked, setManufacturersChecked] = useState<
         Array<string>
     >([]);
@@ -85,6 +81,16 @@ const Filters = (props: FilterProps) => {
     const [searchValue, setSearchValue] = useState<string | undefined>(
         undefined
     );
+
+    // const searchCategory = searchParams.get("category");
+    // console.log(categoriesChecked);
+    // useEffect(() => {
+    //     if (searchCategory) {
+    //         console.log(searchCategory);
+    //         setCategoriesChecked([...categoriesChecked, searchCategory]);
+    //         setCurrentPage(1);
+    //     }
+    // }, [searchCategory]);
 
     const addCatergoryChecked = (e) => {
         const isChecked: boolean = e.target.checked;
@@ -145,6 +151,7 @@ const Filters = (props: FilterProps) => {
             setTotalPages(ProductsData.last_page);
             setTotalProducts(ProductsData.total);
         };
+        console.log("get");
         getDatas();
         window.scrollTo(0, 0);
     }, [
@@ -261,8 +268,12 @@ const Filters = (props: FilterProps) => {
                                                                 category.id
                                                             }
                                                             type="checkbox"
+                                                            checked={categoriesChecked.includes(
+                                                                category.id.toString()
+                                                            )}
                                                             className="h-4 w-4 rounded border-accent/50 text-accent focus:ring-accent"
                                                         />
+
                                                         <label
                                                             htmlFor={`filter-${category.name}-${index}`}
                                                             className="font-title font-bold ml-3 text-sm text-gray-600"
@@ -431,19 +442,18 @@ const Filters = (props: FilterProps) => {
                             </Menu>
                         </div>
 
-
-                            <button
-                                type="button"
-                                className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
-                                onClick={() => setMobileFiltersOpen(true)}
-                            >
-                                <span className="sr-only">Filters</span>
-                                <FunnelIcon
-                                    className="h-5 w-5"
-                                    aria-hidden="true"
-                                />
-                            </button>
-                        </div>
+                        <button
+                            type="button"
+                            className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
+                            onClick={() => setMobileFiltersOpen(true)}
+                        >
+                            <span className="sr-only">Filters</span>
+                            <FunnelIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                            />
+                        </button>
+                    </div>
 
                     <section
                         aria-labelledby="products-heading"
@@ -471,6 +481,9 @@ const Filters = (props: FilterProps) => {
                                                 onChange={(e) =>
                                                     addCatergoryChecked(e)
                                                 }
+                                                checked={categoriesChecked.includes(
+                                                    category.id.toString()
+                                                )}
                                                 className="h-4 w-4 rounded border-accent/50 text-accent focus:ring-accent"
                                             />
                                             <label
