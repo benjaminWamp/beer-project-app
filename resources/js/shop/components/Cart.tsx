@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import InputCart from "./Cart/InputCart";
-import { fetchCartList, fetchPrivateKey } from "../utils/services/CartService";
+import { fetchCartList, createPaymentIntent } from "../utils/services/CartService";
 import { Cart as CartType } from "../types/cart.types";
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
@@ -15,10 +15,21 @@ const Cart = () => {
     
     const getCartList = async () => {
         const response = await fetchCartList();
-        const privateKey = await fetchPrivateKey();
-        if (privateKey.clientSecret) setClientSecret(privateKey.clientSecret)
-        console.log('response', response);
-        setCartList(response);
+        if (response) {
+            const description = `Commande de ${response.order_items.map((el) => el.product.name).join(", ")}`
+            console.log(description);
+            
+            const privateKey = await createPaymentIntent({
+                amount: response.total, 
+                description: description,
+                customer: response.user_id
+            });
+            console.log(response.order_items.map((el) => el.product.name).join(", "))
+            if (privateKey && privateKey.clientSecret) setClientSecret(privateKey.clientSecret)
+            console.log('response', response);
+            console.log('privateKey', privateKey);
+            setCartList(response);
+        }
     }
 
 
@@ -29,11 +40,12 @@ const Cart = () => {
     
     
     return (
+        clientSecret && 
         <div className="flex">
             {/* <InputCart title="Adresse mail" type="" /> */}
             <Elements stripe={stripePromise} options={{clientSecret}}>
-                <PaymentElement />
-                {/* <CartPayment /> */}
+                {/* <PaymentElement /> */}
+                <CartPayment />
             </Elements>
             {/* <div className="flex flex-2">
                 <div className="flex flex-col">

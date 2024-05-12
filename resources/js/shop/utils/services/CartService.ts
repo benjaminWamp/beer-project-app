@@ -1,3 +1,5 @@
+import {findUser} from "./CustomerServices";
+
 const userData = {
     email: "cecile.valente@email.com",
     password: "password",
@@ -47,7 +49,10 @@ export const fetchCartList = async () => {
     }
 };
 
-export const fetchPrivateKey = async () => {
+export const createPaymentIntent = async ({amount, description, customer} : {amount: number, description: string, customer: number}) => {
+    console.log("services :",amount, description, customer);
+    const userFind = findUser(1)
+    console.log('userFind',userFind)
     try {
         const res = await fetch("http://127.0.0.1:8000/api/paymentIntent", {
             method: "POST",
@@ -56,7 +61,9 @@ export const fetchPrivateKey = async () => {
                 Authorization: `Bearer ${user}`,
             },
             body: JSON.stringify({
-                amount: 1000,
+                amount: amount,
+                description: description,
+                // customer: customer
             }),
         });
         const jsonData = await res.json();

@@ -86,4 +86,10 @@ class UserController extends Controller
             return response()->json(['error' => 'An error occurred while deleting user data.'], 500);
         }
     }
+
+    public function findUser(Request $request){
+        $user = User::find($request->input('id'));
+
+        return response()->json($user);
+    }
 }

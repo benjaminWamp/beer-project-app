@@ -14,7 +14,7 @@ class StripePaymentController extends Controller
 {
     //
 
-    public function stripePaymentIntent(Request $request){
+    public function createPaymentIntent(Request $request){
         try {
             //code...
             Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
@@ -23,9 +23,14 @@ class StripePaymentController extends Controller
                 'amount'               => $request->input("amount"),
                 'currency'             => 'eur',
                 'payment_method_types' => ['card'],
+                'description' => $request->input("description"),
+                'customer' => $request->input('customer'),
+                'receipt_email' => $request->input('receipt_email'),
+                'metadata' => ['order_id' => $request->input('metadata')]
+
             ]);
 
-            return response()->json(['clientSecret' => $paymentIntent->client_secret]);
+            return response()->json($paymentIntent);
 
         } catch (QueryException $ex) {
             //throw $th;
