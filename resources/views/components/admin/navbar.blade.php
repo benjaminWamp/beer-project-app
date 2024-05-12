@@ -58,28 +58,15 @@
                </svg>
                <span class="flex-1 ms-3 text-white group-hover:text-accent font-title">Avis</span>
             </a>
-         </li>     
-          <li>
-            <a href={{route("database.export")}} class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
-               <svg class="flex-shrink-0 w-5 h-5 text-white transition duration-75 group-hover:text-accent" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 2 22 20">
-                  <path fill-rule="evenodd" d="M3.559 4.544c.355-.35.834-.544 1.33-.544H19.11c.496 0 .975.194 1.33.544.356.35.559.829.559 1.331v9.25c0 .502-.203.981-.559 1.331-.355.35-.834.544-1.33.544H15.5l-2.7 3.6a1 1 0 0 1-1.6 0L8.5 17H4.889c-.496 0-.975-.194-1.33-.544A1.868 1.868 0 0 1 3 15.125v-9.25c0-.502.203-.981.559-1.331ZM7.556 7.5a1 1 0 1 0 0 2h8a1 1 0 0 0 0-2h-8Zm0 3.5a1 1 0 1 0 0 2H12a1 1 0 1 0 0-2H7.556Z" clip-rule="evenodd"/>
+         </li>    
+         <li>
+            <a href={{route("database.index")}} class="{{Route::is('database.index') ? 'border-2 rounded-md' : ""}} flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="flex-shrink-0 w-5 h-5 text-white transition duration-75 group-hover:text-accent">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
                </svg>
-               <span class="flex-1 ms-3 text-white group-hover:text-accent font-title">Exporter</span>
+               <span class="flex-1 ms-3 text-white group-hover:text-accent font-title">Gestion Base de données</span>
             </a>
-         </li>  
-          <li>
-            <form action="{{route('database.import')}}" method="post" enctype="multipart/form-data">
-               @csrf
-               <input type="file" name="sqlfile" accept=".sql">
-               <button type="submit" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">submit</button>
-            </form>
-            {{-- <a href={{route("database.import")}} class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
-               <svg class="flex-shrink-0 w-5 h-5 text-white transition duration-75 group-hover:text-accent" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 2 22 20">
-                  <path fill-rule="evenodd" d="M3.559 4.544c.355-.35.834-.544 1.33-.544H19.11c.496 0 .975.194 1.33.544.356.35.559.829.559 1.331v9.25c0 .502-.203.981-.559 1.331-.355.35-.834.544-1.33.544H15.5l-2.7 3.6a1 1 0 0 1-1.6 0L8.5 17H4.889c-.496 0-.975-.194-1.33-.544A1.868 1.868 0 0 1 3 15.125v-9.25c0-.502.203-.981.559-1.331ZM7.556 7.5a1 1 0 1 0 0 2h8a1 1 0 0 0 0-2h-8Zm0 3.5a1 1 0 1 0 0 2H12a1 1 0 1 0 0-2H7.556Z" clip-rule="evenodd"/>
-               </svg>
-               <span class="flex-1 ms-3 text-white group-hover:text-accent font-title">Importer</span>
-            </a> --}}
-         </li>         
+         </li>      
       </ul>
 
       <div>

@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Artisan;
 
 class DatabaseController extends Controller
 {
+
+    public function index()
+    {
+        return view("database.index");
+    }
     public function exportDatabase()
 
     {
@@ -25,7 +30,7 @@ class DatabaseController extends Controller
         exec($command, $output, $exitCode);
 
         if ($exitCode !== 0) {
-            return response()->json(['error' => 'Failed to export database.', 'output' => $output], 500);
+            return redirect()->back()->with('error', 'Une erreur est survenue veuillez réessayer');
         }
         return response()->download($storagePath);
     }
@@ -46,28 +51,28 @@ class DatabaseController extends Controller
         $mysqlpath = env("DB_MYSQL_PATH");
         $filePath = storage_path('app/database-backup/' . $fileName);
 
-        // Lire le fichier en tant que tableau de lignes
+
         $lines = file($filePath, FILE_IGNORE_NEW_LINES);
 
-        // Vérifier si la première ligne est un commentaire de mysqldump
+
         if (strpos($lines[0], 'mysqldump:') === 0) {
-            // Remplacer la première ligne par un commentaire SQL valide
+
             $lines[0] = '-- ' . $lines[0];
         }
 
-        // Écrire les lignes modifiées dans le fichier
+
         file_put_contents($filePath, implode("\n", $lines));
 
-        // Ajoutez des guillemets autour du chemin du fichier
+
         $command = "\"{$mysqlpath}\" --user={$userName} --password={$password} --host={$host} {$databaseName} < \"{$filePath}\" 2>&1";
 
         $output = null;
         $exitCode = null;
         exec($command, $output, $exitCode);
 
-        // Vérifiez si la commande a réussi
+
         if ($exitCode !== 0) {
-            // Ajoutez le message d'erreur à la réponse pour faciliter le débogage
+
             return redirect()->back()->with('error', 'Failed to import database. Error: ' . implode("\n", $output));
         }
 

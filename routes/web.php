@@ -76,6 +76,7 @@ Route::middleware(["auth"])->group(function () {
     Route::get('admin/commandes/{order}', OrderController::class . "@show")->name("orders.show");
     Route::post('admin/commandes/{order}/delivered', OrderController::class . "@delivered")->name("orders.delivered");
     Route::post('admin/commandes/{order}/cancel', OrderController::class . "@cancel")->name("orders.cancel");
-    Route::get('/export-database', DatabaseController::class . '@exportDatabase')->name('database.export');
-    Route::post('/import-database', DatabaseController::class . '@importDatabase')->name('database.import');
+    Route::get('admin/database', DatabaseController::class . "@index")->name("database.index");
+    Route::get('admin/export-database', DatabaseController::class . '@exportDatabase')->name('database.export');
+    Route::post('admin/import-database', DatabaseController::class . '@importDatabase')->name('database.import');
 });
