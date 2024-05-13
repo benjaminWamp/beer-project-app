@@ -1,4 +1,5 @@
 import {fetchUser} from "./UserServices";
+import { User } from "../../types/user.types";
 
 const userData = {
     email: "cecile.valente@email.com",
@@ -49,11 +50,9 @@ export const fetchCartList = async () => {
     }
 };
 
-export const createPaymentIntent = async ({amount, description, customer} : {amount: number, description: string, customer: number}) => {
-    console.log("services :",amount, description, customer);
-    const userFind = fetchUser(user)
-    console.log('userFind',userFind)
-    try {
+export const createPaymentIntent = async ({amount, description, customer} : {amount: number, description: string, customer: User}) => {
+    console.log("services :",amount, description);
+     try {
         const res = await fetch("http://127.0.0.1:8000/api/paymentIntent", {
             method: "POST",
             headers: {
@@ -63,7 +62,7 @@ export const createPaymentIntent = async ({amount, description, customer} : {amo
             body: JSON.stringify({
                 amount: amount,
                 description: description,
-                // customer: customer
+                customer: customer
             }),
         });
         const jsonData = await res.json();

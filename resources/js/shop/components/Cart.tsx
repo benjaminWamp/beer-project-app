@@ -14,21 +14,23 @@ const Cart = () => {
 
     
     const getCartList = async () => {
-        const response = await fetchCartList();
-        if (response) {
-            const description = `Commande de ${response.order_items.map((el) => el.product.name).join(", ")}`
+        const cartList = await fetchCartList();
+        if (cartList) {
+            const description = `Commande de ${cartList.order_items.map((el) => el.product.name).join(", ")}`
             console.log(description);
+
             
-            const privateKey = await createPaymentIntent({
-                amount: response.total, 
+            
+            const paymentIntent = await createPaymentIntent({
+                amount: cartList.total, 
                 description: description,
-                customer: response.user_id
+                receipt_email: user
             });
-            console.log(response.order_items.map((el) => el.product.name).join(", "))
-            if (privateKey && privateKey.clientSecret) setClientSecret(privateKey.clientSecret)
-            console.log('response', response);
-            console.log('privateKey', privateKey);
-            setCartList(response);
+
+            if (paymentIntent && paymentIntent.clientSecret) setClientSecret(paymentIntent.clientSecret)
+            console.log('cartList', cartList);
+            console.log('paymentIntent', paymentIntent);
+            setCartList(cartList);
         }
     }
 
