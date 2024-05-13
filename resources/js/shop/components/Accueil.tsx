@@ -50,7 +50,7 @@ const Accueil = () => {
                             <h1 className="text-8xl font-bold mt-4 mb-8 font-title text-secondary lg:text-6xl">
                                 Monsieur Bière
                             </h1>
-                            <p className="mb-10 text-white text-2xl font-bold">
+                            <p className="mb-10 text-white text-2xl font-bold font-title">
                                 Nos bières, votre bonheur.
                             </p>
                             <Button
