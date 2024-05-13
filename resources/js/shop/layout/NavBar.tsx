@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import AlertContext from "../context/AlertContext";
 
@@ -7,6 +7,8 @@ const NavBar = () => {
     const navigate = useNavigate();
     const { isLogged, logOut } = useContext(UserContext);
     const { addAlert } = useContext(AlertContext);
+    const { pathname } = useLocation();
+    console.log(pathname, pathname === "/");
 
     const handleLogOut = async () => {
         try {
@@ -111,7 +113,11 @@ const NavBar = () => {
                         <li>
                             <a
                                 href="/"
-                                className="block py-2 px-3 font-title font-bold text-white rounded md:p-0 hover:text-secondary active:text-secondary"
+                                className={`${
+                                    pathname === "/"
+                                        ? "text-secondary"
+                                        : "text-white"
+                                } block py-2 px-3 font-title font-bold  rounded md:p-0 hover:text-secondary active:text-secondary`}
                                 aria-current="page"
                             >
                                 Accueil
@@ -120,7 +126,11 @@ const NavBar = () => {
                         <li>
                             <a
                                 href="#/catalogue"
-                                className="block py-2 px-3 font-title font-bold text-white rounded md:p-0 hover:text-secondary"
+                                className={`${
+                                    pathname === "/catalogue"
+                                        ? "text-secondary"
+                                        : "text-white"
+                                } block py-2 px-3 font-title font-bold  rounded md:p-0 hover:text-secondary active:text-secondary`}
                             >
                                 Catalogue
                             </a>
@@ -128,7 +138,11 @@ const NavBar = () => {
                         <li>
                             <a
                                 href="#/a-propos"
-                                className="block py-2 px-3 font-title font-bold text-white rounded md:p-0 hover:text-secondary"
+                                className={`${
+                                    pathname === "/a-propos"
+                                        ? "text-secondary"
+                                        : "text-white"
+                                } block py-2 px-3 font-title font-bold  rounded md:p-0 hover:text-secondary active:text-secondary`}
                             >
                                 À propos
                             </a>
@@ -136,7 +150,11 @@ const NavBar = () => {
                         <li>
                             <a
                                 href="#/contact"
-                                className="block py-2 px-3 font-title font-bold text-white rounded md:p-0 hover:text-secondary"
+                                className={`${
+                                    pathname === "/contact"
+                                        ? "text-secondary"
+                                        : "text-white"
+                                } block py-2 px-3 font-title font-bold  rounded md:p-0 hover:text-secondary active:text-secondary`}
                             >
                                 Contact
                             </a>
