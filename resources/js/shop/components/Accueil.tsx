@@ -46,11 +46,11 @@ const Accueil = () => {
                 <div className="bg-gradient-to-r from-black/90 via-black/50 h-heroVh flex flex-col justify-center">
                     <div className="max-w-screen-xl w-full mx-auto px-4 h-4/6 m-0 grid grid-cols-2">
                         <div>
-                            <h1 className="text-8xl font-bold mt-4 mb-8 font-title text-secondary">
+                            <h1 className="text-8xl font-bold mt-4 mb-8 font-title text-secondary lg:text-6xl">
                                 Monsieur Bière
                             </h1>
                             <p className="mb-10 text-white text-2xl font-bold">
-                                Vos bières, notre bonheur.
+                                Nos bières, votre bonheur.
                             </p>
                             <Button
                                 href={"#/catalogue"}
