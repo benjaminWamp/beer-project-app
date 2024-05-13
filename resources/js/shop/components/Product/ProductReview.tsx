@@ -48,16 +48,16 @@ const ProductReview = (props: ProductReviewProps) => {
         
             {userReview && !isModifing && (
                 <>
-                    <p>Votre avis</p>
+                    <p className="font-title font-bold text-accent text-2xl">Votre avis</p>
                     <button
                         onClick={() => setIsModifing(true)}
-                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        className="rounded-md transition-all text-m inline-block font-title font-bold border-2 py-2 px-4 shadow-buttonDarkBase hover:shadow-buttonDarkHover hover:text-secondary text-accent border-accent"
                     >
                         Modifier
                     </button>
                     <button
                         onClick={() => onDeleteReview(userReview.id)}
-                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        className="rounded-md transition-all text-m inline-block font-title font-bold border-2 py-2 px-4 shadow-buttonDarkBase hover:shadow-buttonDarkHover hover:text-secondary text-accent border-accent"
                     >
                         Supprimer
                     </button>

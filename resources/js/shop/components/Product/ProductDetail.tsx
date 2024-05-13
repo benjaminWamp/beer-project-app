@@ -65,16 +65,11 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
                     {((product.price_ht + 0.2) / 100).toFixed(2)} €
                 </p>
 
-                <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-                    {categories.map((category) => (
-                        <h3>{category.name}</h3>
-                    ))}
-                </div>
-
-                <p className="text-3xl tracking-tight text-gray-900">
+                <p className="text-sm font-title font-bold tracking-tight text-accent">
                     {product.stock > 0
-                        ? `En Stock : ${product.stock}`
-                        : "En rupture de stock"}
+                        ? <span className="text-[#009942]">En stock</span>
+                        : <span className="text-[#a50f0f]">En rupture de stock</span>
+                    }
                 </p>
 
                 {/* Reviews */}
