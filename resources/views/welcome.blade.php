@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
+      <link rel="icon" type="image/x-icon" href="\images\mb-logo.png"/> 
+        <title>Mister Bière</title>
   @viteReactRefresh
           @vite( ['resources/js/shop/main.tsx'])
     </head>
