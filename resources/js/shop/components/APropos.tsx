@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "./shared/Button";
 import { Mode } from "../types/style.enum";
 
 const APropos = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <>
             <section className="bg-cover bg-tonneau bg-no-repeat">

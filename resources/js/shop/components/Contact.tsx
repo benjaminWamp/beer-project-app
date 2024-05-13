@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Contact = () => {
     const [thankU, setThankU] = useState(false);
@@ -14,6 +14,10 @@ const Contact = () => {
 
         setThankU(true);
     };
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <div className="bg-cover bg-headerHome bg-no-repeat min-h-screen">

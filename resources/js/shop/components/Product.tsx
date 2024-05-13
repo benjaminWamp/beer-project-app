@@ -33,7 +33,9 @@ const ProductLayer = () => {
         setIsModifing(false);
         setIsLoading(false);
     };
+
     useEffect(() => {
+        window.scrollTo(0, 0);
         getDatas();
     }, []);
 

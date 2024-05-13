@@ -20,6 +20,7 @@ const AccountPage = () => {
 
     useEffect(() => {
         if (token) {
+            window.scrollTo(0, 0);
             getUser();
         }
     }, [token]);

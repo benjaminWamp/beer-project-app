@@ -37,6 +37,7 @@ const Accueil = () => {
             setFiveProducts(listData);
             setBestProducts(bestData);
         };
+        window.scrollTo(0, 0);
         getDatas();
     }, []);
 

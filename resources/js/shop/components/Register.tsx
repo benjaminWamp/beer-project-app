@@ -10,6 +10,10 @@ const Register = () => {
     const { addAlert } = useContext(AlertContext);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const handleRegistration = async (e) => {
         e.preventDefault();
         const {
