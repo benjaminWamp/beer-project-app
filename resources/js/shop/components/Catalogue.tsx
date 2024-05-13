@@ -14,6 +14,7 @@ import {
 } from "../utils/services/FavoriteService";
 import UserContext from "../context/UserContext";
 import FavoriteContext from "../context/FavoriteContext";
+import ProductListSkeleton from "./skeletons/ProductListSkeleton";
 
 const Catalogue = () => {
     const [productList, setProductList] = useState<Product[]>();
@@ -76,23 +77,25 @@ const Catalogue = () => {
         getDatas();
     }, [token]);
 
-    return (
-        productList &&
-        categories &&
-        manufacturers && (
-            <Filters
-                products={productList}
-                categories={categories}
-                manufacturers={manufacturers}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                totalPages={totalPages}
-                setTotalPages={setTotalPages}
-                setTotalProducts={setTotalProducts}
-                totalProducts={totalProducts}
-                getProducts={getProducts}
-            />
-        )
+    return productList && categories && manufacturers ? (
+        <Filters
+            products={productList}
+            categories={categories}
+            manufacturers={manufacturers}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPages={totalPages}
+            setTotalPages={setTotalPages}
+            setTotalProducts={setTotalProducts}
+            totalProducts={totalProducts}
+            getProducts={getProducts}
+        />
+    ) : (
+        <div className="min-h-screen flex flex-row flex-wrap gap-16 justify-center bg-background pt-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            {[0, 1, 2, 3, 4, 5, 6, 7].map((key) => (
+                <ProductListSkeleton key={key} />
+            ))}
+        </div>
     );
 };
 

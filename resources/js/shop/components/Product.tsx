@@ -15,12 +15,7 @@ import { Product } from "../types/product.types";
 import ReviewForm from "./Product/ReviewForm";
 import UserContext from "../context/UserContext";
 import AlertContext from "../context/AlertContext";
-
-const reviews = { href: "#", average: 4, totalCount: 117 };
-
-function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-}
+import ProductSkeleton from "./skeletons/ProductSkeleton";
 
 const ProductLayer = () => {
     const [product, setProduct] = useState<Product>();
@@ -131,7 +126,7 @@ const ProductLayer = () => {
             </div>
         </div>
     ) : (
-        <Loader />
+        <ProductSkeleton />
     );
 };
 
