@@ -1,4 +1,4 @@
-import {findUser} from "./CustomerServices";
+import {fetchUser} from "./UserServices";
 
 const userData = {
     email: "cecile.valente@email.com",
@@ -51,7 +51,7 @@ export const fetchCartList = async () => {
 
 export const createPaymentIntent = async ({amount, description, customer} : {amount: number, description: string, customer: number}) => {
     console.log("services :",amount, description, customer);
-    const userFind = findUser(1)
+    const userFind = fetchUser(user)
     console.log('userFind',userFind)
     try {
         const res = await fetch("http://127.0.0.1:8000/api/paymentIntent", {
