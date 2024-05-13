@@ -88,7 +88,7 @@ const FavoriteList = () => {
                                         </td>
                                             
 
-                                        <td className="flex flex-row justify-end px-6 py-8 gap-11">
+                                        <td className=" min-h-full justify-end px-6 py-4">
                                             <button
                                                 type="button"
                                                 className="border-2 border-accent bg-secondary rounded-3xl px-2 py-2 text-sm font-medium hover:-translate-y-1 transition-all"
