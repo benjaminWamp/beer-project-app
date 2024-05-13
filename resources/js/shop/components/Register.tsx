@@ -47,23 +47,24 @@ const Register = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
+        <div className="flex flex-col items-center justify-center px-6 py-12 mx-auto lg:px-8">
             <a
                 href="#"
-                className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
+                className="flex flex-col gap-4 items-center mb-6 text-2xl font-semibold text-gray-900"
             >
                 <img
-                    className="w-8 h-8 mr-2"
-                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-                    alt="logo"
+                    className="w-24 mr-2"
+                    src="/images/mb-logo.png"
+                    alt="Logo Monsieur Bière"
                 />
-                Mister Beer
+                <h1 className="text-accent text-4xl font-title font-bold">Monsieur Bière</h1>
+                
             </a>
-            <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div className="w-full bg-accent rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
                 <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                    <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                    <h2 className="text-xl font-bold font-title leading-tight tracking-tight text-background md:text-2xl">
                         Créer un compte
-                    </h1>
+                    </h2>
                     <form
                         className="space-y-4 md:space-y-"
                         onSubmit={(e) => handleRegistration(e)}
@@ -71,7 +72,7 @@ const Register = () => {
                         <div>
                             <label
                                 htmlFor="name"
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                className="block mb-2 text-sm font-bold font-title text-background"
                             >
                                 Votre Nom Prénom
                             </label>
@@ -79,7 +80,7 @@ const Register = () => {
                                 type="text"
                                 name="name"
                                 id="name"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-accent focus:border-secondary block w-full p-2.5"
                                 placeholder="name@email.com"
                                 required
                             />
@@ -87,7 +88,7 @@ const Register = () => {
                         <div>
                             <label
                                 htmlFor="email"
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                className="block mb-2 text-sm font-bold font-title text-background"
                             >
                                 Votre mail
                             </label>
@@ -95,7 +96,7 @@ const Register = () => {
                                 type="email"
                                 name="email"
                                 id="email"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-accent focus:border-secondary block w-full p-2.5"
                                 placeholder="name@email.com"
                                 required
                             />
@@ -103,7 +104,7 @@ const Register = () => {
                         <div>
                             <label
                                 htmlFor="password"
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                className="block mb-2 text-sm font-bold font-title text-background"
                             >
                                 Mot de passe
                             </label>
@@ -111,14 +112,14 @@ const Register = () => {
                                 type="password"
                                 name="password"
                                 id="password"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-accent focus:border-secondary block w-full p-2.5"
                                 required
                             />
                         </div>
                         <div>
                             <label
                                 htmlFor="password_confirmation"
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                className="block mb-2 text-sm font-bold font-title text-background"
                             >
                                 Confirmer le mot de passe
                             </label>
@@ -126,21 +127,34 @@ const Register = () => {
                                 type="password"
                                 name="password_confirmation"
                                 id="password_confirmation"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-accent focus:border-secondary block w-full p-2.5"
                                 required
                             />
                         </div>
-
+                        
                         <Accordion collapseAll>
                             <Accordion.Panel>
-                                <Accordion.Title>
-                                    Votre Adresse (peut être ajouté plus tard)
+                                <Accordion.Title className="focus:text-accent text-gray-900 hover:bg-accent hover:rounded-xl border-none
+                                
+                                
+                                flex w-full items-center justify-between p-5 text-left font-medium first:rounded-t-lg 
+                                last:rounded-b-lg focus:ring-4 focus:ring-gray-200
+                                focus:bg-accent
+                                
+                                
+                                
+                                
+                                ">
+                                    <div className="text-background px-2">
+                                        Votre Adresse (peut être ajouté plus tard)
+                                    </div>
+                                    
                                 </Accordion.Title>
                                 <Accordion.Content>
-                                    <div className="sm:col-span-3">
+                                    <div className="sm:col-span-3 px-2">
                                         <label
                                             htmlFor="number"
-                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                            className="block my-2 text-sm font-bold font-title text-background"
                                         >
                                             Numéro
                                         </label>
@@ -149,14 +163,14 @@ const Register = () => {
                                                 type="number"
                                                 name="number"
                                                 id="number"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-accent placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6"
                                             />
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-3">
+                                    <div className="sm:col-span-3 px-2">
                                         <label
                                             htmlFor="street"
-                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                            className="block my-2 text-sm font-bold font-title text-background"
                                         >
                                             Rue
                                         </label>
@@ -165,15 +179,15 @@ const Register = () => {
                                                 type="text"
                                                 name="street"
                                                 id="street"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-accent placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6"
                                             />
                                         </div>
                                     </div>
 
-                                    <div className="sm:col-span-3 ">
+                                    <div className="sm:col-span-3 px-2">
                                         <label
                                             htmlFor="city"
-                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                            className="block my-2 text-sm font-bold font-title text-background"
                                         >
                                             Ville
                                         </label>
@@ -182,26 +196,26 @@ const Register = () => {
                                                 type="text"
                                                 name="city"
                                                 id="city"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-accent placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6"
                                             />
                                         </div>
                                     </div>
 
-                                    <div className="sm:col-span-3">
+                                    <div className="sm:col-span-3 px-2">
                                         <label
                                             htmlFor="zip_code"
-                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                            className="block my-2 text-sm font-bold font-title text-background"
                                         >
                                             Code Postal
                                         </label>
-                                        <div className="mt-2">
+                                        <div className="my-2">
                                             <input
                                                 type="text"
                                                 pattern="[0-9]{5}"
                                                 name="zip_code"
                                                 id="zip_code"
                                                 autoComplete="zip_code"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-accent placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6"
                                             />
                                         </div>
                                     </div>
@@ -214,7 +228,7 @@ const Register = () => {
                                     id="RGPD"
                                     aria-describedby="RGPD"
                                     type="checkbox"
-                                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-accent dark:ring-offset-gray-800"
                                     required
                                 />
                             </div>
