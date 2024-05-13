@@ -7,6 +7,7 @@ import Accueil from "../components/Accueil";
 import AccountPage from "../components/Account";
 import Register from "../components/Register";
 import APropos from "../components/APropos";
+import MentionsLegales from "../components/MentionsLegales";
 
 export const routes = {
     home: {
@@ -51,7 +52,7 @@ export const routes = {
     },
     mentionsLegales: {
         path: "/mentions-legales",
-        element: <div>Mentions Légales</div>,
+        element: <MentionsLegales />,
     },
     cgv: {
         path: "/cgv",
