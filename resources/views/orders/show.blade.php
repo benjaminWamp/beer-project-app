@@ -25,7 +25,7 @@
             @if ($order->status == 'cart')
                 <span class="bg-gray-100 text-gray-800 text-lg font-semibold me-2 px-2.5 py-0.5 rounded-full font-title">{{$order->status}}</span>
 
-            @elseif ($order->status == 'complete')
+            @elseif ($order->status == 'payed')
                 <span class="bg-yellow-100 text-yellow-800 text-lg font-semibold me-2 px-2.5 py-0.5 rounded-full font-title">{{$order->status}}</span>
 
             @elseif ($order->status == 'delivered')
@@ -115,7 +115,7 @@
     </div>
     <div class="flex justify-end gap-4 mt-4">  
 
-        @if($order->status === "complete")
+        @if($order->status === "payed")
             <form method ="post" action="{{route("orders.delivered", $order)}}">
                 @csrf
                 <button type="submit" class="bg-green-100 px-3 py-2 text-sm font-medium text-center inline-flex items-center rounded-md hover:bg-green-200">
