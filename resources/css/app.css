@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: "QTGraveure";
-    src: url("../public/fonts/QTGraveure.otf.ttf");
+  font-family: "QTGraveure";
+  src: url("/public/fonts/QTGraveure-Bold.otf") format('opentype');
 }
+
