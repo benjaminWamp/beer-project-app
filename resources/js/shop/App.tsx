@@ -5,24 +5,30 @@ import Layout from "./layout/Layout";
 import { HashRouter, Route, Routes } from "react-router-dom";
 
 import { routes } from "./utils/routes";
-import { UserContextProvider } from "./context/Context";
+import { UserContextProvider } from "./context/UserContext";
+import { FavoriteContextProvider } from "./context/FavoriteContext";
+import { AlertContextProvider } from "./context/AlertContext";
 
 const App = () => {
     return (
         <HashRouter>
-            <UserContextProvider>
-                <Layout>
-                    <Routes>
-                        {Object.values(routes).map((route) => (
-                            <Route
-                                key={route.path}
-                                path={route.path}
-                                element={route.element}
-                            />
-                        ))}
-                    </Routes>
-                </Layout>
-            </UserContextProvider>
+            <AlertContextProvider>
+                <UserContextProvider>
+                    <FavoriteContextProvider>
+                        <Layout>
+                            <Routes>
+                                {Object.values(routes).map((route) => (
+                                    <Route
+                                        key={route.path}
+                                        path={route.path}
+                                        element={route.element}
+                                    />
+                                ))}
+                            </Routes>
+                        </Layout>
+                    </FavoriteContextProvider>
+                </UserContextProvider>
+            </AlertContextProvider>
         </HashRouter>
     );
 };

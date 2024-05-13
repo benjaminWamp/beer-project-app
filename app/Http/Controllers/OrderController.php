@@ -13,7 +13,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::whereIn("status", ["complete", "delivered", "cancel"])->paginate(15);
+        $orders = Order::whereIn("status", ["payed", "delivered", "cancel"])->paginate(15);
         return view("orders.index", ["orders" => $orders]);
     }
 
@@ -25,7 +25,7 @@ class OrderController extends Controller
 
     public function delivered(Order $order)
     {
-        if ($order->status === "complete") {
+        if ($order->status === "payed") {
             $order->update([
                 "status" => "delivered"
             ]);

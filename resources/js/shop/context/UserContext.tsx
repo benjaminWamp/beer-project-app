@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { loginUser } from "../utils/services/AuthService";
+import { loginUser, logoutUser } from "../utils/services/AuthService";
 
 type UserContextType = {
     isLogged: boolean;
@@ -8,8 +8,8 @@ type UserContextType = {
     setToken: (_: string) => void;
     userId: string | null;
     setUserId: (_: string) => void;
-    logOut: () => void;
-    logIn: (_: any) => Promise<void>;
+    logOut: () => Promise<string>;
+    logIn: (_: any) => Promise<string>;
     url: string;
 };
 // Create a context
@@ -20,8 +20,8 @@ const UserContext = createContext<UserContextType>({
     setToken: (_: string) => {},
     userId: null,
     setUserId: (_: string) => {},
-    logOut: () => {},
-    logIn: async (userInfo: any) => {},
+    logOut: async () => "",
+    logIn: async (userInfo: any) => "",
     url: "http://127.0.0.1:8000",
 });
 
@@ -57,21 +57,33 @@ export const UserContextProvider = (props: UserContextProps) => {
         }
     }, [token]);
 
-    const logOut = () => {
-        setIsLogged(false);
-        localStorage.removeItem("token");
-        localStorage.removeItem("user_id");
-        setToken(null);
-        setUserId(null);
+    const logIn = async (userInfo) => {
+        await loginUser(userInfo);
+        try {
+            const response = await loginUser(userInfo);
+            setToken(response.token);
+            localStorage.setItem("token", response.token);
+            localStorage.setItem("user_id", response.user);
+            return response.message;
+        } catch (error) {
+            throw error;
+        }
     };
 
-    const logIn = async (userInfo) => {
-        const tokenData = await loginUser(userInfo);
-
-        setToken(tokenData);
-
-        localStorage.setItem("token", tokenData.token);
-        localStorage.setItem("user_id", tokenData.user);
+    const logOut = async () => {
+        if (token) {
+            try {
+                const response = await logoutUser(token);
+                setIsLogged(false);
+                localStorage.removeItem("token");
+                localStorage.removeItem("user_id");
+                setToken(null);
+                setUserId(null);
+                return response.message;
+            } catch (error) {
+                throw error;
+            }
+        }
     };
 
     return (

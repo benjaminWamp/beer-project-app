@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import UserContext from "../../context/Context";
+import UserContext from "../../context/UserContext";
 import { Review } from "../../types/reviews.types";
 
 interface ReviewFormProps {
@@ -12,44 +12,52 @@ const ReviewForm = (props: ReviewFormProps) => {
     const { onReviewSubmit, isModifing, review } = props;
     const { isLogged } = useContext(UserContext);
     return isLogged ? (
-        <form
-            className="max-w-sm mx-auto"
-            onSubmit={(e) => onReviewSubmit(e, review?.id)}
-        >
-            <label>Donnez une note</label>
-            <select name="rating" id="rating">
-                {[1, 2, 3, 4, 5].map((rating) => (
-                    <option
-                        key={rating}
-                        value={rating}
-                        selected={rating === review?.stars}
-                    >
-                        {rating}
-                    </option>
-                ))}
-            </select>
-            <label
-                htmlFor="message"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        <div>
+            <h2 className="text-center font-title font-bold text-4xl text-accent mb-4">
+                Laissez un avis !
+            </h2>
+            <form
+                className="max-w-sm mx-auto mb-24"
+                onSubmit={(e) => onReviewSubmit(e, review?.id)}
             >
-                Laissez un avis
-            </label>
-            <textarea
-                id="review"
-                rows={4}
-                defaultValue={review?.message}
-                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Votre avis"
-            ></textarea>
-            <button
-                type="submit"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-            >
-                {isModifing ? "Modifier" : "Ajouter un avis"}
-            </button>
-        </form>
+                <div className="flex gap-4 items-center text-l font-title text-accent">
+                    <label>Donnez une note</label>
+                    <select name="rating" id="rating" className="bg-gray-50 border border-accent/50 text-accent text-sm rounded-lg focus:ring-accent focus:border-accent p-2.5">
+                        {[1, 2, 3, 4, 5].map((rating) => (
+                            <option
+                                key={rating}
+                                value={rating}
+                                selected={rating === review?.stars}
+                            >
+                                {rating}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <label
+                    htmlFor="message"
+                    className="font-title text-accent text-l block mb-2 text-sm font-medium"
+                >
+                    Commentaire (optionnel)
+                </label>
+                <textarea
+                    id="review"
+                    rows={4}
+                    defaultValue={review?.message}
+                    className="w-full bg-gray-50 border border-accent/50 text-accent text-sm rounded-lg focus:ring-accent focus:border-accent p-2.5"
+                    placeholder="Votre avis"
+                    minLength={10}
+                ></textarea>
+                <button
+                    type="submit"
+                    className="w-full rounded-md transition-all text-xl inline-block font-title font-bold border-2 py-4 px-10 shadow-buttonDarkBase hover:shadow-buttonDarkHover hover:text-secondary text-accent border-accent"
+                >
+                    {isModifing ? "Modifier" : "Ajouter un avis"}
+                </button>
+            </form>
+        </div>
     ) : (
-        <h3>Veillez vous connecter pour laisser un avis</h3>
+        <h3>Veuillez vous connecter pour laisser un avis</h3>
     );
 };
 

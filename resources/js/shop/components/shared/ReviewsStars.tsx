@@ -21,8 +21,8 @@ const ReviewsStars = (props: ReviewsStarsProps) => {
                             key={rating}
                             className={classNames(
                                 review > rating
-                                    ? "text-yellow-600"
-                                    : "text-gray-600",
+                                    ? "text-accent"
+                                    : "text-accent/40",
                                 "h-5 w-5 flex-shrink-0"
                             )}
                             aria-hidden="true"

@@ -13,19 +13,16 @@ import {
 import ProductReview from "./Product/ProductReview";
 import { Product } from "../types/product.types";
 import ReviewForm from "./Product/ReviewForm";
-import UserContext from "../context/Context";
-
-const reviews = { href: "#", average: 4, totalCount: 117 };
-
-function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-}
+import UserContext from "../context/UserContext";
+import AlertContext from "../context/AlertContext";
+import ProductSkeleton from "./skeletons/ProductSkeleton";
 
 const ProductLayer = () => {
     const [product, setProduct] = useState<Product>();
     const [isModifing, setIsModifing] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const { userId } = useContext(UserContext);
+    const { addAlert } = useContext(AlertContext);
 
     const { id } = useParams();
 
@@ -58,9 +55,22 @@ const ProductLayer = () => {
             product_id: product?.id?.toString(),
         };
         if (!isModifing) {
-            await addProductReviews(newReviewData);
+            try {
+                const response = await addProductReviews(newReviewData);
+                addAlert("success", response.message);
+            } catch (err) {
+                addAlert("failure", err);
+            }
         } else {
-            await updateProductReviews(newReviewData, reviewId);
+            try {
+                const response = await updateProductReviews(
+                    newReviewData,
+                    reviewId
+                );
+                addAlert("success", response.message);
+            } catch (err) {
+                addAlert("failure", err);
+            }
         }
 
         await getDatas();
@@ -68,7 +78,12 @@ const ProductLayer = () => {
 
     const handleDeleteReview = async (reviewId: number) => {
         setIsLoading(true);
-        await deleteProductReviews(reviewId);
+        try {
+            const response = await deleteProductReviews(reviewId);
+            addAlert("success", response.message);
+        } catch (err) {
+            addAlert("failure", err);
+        }
         await getDatas();
     };
 
@@ -78,8 +93,8 @@ const ProductLayer = () => {
         ) || false;
 
     return product ? (
-        <div className="bg-white">
-            <div className="pt-6">
+        <div className="bg-background">
+            <div className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 {/* <ProductBreadCrumb product={product} /> */}
 
                 <div className="flex flex-row">
@@ -92,14 +107,13 @@ const ProductLayer = () => {
                 </div>
                 {!isLoading && !isModifing && !hasAReview && (
                     <>
-                        <h2>Votre avis</h2>
                         <ReviewForm onReviewSubmit={handleReviewSubmit} />
                     </>
                 )}
                 {!isLoading &&
                     product.reviews &&
                     product.reviews.length > 0 && (
-                        <div ref={divRef}>
+                        <div ref={divRef} className="grid grid-cols-3 gap-6">
                             <ProductReview
                                 reviews={product.reviews}
                                 onReviewSubmit={handleReviewSubmit}
@@ -112,7 +126,7 @@ const ProductLayer = () => {
             </div>
         </div>
     ) : (
-        <Loader />
+        <ProductSkeleton />
     );
 };
 

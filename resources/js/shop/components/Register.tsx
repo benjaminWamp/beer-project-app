@@ -1,11 +1,13 @@
 import React, { useContext, useEffect } from "react";
 import { Accordion } from "flowbite-react";
 import { registerUser } from "../utils/services/UserServices";
-import UserContext from "../context/Context";
+import UserContext from "../context/UserContext";
+import AlertContext from "../context/AlertContext";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
     const { logIn } = useContext(UserContext);
+    const { addAlert } = useContext(AlertContext);
     const navigate = useNavigate();
 
     const handleRegistration = async (e) => {
@@ -35,11 +37,12 @@ const Register = () => {
         const logInfo = { email: email.value, password: password.value };
 
         try {
-            await registerUser(userInfo);
+            const response = await registerUser(userInfo);
             await logIn(logInfo);
+            addAlert("success", response.message);
             navigate("/");
         } catch (error) {
-            // TODO : alert
+            addAlert("failure", error);
         }
     };
 

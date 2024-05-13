@@ -2,9 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import AccountDetails from "./account/AccountDetail";
 import FavoriteList from "./account/FavoriteList";
 import { fetchUser } from "../utils/services/UserServices";
-import UserContext from "../context/Context";
+import UserContext from "../context/UserContext";
 import { fetchUserFavorite } from "../utils/services/FavoriteService";
 import { User } from "../types/user.types";
+import AccountSkeleton from "./skeletons/AccountSkeleotn";
 
 const AccountPage = () => {
     const [user, setUser] = useState<User>();
@@ -24,12 +25,14 @@ const AccountPage = () => {
     }, [token]);
 
     return (
-        <div>
-            {user && token && (
-                <div className="flex flex-row justify-around items-start">
+        <div className="min-h-screen bg-background ">
+            {user && token ? (
+                <div className=" flex flex-row justify-around items-start">
                     <AccountDetails user={user} getUser={getUser} />
-                    <FavoriteList token={token} />
+                    <FavoriteList />
                 </div>
+            ) : (
+                <AccountSkeleton />
             )}
         </div>
     );

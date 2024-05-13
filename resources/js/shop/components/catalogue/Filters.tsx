@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -17,6 +16,7 @@ import { Category } from "../../types/category.types";
 import { Manufacturer } from "../../types/manufacturer.types";
 import { FilterType } from "../../types/filters.enum";
 import SearchIntput from "../shared/SearchInput";
+import { useSearchParams } from "react-router-dom";
 
 const sortOptions = [
     { name: FilterType.BEST, value: SortingType.BEST },
@@ -62,11 +62,11 @@ const Filters = (props: FilterProps) => {
         setTotalProducts,
         getProducts,
     } = props;
-
+    const [searchParams, setSearchParams] = useSearchParams();
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
-    const [categoriesChecked, setCategoriesChecked] = useState<Array<string>>(
-        []
-    );
+    const [categoriesChecked, setCategoriesChecked] = useState<Array<string>>([
+        searchParams.get("category") || "",
+    ]);
     const [manufacturersChecked, setManufacturersChecked] = useState<
         Array<string>
     >([]);
@@ -81,6 +81,16 @@ const Filters = (props: FilterProps) => {
     const [searchValue, setSearchValue] = useState<string | undefined>(
         undefined
     );
+
+    // const searchCategory = searchParams.get("category");
+    // console.log(categoriesChecked);
+    // useEffect(() => {
+    //     if (searchCategory) {
+    //         console.log(searchCategory);
+    //         setCategoriesChecked([...categoriesChecked, searchCategory]);
+    //         setCurrentPage(1);
+    //     }
+    // }, [searchCategory]);
 
     const addCatergoryChecked = (e) => {
         const isChecked: boolean = e.target.checked;
@@ -141,6 +151,7 @@ const Filters = (props: FilterProps) => {
             setTotalPages(ProductsData.last_page);
             setTotalProducts(ProductsData.total);
         };
+        console.log("get");
         getDatas();
         window.scrollTo(0, 0);
     }, [
@@ -182,8 +193,12 @@ const Filters = (props: FilterProps) => {
         setSearchValue(search);
     };
 
+    const handleEmptySearch = () => {
+        setSearchValue("");
+    };
+
     return (
-        <div className="bg-white">
+        <div className="bg-background">
             <div>
                 {/* Mobile filter dialog */}
                 <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -253,11 +268,15 @@ const Filters = (props: FilterProps) => {
                                                                 category.id
                                                             }
                                                             type="checkbox"
-                                                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                            checked={categoriesChecked.includes(
+                                                                category.id.toString()
+                                                            )}
+                                                            className="h-4 w-4 rounded border-accent/50 text-accent focus:ring-accent"
                                                         />
+
                                                         <label
                                                             htmlFor={`filter-${category.name}-${index}`}
-                                                            className="ml-3 text-sm text-gray-600"
+                                                            className="font-title font-bold ml-3 text-sm text-gray-600"
                                                         >
                                                             {category.name}
                                                         </label>
@@ -274,7 +293,7 @@ const Filters = (props: FilterProps) => {
                                                 <>
                                                     <h3 className="-my-3 flow-root">
                                                         <Disclosure.Button className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
-                                                            <span className="font-medium text-gray-900">
+                                                            <span className="font-title font-bolder text-gray-900">
                                                                 Producteurs
                                                             </span>
                                                             <span className="ml-6 flex items-center">
@@ -310,7 +329,7 @@ const Filters = (props: FilterProps) => {
                                                                                 manufacturer.id
                                                                             }
                                                                             type="checkbox"
-                                                                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                                            className="h-4 w-4 rounded border-accent/50 text-accent focus:ring-accent"
                                                                         />
                                                                         <label
                                                                             htmlFor={`filter-${manufacturer.name}-${index}`}
@@ -335,9 +354,9 @@ const Filters = (props: FilterProps) => {
                     </Dialog>
                 </Transition.Root>
 
-                <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <main className="pt-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-4">
-                        <h1 className="text-4xl font-bold tracking-tight text-gray-900">
+                        <h1 className="text-4xl font-title font-bold tracking-tight text-accent">
                             Nos Bières
                         </h1>
 
@@ -346,9 +365,12 @@ const Filters = (props: FilterProps) => {
                                 as="div"
                                 className="relative inline-block text-left"
                             >
-                                <SearchIntput onSubmit={handleSearch} />
+                                <SearchIntput
+                                    onSubmit={handleSearch}
+                                    onEmptyValue={handleEmptySearch}
+                                />
                                 <div>
-                                    <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                                    <Menu.Button className="group inline-flex justify-center text-m font-title font-bold text-accent hover:text-gray-900">
                                         {sortingValue
                                             ? findNameByValue(sortingValue)
                                             : "Trier"}
@@ -358,7 +380,6 @@ const Filters = (props: FilterProps) => {
                                         />
                                     </Menu.Button>
                                 </div>
-
                                 <Transition
                                     as={Fragment}
                                     enter="transition ease-out duration-100"
@@ -369,7 +390,7 @@ const Filters = (props: FilterProps) => {
                                     leaveTo="transform opacity-0 scale-95"
                                 >
                                     {/* Button Sort */}
-                                    <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                    <Menu.Items className="absolute p-2.5 font-title right-0 z-10 mt-2 w-52 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                                         <div className="py-1">
                                             {sortOptions.map(
                                                 (option, index) => (
@@ -400,7 +421,7 @@ const Filters = (props: FilterProps) => {
                                                                             e
                                                                         )
                                                                     }
-                                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                                    className="h-4 w-4 rounded border-accent text-accent focus:ring-accent"
                                                                 />
                                                                 <label
                                                                     htmlFor={`filter-${option.name}-${index}`}
@@ -419,19 +440,19 @@ const Filters = (props: FilterProps) => {
                                     </Menu.Items>
                                 </Transition>
                             </Menu>
-
-                            <button
-                                type="button"
-                                className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
-                                onClick={() => setMobileFiltersOpen(true)}
-                            >
-                                <span className="sr-only">Filters</span>
-                                <FunnelIcon
-                                    className="h-5 w-5"
-                                    aria-hidden="true"
-                                />
-                            </button>
                         </div>
+
+                        <button
+                            type="button"
+                            className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
+                            onClick={() => setMobileFiltersOpen(true)}
+                        >
+                            <span className="sr-only">Filters</span>
+                            <FunnelIcon
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                            />
+                        </button>
                     </div>
 
                     <section
@@ -460,11 +481,14 @@ const Filters = (props: FilterProps) => {
                                                 onChange={(e) =>
                                                     addCatergoryChecked(e)
                                                 }
-                                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                checked={categoriesChecked.includes(
+                                                    category.id.toString()
+                                                )}
+                                                className="h-4 w-4 rounded border-accent/50 text-accent focus:ring-accent"
                                             />
                                             <label
                                                 htmlFor={`filter-${category.name}-${index}`}
-                                                className="ml-3 text-sm text-gray-600"
+                                                className="font-title font-bold ml-3 text-sm text-gray-600"
                                             >
                                                 {category.name}
                                             </label>
@@ -480,19 +504,19 @@ const Filters = (props: FilterProps) => {
                                     {({ open }) => (
                                         <>
                                             <h3 className="-my-3 flow-root">
-                                                <Disclosure.Button className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
-                                                    <span className="font-medium text-gray-900">
+                                                <Disclosure.Button className="flex w-full items-center justify-between py-3 text-sm text-gray-400 hover:text-gray-500">
+                                                    <span className="font-title font-bold text-accent text-xl">
                                                         Producteurs
                                                     </span>
                                                     <span className="ml-6 flex items-center">
                                                         {open ? (
                                                             <MinusIcon
-                                                                className="h-5 w-5"
+                                                                className="text-accent h-5 w-5"
                                                                 aria-hidden="true"
                                                             />
                                                         ) : (
                                                             <PlusIcon
-                                                                className="h-5 w-5"
+                                                                className="text-accent h-5 w-5"
                                                                 aria-hidden="true"
                                                             />
                                                         )}
@@ -524,11 +548,11 @@ const Filters = (props: FilterProps) => {
                                                                             e
                                                                         )
                                                                     }
-                                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                                    className="h-4 w-4 rounded border-accent/50 text-accent focus:ring-accent"
                                                                 />
                                                                 <label
                                                                     htmlFor={`filter-${manufacturer.name}-${index}`}
-                                                                    className="ml-3 text-sm text-gray-600"
+                                                                    className="font-title font-bold ml-3 text-sm text-gray-600"
                                                                 >
                                                                     {
                                                                         manufacturer.name

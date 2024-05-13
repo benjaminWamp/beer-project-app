@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ProductList from "./catalogue/ProductList";
 import { fetchProducts } from "../utils/services/CatalogueServices";
 import Filters from "./catalogue/Filters";
@@ -7,6 +7,15 @@ import { fetchManufacturers } from "../utils/services/ManufacturerService";
 import { Category } from "../types/category.types";
 import { Manufacturer } from "../types/manufacturer.types";
 import { Product } from "../types/product.types";
+import {
+    addToFavorites,
+    deleteFavorites,
+    fetchUserFavorite,
+} from "../utils/services/FavoriteService";
+import UserContext from "../context/UserContext";
+import FavoriteContext from "../context/FavoriteContext";
+import { useSearchParams } from "react-router-dom";
+import ProductListSkeleton from "./skeletons/ProductListSkeleton";
 
 const Catalogue = () => {
     const [productList, setProductList] = useState<Product[]>();
@@ -15,6 +24,11 @@ const Catalogue = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [totalProducts, setTotalProducts] = useState<number>(0);
+    const [userFavorites, setUserFavorites] = useState<any>();
+    const { token } = useContext(UserContext);
+    const { userAllFavorites, handleDeleteFavorite, handleAddToFavorite } =
+        useContext(FavoriteContext);
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const getProducts = async (
         page: number,
@@ -48,38 +62,44 @@ const Catalogue = () => {
         return response;
     };
 
-    useEffect(() => {
-        const getDatas = async () => {
-            const ProductsData = await getProducts(1);
-            const categoriesData = await getCategories();
-            const manufacturersData = await getManufacturers();
-            setProductList(ProductsData.data);
-            setCurrentPage(ProductsData.current_page);
-            setTotalPages(ProductsData.last_page);
-            setTotalProducts(ProductsData.total);
-            setCategories(categoriesData);
-            setManufacturers(manufacturersData);
-        };
-        getDatas();
-    }, []);
+    const getDatas = async () => {
+        const productsData = await getProducts(1, [
+            searchParams.get("category") || "",
+        ]);
+        const categoriesData = await getCategories();
+        const manufacturersData = await getManufacturers();
+        setProductList(productsData.data);
+        setCurrentPage(productsData.current_page);
+        setTotalPages(productsData.last_page);
+        setTotalProducts(productsData.total);
+        setCategories(categoriesData);
+        setManufacturers(manufacturersData);
+        setUserFavorites(userAllFavorites);
+    };
 
-    return (
-        productList &&
-        categories &&
-        manufacturers && (
-            <Filters
-                products={productList}
-                categories={categories}
-                manufacturers={manufacturers}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                totalPages={totalPages}
-                setTotalPages={setTotalPages}
-                setTotalProducts={setTotalProducts}
-                totalProducts={totalProducts}
-                getProducts={getProducts}
-            />
-        )
+    useEffect(() => {
+        getDatas();
+    }, [token]);
+
+    return productList && categories && manufacturers ? (
+        <Filters
+            products={productList}
+            categories={categories}
+            manufacturers={manufacturers}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPages={totalPages}
+            setTotalPages={setTotalPages}
+            setTotalProducts={setTotalProducts}
+            totalProducts={totalProducts}
+            getProducts={getProducts}
+        />
+    ) : (
+        <div className="min-h-screen flex flex-row flex-wrap gap-16 justify-center bg-background pt-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            {[0, 1, 2, 3, 4, 5, 6, 7].map((key) => (
+                <ProductListSkeleton key={key} />
+            ))}
+        </div>
     );
 };
 

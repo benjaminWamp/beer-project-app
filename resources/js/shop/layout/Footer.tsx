@@ -2,22 +2,32 @@ import React from "react";
 
 const Footer = () => {
     return (
-        <footer className="bg-white rounded-lg shadow m-4 dark:bg-gray-800">
+        <footer className="bg-black py-4">
             <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-                <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
+                <span className="text-start w-full flex justify-start text-sm text-white/80">
                     © 2024{" "}
-                    <a href="https://flowbite.com/" className="hover:underline">
+                    <a href="http://127.0.0.1:8000/" className="hover:underline">
                         Mister Beer
                     </a>
                     . All Rights Reserved.
                 </span>
-                <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+
+                <div className="w-full flex justify-center">
+                    <img
+                        src="\images\mb-logo.png"
+                        className="h-24"
+                        alt="Flowbite Logo"
+                    />
+                </div>
+
+                <div className="w-full flex justify-end">
+                    <ul className="text-end flex flex-wrap items-end mt-3 text-sm font-medium text-white/80 sm:mt-0">
                     <li>
                         <a
                             href="#/a-propos"
                             className="hover:underline me-4 md:me-6"
                         >
-                            A propos
+                            À propos
                         </a>
                     </li>
                     <li>
@@ -42,6 +52,8 @@ const Footer = () => {
                         </a>
                     </li>
                 </ul>
+                </div>
+                
             </div>
         </footer>
     );

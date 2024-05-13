@@ -1,82 +1,78 @@
+import axios from "axios";
+
 export const fetchUser = async (user) => {
-    try {
-        const response = await fetch("http://127.0.0.1:8000/api/user", {
-            method: "GET",
+    return await axios
+        .get("http://127.0.0.1:8000/api/user", {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${user}`,
             },
-        });
-
-        const jsonData = await response.json();
-        return jsonData;
-    } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
-    }
+        })
+        .then((response) => response.data)
+        .catch((error) =>
+            console.error("Erreur lors de la récupération des données:", error)
+        );
 };
 
-export const updateUser = async (userDate, token) => {
-    const options = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-        },
-        body: JSON.stringify(userDate),
-    };
-    try {
-        await fetch("http://127.0.0.1:8000/api/user", options);
-    } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
-    }
+export const updateUser = async (userData, token) => {
+    return await axios
+        .post("http://127.0.0.1:8000/api/user", userData, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+                Accept: "application/json",
+            },
+        })
+        .then((response) => response.data)
+        .catch((error) => {
+            throw error.response.data.errors;
+        });
 };
 
 export const updateUserPassword = async (userData, token) => {
-    const options = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-        },
-        body: JSON.stringify(userData),
-    };
-    try {
-        await fetch("http://127.0.0.1:8000/api/user/password", options);
-    } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
-    }
+    return await axios
+        .post("http://127.0.0.1:8000/api/user/password", userData, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+                Accept: "application/json",
+            },
+        })
+        .then((response) => response.data)
+        .catch((error) => {
+            throw error.response.data.errors;
+        });
 };
 
 export const deleteUser = async (token) => {
-    const options = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-        },
-    };
-    try {
-        await fetch("http://127.0.0.1:8000/api/user/delete", options);
-    } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
-    }
+    return await axios
+        .post(
+            "http://127.0.0.1:8000/api/user/delete",
+            {},
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                    Accept: "application/json",
+                },
+            }
+        )
+        .then((response) => response.data)
+        .catch((error) => {
+            throw error.response.data.errors;
+        });
 };
 
 export const registerUser = async (user) => {
-    const options = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-        },
-        body: JSON.stringify(user),
-    };
-    try {
-        await fetch("http://127.0.0.1:8000/api/register", options);
-    } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
-    }
+    return await axios
+        .post("http://127.0.0.1:8000/api/register", user, {
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+        })
+        .then((response) => response.data)
+        .catch((error) => {
+            throw (Object.values(error.response.data.errors)[0] as string[])[0];
+        });
 };

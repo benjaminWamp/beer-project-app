@@ -16,4 +16,5 @@ export interface Product {
     categories: Category[];
     manufacturer: Manufacturer[];
     reviews: Review[];
+    stock: number;
 }
