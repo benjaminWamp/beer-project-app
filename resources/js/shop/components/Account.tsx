@@ -24,13 +24,23 @@ const AccountPage = () => {
     }, [token]);
 
     return (
-        <div>
-            {user && token && (
-                <div className="flex flex-row justify-around items-start">
-                    <AccountDetails user={user} getUser={getUser} />
-                    <FavoriteList />
+        <div className="min-h-screen bg-background flex flex-col items-center pt-12">
+            <div className="max-w-screen-xl w-full">
+                <h1 className="mx-0 font-title text-accent font-bold text-5xl">
+                    Mon compte
+                </h1>
+
+                {user && token && (
+                <div className="flex justify-center py-12">
+                    <div className="max-w-screen-xl w-full flex justify-between gap-8">
+                        <AccountDetails user={user} getUser={getUser} />
+                        <FavoriteList />
+                    </div>
                 </div>
             )}
+            </div>
+
+            
         </div>
     );
 };
