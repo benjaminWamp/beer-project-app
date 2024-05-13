@@ -64,9 +64,12 @@ const Filters = (props: FilterProps) => {
     } = props;
     const [searchParams, setSearchParams] = useSearchParams();
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
-    const [categoriesChecked, setCategoriesChecked] = useState<Array<string>>([
-        searchParams.get("category") || "",
-    ]);
+    const [categoriesChecked, setCategoriesChecked] = useState<Array<string>>(
+        searchParams.get("category") !== null
+            ? [searchParams.get("category") as string]
+            : []
+    );
+
     const [manufacturersChecked, setManufacturersChecked] = useState<
         Array<string>
     >([]);
@@ -151,7 +154,6 @@ const Filters = (props: FilterProps) => {
             setTotalPages(ProductsData.last_page);
             setTotalProducts(ProductsData.total);
         };
-        console.log("get");
         getDatas();
         window.scrollTo(0, 0);
     }, [
@@ -198,7 +200,7 @@ const Filters = (props: FilterProps) => {
     };
 
     return (
-        <div className="bg-background">
+        <div className="min-h-screen bg-background">
             <div>
                 {/* Mobile filter dialog */}
                 <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -360,15 +362,15 @@ const Filters = (props: FilterProps) => {
                             Nos Bières
                         </h1>
 
-                        <div className="flex items-center">
+                        <div className="flex flex-col items-end gap-4">
+                            <SearchIntput
+                                onSubmit={handleSearch}
+                                onEmptyValue={handleEmptySearch}
+                            />
                             <Menu
                                 as="div"
                                 className="relative inline-block text-left"
                             >
-                                <SearchIntput
-                                    onSubmit={handleSearch}
-                                    onEmptyValue={handleEmptySearch}
-                                />
                                 <div>
                                     <Menu.Button className="group inline-flex justify-center text-m font-title font-bold text-accent hover:text-gray-900">
                                         {sortingValue

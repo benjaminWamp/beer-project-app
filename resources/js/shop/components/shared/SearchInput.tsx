@@ -8,17 +8,17 @@ interface SearchInputProps {
 const SearchIntput = (props: SearchInputProps) => {
     const { onSubmit, onEmptyValue } = props;
     return (
-        <form className="w-80 mx-auto" onSubmit={(e) => onSubmit(e)}>
+        <form className="mx-auto" onSubmit={(e) => onSubmit(e)}>
             <label
                 htmlFor="default-search"
                 className="mb-2 text-sm font-medium text-gray-900 sr-only"
             >
                 Rechercher
             </label>
-            <div className="relative">
-                <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <div className="flex bg-accent block w-full p-4 ps-4 text-sm rounded-lg bg-secondary">
+                <div className=" inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                     <svg
-                        className="w-4 h-4 text-table"
+                        className="w-4 h-4 text-accent"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -37,7 +37,7 @@ const SearchIntput = (props: SearchInputProps) => {
                     type="search"
                     id="default-search"
                     name="search"
-                    className="placeholder:text-table bg-accent block w-full p-4 ps-10 text-sm table rounded-lg"
+                    className="placeholder:text-accent bg-secondary border-0 focus:ring-0"
                     placeholder="Rechercher un produit"
                     onChange={(e) => {
                         const value = e.target.value;
@@ -49,7 +49,7 @@ const SearchIntput = (props: SearchInputProps) => {
                 />
                 <button
                     type="submit"
-                    className="absolute end-2.5 bottom-2.5 rounded-md transition-all text-xs inline-block font-title font-bold border-2 py-2 px-4 shadow-buttonLightBase hover:shadow-buttonLightHover hover:text-accent text-secondary border-secondary"
+                    className="end-2.5 bottom-2.5 rounded-md transition-all text-xs inline-block font-title font-bold border-2 py-2 px-4 shadow-buttonDarkBase hover:shadow-buttonDarkHover hover:text-table text-accent border-accent"
                 >
                     Rechercher
                 </button>

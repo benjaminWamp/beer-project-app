@@ -63,9 +63,16 @@ const Catalogue = () => {
     };
 
     const getDatas = async () => {
-        const productsData = await getProducts(1, [
-            searchParams.get("category") || "",
-        ]);
+        let productsData;
+
+        if (searchParams.get("category") !== null) {
+            const category: string[] = [searchParams.get("category")].filter(
+                (value) => value !== null
+            ) as string[];
+            productsData = await getProducts(1, category);
+        } else {
+            productsData = await getProducts(1);
+        }
         const categoriesData = await getCategories();
         const manufacturersData = await getManufacturers();
         setProductList(productsData.data);
@@ -76,6 +83,10 @@ const Catalogue = () => {
         setManufacturers(manufacturersData);
         setUserFavorites(userAllFavorites);
     };
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     useEffect(() => {
         getDatas();
