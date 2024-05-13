@@ -63,13 +63,21 @@ const Accueil = () => {
                 </div>
             </section>
             <section className="py-12 max-w-screen-xl w-full mx-auto px-4">
-                <div className="bg-offWhite flex flex-col justify-center">
+                <div className="bg-offWhite flex flex-col justify-center gap-8">
                     <H2Bars
                         textColor={"text-accent"}
                         hrColor={"border-accent"}
                         text={"Nos Bières"}
                     />
-                    {fiveProducts && <ProductList products={fiveProducts} />}
+                    {fiveProducts ? (
+                        <ProductList products={fiveProducts} />
+                    ) : (
+                        <div className="flex flex-row flex-wrap gap-12 justify-center pt-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                            {[0, 1, 2, 3].map((key) => (
+                                <ProductListSkeleton key={key} />
+                            ))}
+                        </div>
+                    )}
                     <Button
                         href={"#/catalogue"}
                         text={"Découvrez tous nos produits"}
@@ -113,7 +121,7 @@ const Accueil = () => {
                                 className="max-w-full rounded-md"
                             />
                             <Button
-                                href={"#/catalogue?category=3"}
+                                href={"#/catalogue"}
                                 text={"Blanche"}
                                 startCenterEnd={"center"}
                                 mode={Mode.DARK}
@@ -155,7 +163,15 @@ const Accueil = () => {
                         hrColor={"border-accent"}
                         text={"Les 4 Glorieuses"}
                     />
-                    {bestProducts && <ProductList products={bestProducts} />}
+                    {bestProducts ? (
+                        <ProductList products={bestProducts} />
+                    ) : (
+                        <div className="flex flex-row flex-wrap gap-12 justify-center pt-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                            {[0, 1, 2, 3].map((key) => (
+                                <ProductListSkeleton key={key} />
+                            ))}
+                        </div>
+                    )}
                 </div>
             </section>
             <section className="bg-cover bg-connexion bg-no-repeat w-full mx-auto">
