@@ -21,7 +21,7 @@ const Contact = () => {
 
     return (
         <div className="bg-cover bg-headerHome bg-no-repeat min-h-screen">
-            <div className="bg-gradient-to-r from-black via-black flex flex-col justify-center pb-8">
+            <div className="bg-gradient-to-r from-black via-black flex flex-col justify-center pb-8 min-h-screen">
                 <div className="max-w-screen-xl w-full mx-auto px-4 h-5/6 m-0 grid grid-cols-2">
                     <div>
                         <h1 className="text-5xl font-bold mt-4 mb-8 font-title text-table">
