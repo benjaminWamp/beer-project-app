@@ -36,24 +36,10 @@ const CartPayment = () => {
       }
     };
 
-
-    // const handleSubmit = async (event) => {
-    //   event.preventDefault();
-    //   // const {error, paymentMethod } = await stripe?.createPaymentMethod({
-    //   //   type: "card",
-    //   //   card: elements?.getElement(CardElement)
-    //   // })
-    //   // if(!error){
-    //   //   console.log("Token generated : ", paymentMethod);
-        
-    //   // }
-    //   console.log(event);
-      
-    // }
     return (
       <form>
         <PaymentElement/>
-        <button onClick={handleSubmit}>Submit</button>
+        <button onClick={handleSubmit}>Payer</button>
       </form>
     );
 };
