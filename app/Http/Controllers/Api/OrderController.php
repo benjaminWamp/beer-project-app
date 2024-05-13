@@ -89,16 +89,16 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function complete(Request $request)
+    public function payed(Request $request)
     {
         $order = $request->user()->cart();
 
         $order->update([
-            "status" => "complete",
+            "status" => "payed",
         ]);
 
         // return $order->load("orderItems.product");
-        return response()->json(["message" => "Votre panier a été complété"], 200);
+        return response()->json(["message" => "Votre panier a été payé"], 200);
     }
 
     /**
