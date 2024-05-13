@@ -53,7 +53,7 @@ const Accueil = () => {
                                 Vos bières, notre bonheur.
                             </p>
                             <Button
-                                href={"#"}
+                                href={"#/catalogue"}
                                 text={"Les bières"}
                                 startCenterEnd={"start"}
                                 mode={Mode.LIGHT}
@@ -63,24 +63,16 @@ const Accueil = () => {
                 </div>
             </section>
             <section className="py-12 max-w-screen-xl w-full mx-auto px-4">
-                <div className="bg-offWhite flex flex-col justify-center gap-8">
+                <div className="bg-offWhite flex flex-col justify-center">
                     <H2Bars
                         textColor={"text-accent"}
                         hrColor={"border-accent"}
                         text={"Nos Bières"}
                     />
-                    {fiveProducts ? (
-                        <ProductList products={fiveProducts} />
-                    ) : (
-                        <div className="flex flex-row flex-wrap gap-12 justify-center pt-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                            {[0, 1, 2, 3].map((key) => (
-                                <ProductListSkeleton key={key} />
-                            ))}
-                        </div>
-                    )}
+                    {fiveProducts && <ProductList products={fiveProducts} />}
                     <Button
-                        href={"#"}
-                        text={"Les bières"}
+                        href={"#/catalogue"}
+                        text={"Découvrez tous nos produits"}
                         startCenterEnd={"center"}
                         mode={Mode.DARK}
                     />
@@ -98,7 +90,7 @@ const Accueil = () => {
                             Et accède à tes bières plus facilement !
                         </p>
                         <Button
-                            href={"#"}
+                            href={"#/account"}
                             text={"Mes bières"}
                             startCenterEnd={"center"}
                             mode={Mode.LIGHT}
@@ -121,7 +113,7 @@ const Accueil = () => {
                                 className="max-w-full rounded-md"
                             />
                             <Button
-                                href={"#"}
+                                href={"#/catalogue?category=3"}
                                 text={"Blanche"}
                                 startCenterEnd={"center"}
                                 mode={Mode.DARK}
@@ -134,7 +126,7 @@ const Accueil = () => {
                                 className="max-w-full rounded-md"
                             />
                             <Button
-                                href={"#"}
+                                href={"#/catalogue?category=1"}
                                 text={"Blonde"}
                                 startCenterEnd={"center"}
                                 mode={Mode.DARK}
@@ -147,7 +139,7 @@ const Accueil = () => {
                                 className="max-w-full rounded-md"
                             />
                             <Button
-                                href={"#"}
+                                href={"#/catalogue?category=2"}
                                 text={"Brune"}
                                 startCenterEnd={"center"}
                                 mode={Mode.DARK}
@@ -163,15 +155,7 @@ const Accueil = () => {
                         hrColor={"border-accent"}
                         text={"Les 4 Glorieuses"}
                     />
-                    {bestProducts ? (
-                        <ProductList products={bestProducts} />
-                    ) : (
-                        <div className="flex flex-row flex-wrap gap-12 justify-center pt-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                            {[0, 1, 2, 3].map((key) => (
-                                <ProductListSkeleton key={key} />
-                            ))}
-                        </div>
-                    )}
+                    {bestProducts && <ProductList products={bestProducts} />}
                 </div>
             </section>
             <section className="bg-cover bg-connexion bg-no-repeat w-full mx-auto">
@@ -197,7 +181,7 @@ const Accueil = () => {
                         </p>
                         <Button
                             href={"#"}
-                            text={"Mes bières"}
+                            text={"Notre Histoire"}
                             startCenterEnd={"center"}
                             mode={Mode.LIGHT}
                         />

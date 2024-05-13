@@ -14,6 +14,7 @@ import {
 } from "../utils/services/FavoriteService";
 import UserContext from "../context/UserContext";
 import FavoriteContext from "../context/FavoriteContext";
+import { useSearchParams } from "react-router-dom";
 import ProductListSkeleton from "./skeletons/ProductListSkeleton";
 
 const Catalogue = () => {
@@ -27,6 +28,7 @@ const Catalogue = () => {
     const { token } = useContext(UserContext);
     const { userAllFavorites, handleDeleteFavorite, handleAddToFavorite } =
         useContext(FavoriteContext);
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const getProducts = async (
         page: number,
@@ -61,7 +63,9 @@ const Catalogue = () => {
     };
 
     const getDatas = async () => {
-        const productsData = await getProducts(1);
+        const productsData = await getProducts(1, [
+            searchParams.get("category") || "",
+        ]);
         const categoriesData = await getCategories();
         const manufacturersData = await getManufacturers();
         setProductList(productsData.data);
