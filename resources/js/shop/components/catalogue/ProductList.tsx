@@ -38,10 +38,7 @@ const ProductList = (props: productListProps) => {
                     
                             <h3 className="font-title font-bold text-sm text-gray-700">
                                 <a href={`#/produit/${product.id}`}>
-                                    <span
-                                        aria-hidden="true"
-                                        className="absolute inset-0"
-                                    ></span>
+                                    
                                     {product.name}
                                 </a>
                             </h3>
