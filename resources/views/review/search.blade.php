@@ -2,7 +2,8 @@
 <x-slot name="title">Avis - Monsieur Bière</x-slot>
 <x-breadcrumbs :breadcrumbs="[
             ['title' => 'Tableau de bord', 'url' => route('index')],
-            ['title' => 'Avis', 'url' => ''],
+            ['title' => 'Avis', 'url' => route('review.index')],
+            ['title' => 'Recherche', 'url' => ''],
         ]"/>
 
 
@@ -42,8 +43,9 @@
         <span class="text-sm italic text-end">La recherche inclut les noms des utilisateurs et des produits</span>
     </div>
 
-
-    {{ $reviews->links() }}
+    @if($reviews->isNotEmpty())   
+    
+    {{ $reviews->appends(request()->input())->links() }}
     <div class="relative rounded-md overflow-hidden my-4">
     <table class="w-full text-sm text-left rtl:text-right text-zinc-50">
         <thead class="text-xs text-zinc-50 uppercase bg-accent ">
@@ -109,7 +111,11 @@
     </table>
     </div>
 
-    {{ $reviews->links() }}
+    {{ $reviews->appends(request()->input())->links() }}
+
+    @else
+        <p>Aucun producteur trouvé pour "{{ request('query') }}".</p>
+    @endif
 
 </div>
 
