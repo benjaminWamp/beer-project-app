@@ -10,7 +10,8 @@ const FavoriteList = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [totalFavorite, setTotalFavorite] = useState<number>(0);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [perPage, setPerPage] = useState<number>(0);
+
     const { url } = useContext(UserContext);
     const { getUserFavorites, handleDeleteFavorite } =
         useContext(FavoriteContext);
@@ -21,6 +22,7 @@ const FavoriteList = () => {
         setCurrentPage(favoritesData.current_page);
         setTotalPages(favoritesData.last_page);
         setTotalFavorite(favoritesData.total);
+        setPerPage(favoritesData.to);
     };
 
     useEffect(() => {
@@ -141,13 +143,13 @@ const FavoriteList = () => {
                                 </table>
                             </div>
                         </div>
-                        <div className="flex justify-end text-sm">
+                        <div className="flex justify-end text-sm ">
                             <Pagination
                                 currentPage={currentPage}
                                 setCurrentPage={setCurrentPage}
                                 totalPages={totalPages}
                                 totalElements={totalFavorite}
-                                numberOfElements={5}
+                                numberOfElements={perPage}
                             />
                         </div>
                     </>

@@ -47,6 +47,8 @@ interface FilterProps {
         order?: string,
         search?: string
     ) => Promise<any>;
+    perPage: number;
+    setPerPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const Filters = (props: FilterProps) => {
@@ -61,6 +63,8 @@ const Filters = (props: FilterProps) => {
         totalProducts,
         setTotalProducts,
         getProducts,
+        perPage,
+        setPerPage,
     } = props;
     const [searchParams, setSearchParams] = useSearchParams();
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
@@ -153,6 +157,7 @@ const Filters = (props: FilterProps) => {
             setFilteredProducts(ProductsData.data);
             setTotalPages(ProductsData.last_page);
             setTotalProducts(ProductsData.total);
+            setPerPage(ProductsData.to);
         };
         getDatas();
         window.scrollTo(0, 0);
@@ -601,13 +606,15 @@ const Filters = (props: FilterProps) => {
                                         critères
                                     </h2>
                                 )}
-                                <Pagination
-                                    currentPage={currentPage}
-                                    setCurrentPage={setCurrentPage}
-                                    totalPages={totalPages}
-                                    totalElements={totalProducts}
-                                    numberOfElements={15}
-                                />
+                                <div className="flex justify-end mt-6">
+                                    <Pagination
+                                        currentPage={currentPage}
+                                        setCurrentPage={setCurrentPage}
+                                        totalPages={totalPages}
+                                        totalElements={totalProducts}
+                                        numberOfElements={perPage}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </section>
