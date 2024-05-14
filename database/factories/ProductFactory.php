@@ -77,6 +77,8 @@ class ProductFactory extends Factory
             "Une bière rousse douce avec des saveurs de biscuit et de caramel.",
         ];
 
+        $images = ["Biere1.jpg", "Biere2.jpg", "Biere3.jpg", "Biere4.jpg", "Biere5.jpeg", "Biere6.jpg", "Biere7.jpg", "Biere8.jpg", "Biere9.jpg", "Biere10.jpg", "Biere11.jpg", "Biere12.jpg", "Biere13.jpg", "Biere14.jpg", "Biere15.jpg", "Biere16.jpg", "Biere17.jpg", "Biere18.jpg", "Biere19.jpg", "Biere20.jpg"];
+
         shuffle($names);
 
         return [
@@ -87,10 +89,7 @@ class ProductFactory extends Factory
             "delivered_at" => fake()->dateTimeBetween("-10 years"),
             "stock" => fake()->numberBetween(1, 500),
             /*"cover" => fake()->imageUrl(640, 480, "book", true),*/
-            "image" => fake()->randomElement([
-                "image-1.png",
-                "image-2.png",
-            ]),
+            "image" => fake()->randomElement($images),
             "price_ht" => fake()->numberBetween(100, 10000),
             "manufacturer_id" => fake()->numberBetween(1, 5),
             "reviews_sum" => fake()->numberBetween(0, 5),

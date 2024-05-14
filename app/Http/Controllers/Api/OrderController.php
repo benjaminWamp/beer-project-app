@@ -15,9 +15,9 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $orders = $request->user()->orders;
+        $orders = $request->user()->orders();
 
-        return $orders;
+        return $orders->paginate(15);
     }
 
     /**

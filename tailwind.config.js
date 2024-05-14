@@ -52,6 +52,8 @@ export default {
                 'buttonLightHover': 'inset 0 -70px 0 -1px #F8E7BC',
                 'buttonDarkBase': 'inset 0 0 0 -1px #514339',
                 'buttonDarkHover': 'inset 0 -70px 0 -1px #514339',
+                'buttonRedBase': 'inset 0 0 0 -1px #E02424',
+                'buttonRedHover': 'inset 0 -70px 0 -1px #E02424',
             },
             height: {
                 'heroVh': '70vh',
