@@ -6,6 +6,7 @@ import UserContext from "../context/UserContext";
 import { fetchUserFavorite } from "../utils/services/FavoriteService";
 import { User } from "../types/user.types";
 import AccountSkeleton from "./skeletons/AccountSkeleotn";
+import OrderList from "./account/OrderList";
 
 const AccountPage = () => {
     const [user, setUser] = useState<User>();
@@ -32,11 +33,12 @@ const AccountPage = () => {
                 </h1>
 
                 {user && token ? (
-                    <div className=" flex justify-center py-12">
+                    <div className=" flex flex-col justify-center py-12 gap-8">
                         <div className="max-w-screen-xl w-full flex justify-between gap-8">
                             <AccountDetails user={user} getUser={getUser} />
                             <FavoriteList />
                         </div>
+                        <OrderList />
                     </div>
                 ) : (
                     <AccountSkeleton />
