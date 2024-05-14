@@ -1,7 +1,16 @@
 import { useElements, useStripe, PaymentElement } from "@stripe/react-stripe-js";
 import React, { useState } from "react";
+import { Cart } from "../../types/cart.types";
+import { User } from "../../types/user.types";
+import { updateOrderAddress } from "../../utils/services/CartService";
 
-const CartPayment = () => {
+interface CartPaymentProps {
+  cart: Cart;
+  user: User | undefined;
+}
+
+const CartPayment = (props: CartPaymentProps) => {
+  const { cart, user } = props;
     const [errorMessage, setErrorMessage] = useState(null);
     const options = {
 
@@ -12,7 +21,9 @@ const CartPayment = () => {
     const elements = useElements();
 
     const handleSubmit = async (e) => {
-      e.preventDefault();
+      e.preventDefault()
+      const tempCart = {...cart, zip_code: e.target.zip_code.value, city: e.target.city.value, number: e.target.number.value, street: e.target.street.value}      
+      await updateOrderAddress(tempCart)
 
       if (!stripe || !elements) {
         return;
@@ -37,10 +48,32 @@ const CartPayment = () => {
     };
 
     return (
-      <form>
+      <div >
         <PaymentElement/>
-        <button onClick={handleSubmit}>Payer</button>
-      </form>
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <div className="flex justify-between">
+            <label htmlFor="name">Nom</label>
+            <input type="text" defaultValue={user ? user.name : ''} name="name" id="name" required/>
+          </div>
+          <div className="flex justify-between">
+            <label htmlFor="street">Addresse</label>
+            <input type="text" defaultValue={cart.street} name="street" id="street" required/>
+          </div>
+          <div className="flex justify-between">
+            <label htmlFor="number">Nº addresse</label>
+            <input type="number" defaultValue={cart.number} min={0} name="number" id="number" required/>
+          </div>
+          <div className="flex justify-between">
+            <label htmlFor="zip_code">Code postal</label>
+            <input type="text" defaultValue={cart.zip_code} name="zip_code" pattern="[0-9]{5}" id="zip_code" required/>
+          </div>
+          <div className="flex justify-between">
+            <label htmlFor="city">Ville</label>
+            <input type="text" defaultValue={cart.city} name="city" id="city" required/>
+          </div>
+          <button type="submit">Payer</button>
+        </form>
+      </div>
     );
 };
 

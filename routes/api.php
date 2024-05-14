@@ -54,6 +54,7 @@ Route::middleware('auth:sanctum')->group(
         Route::get("/user/orders", "App\Http\Controllers\Api\OrderController@index")->name("order.index");
         Route::get("/user/cart", "App\Http\Controllers\Api\OrderController@showCart")->name("order.showCart");
         Route::post("/user/cart", "App\Http\Controllers\Api\OrderController@addToCart")->name("order.addToCart");
+        Route::put("/user/cart/{orderItem}", "App\Http\Controllers\Api\OrderController@updateOrderAddress")->name("order.update");
         Route::post("/user/cart/payed", "App\Http\Controllers\Api\OrderController@payed")->name("order.payed");
         Route::delete("/user/cart/{orderItem}", "App\Http\Controllers\Api\OrderController@removeFromCart")->name("order.removeFromCart");
         Route::delete("/user/cart", "App\Http\Controllers\Api\OrderController@deleteCart")->name("order.deleteCart");

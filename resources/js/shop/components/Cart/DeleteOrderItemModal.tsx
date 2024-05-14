@@ -8,7 +8,7 @@ interface ModalProps {
     onDelete: () => void;
 }
 
-const DeleteUserModal = (props: ModalProps) => {
+const DeleteOrderItemModal = (props: ModalProps) => {
     const { open, onClose, onDelete } = props;
 
     const cancelButtonRef = useRef(null);
@@ -58,17 +58,14 @@ const DeleteUserModal = (props: ModalProps) => {
                                                 as="h3"
                                                 className="text-base font-semibold leading-6 text-gray-900"
                                             >
-                                                Supprimer votre compte
+                                                Supprimer le produit de votre panier
                                             </Dialog.Title>
                                             <div className="mt-2">
                                                 <p className="text-sm text-gray-500">
                                                     Etes-vous sûr de vouloir
-                                                    supprimer votre compte ?
-                                                    Toutes vos données
-                                                    personnelles seront
-                                                    définitivement effacées.
-                                                    Cette action ne peut être
-                                                    annulée !
+                                                    supprimer le produit de votre panier ?
+                                                    Le produit sera effacées.
+                                                    Vous pourrez toujours le rajouter depuis le catalogue !
                                                 </p>
                                             </div>
                                         </div>
@@ -80,8 +77,7 @@ const DeleteUserModal = (props: ModalProps) => {
                                         className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
                                         onClick={() => onDelete()}
                                     >
-                                        Je suis sûr de vouloir supprimer mon
-                                        compte
+                                        Supprimer
                                     </button>
                                     <button
                                         type="button"
@@ -101,4 +97,4 @@ const DeleteUserModal = (props: ModalProps) => {
     );
 };
 
-export default DeleteUserModal;
+export default DeleteOrderItemModal;

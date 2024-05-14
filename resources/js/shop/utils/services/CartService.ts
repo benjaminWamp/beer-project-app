@@ -1,3 +1,4 @@
+import { Cart } from "../../types/cart.types";
 import { User } from "../../types/user.types";
 
 const userData = {
@@ -20,6 +21,7 @@ export const addProductToCart = async (cartItem: any) => {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${user}`,
+                Accept: "application/json"
             }, // En-têtes de la requête
             body: JSON.stringify(cartItem), // Corps de la requête (converti en JSON)
         });
@@ -68,7 +70,6 @@ export const deleteOrderItem = async (orderItemId: number) => {
 }
 
 export const createPaymentIntent = async ({amount, description, receipt_email, metadata} : {amount: number, description: string, receipt_email: string, metadata: number}) => {
-    console.log("services :",amount, description);
      try {
         const res = await fetch("http://127.0.0.1:8000/api/paymentIntent", {
             method: "POST",
@@ -89,3 +90,25 @@ export const createPaymentIntent = async ({amount, description, receipt_email, m
         console.error("Erreur lors de la récupération de la clé :", error);
     }
 };
+
+export const updateOrderAddress = async (cart: Cart) => {
+    try {
+        const res = await fetch(`http://127.0.0.1:8000/api/user/cart/${cart.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${user}`,
+            },
+            body: JSON.stringify({
+                zip_code: cart.zip_code,
+                number: cart.number,
+                city: cart.city,
+                street: cart.street
+            }),
+        });
+        const jsonData = await res.json();
+        return jsonData;
+    } catch (error) {
+        console.error("Erreur lors de la mise à jour du panier :", error);
+    }
+}

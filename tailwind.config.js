@@ -62,7 +62,7 @@ export default {
                 'connexion': "url('images/connexion.png')",
             },
             flex: {
-                '2': '2 2 0%'
+                '2': '2 2 0%',
                 'tonneau': "url('images/tonneau.png')",
                 'blanche': "url('images/categorie-blanche.png')",
                 'blonde': "url('images/categorie-blonde.png')",
