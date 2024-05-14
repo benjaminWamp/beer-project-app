@@ -67,7 +67,7 @@ export default {
                 'blanche': "url('images/categorie-blanche.png')",
                 'blonde': "url('images/categorie-blonde.png')",
                 'brune': "url('images/categorie-brune.png')",
-            }        
+            }
         }
     },
     plugins: [require('flowbite/plugin'),

@@ -1,5 +1,11 @@
-import { useElements, useStripe, PaymentElement } from "@stripe/react-stripe-js";
+import {
+    useElements,
+    useStripe,
+    PaymentElement,
+} from "@stripe/react-stripe-js";
 import React, { useState } from "react";
+import { payedCart } from "../../utils/services/CartService";
+import { useNavigate } from "react-router-dom";
 import { Cart } from "../../types/cart.types";
 import { User } from "../../types/user.types";
 import { updateOrderAddress } from "../../utils/services/CartService";
@@ -10,12 +16,13 @@ interface CartPaymentProps {
 }
 
 const CartPayment = (props: CartPaymentProps) => {
+    const navigate = useNavigate();
   const { cart, user } = props;
     const [errorMessage, setErrorMessage] = useState(null);
     const options = {
-
-      clientSecret: 'sk_test_51P7HxBIvgCNdAzyGFtNcHYStYKyWmyEJxj4wad4KG1DUW5njNS2N1xrUAY71flyg36KiepJDgUhk2m0LqQU2I9DG00NTDquJGj'
-    }
+        clientSecret:
+            "sk_test_51P7HxBIvgCNdAzyGFtNcHYStYKyWmyEJxj4wad4KG1DUW5njNS2N1xrUAY71flyg36KiepJDgUhk2m0LqQU2I9DG00NTDquJGj",
+    };
 
     const stripe = useStripe();
     const elements = useElements();
@@ -25,26 +32,27 @@ const CartPayment = (props: CartPaymentProps) => {
       const tempCart = {...cart, zip_code: e.target.zip_code.value, city: e.target.city.value, number: e.target.number.value, street: e.target.street.value}      
       await updateOrderAddress(tempCart)
 
-      if (!stripe || !elements) {
-        return;
-      }
-
-      const { error } = await stripe.confirmPayment({
-        elements,
-        confirmParams: {
-          return_url: `${window.location.origin}/`,
-        },
-      });
-
-      if (error) {
-        if (error.type === "card_error" || error.type === "validation_error") {
-          console.error(error.message);
-        } else {
-          console.error(
-            "Une erreur est survenue lors du paiement. Veuillez réessayer."
-          );
+        if (!stripe || !elements) {
+            return;
         }
-      }
+        console.log(elements);
+
+        try {
+            await stripe.confirmPayment({ elements, redirect: "if_required" });
+            await payedCart();
+            navigate("/");
+        } catch (error) {
+            if (
+                error.type === "card_error" ||
+                error.type === "validation_error"
+            ) {
+                console.error(error.message);
+            } else {
+                console.error(
+                    "Une erreur est survenue lors du paiement. Veuillez réessayer."
+                );
+            }
+        }
     };
 
     return (

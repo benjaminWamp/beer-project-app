@@ -53,13 +53,16 @@ export const fetchCartList = async () => {
 
 export const deleteOrderItem = async (orderItemId: number) => {
     try {
-        const response = await fetch(`http://127.0.0.1:8000/api/user/cart/${orderItemId}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${user}`,
-            },
-        })
+        const response = await fetch(
+            `http://127.0.0.1:8000/api/user/cart/${orderItemId}`,
+            {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${user}`,
+                },
+            }
+        );
 
         const jsonData = await response.json();
 
@@ -67,10 +70,21 @@ export const deleteOrderItem = async (orderItemId: number) => {
     } catch (error) {
         console.error("Erreur lors de la récupération des données:", error);
     }
-}
+};
 
-export const createPaymentIntent = async ({amount, description, receipt_email, metadata} : {amount: number, description: string, receipt_email: string, metadata: number}) => {
-     try {
+export const createPaymentIntent = async ({
+    amount,
+    description,
+    receipt_email,
+    metadata,
+}: {
+    amount: number;
+    description: string;
+    receipt_email: string;
+    metadata: number;
+}) => {
+    console.log("services :", amount, description);
+    try {
         const res = await fetch("http://127.0.0.1:8000/api/paymentIntent", {
             method: "POST",
             headers: {
@@ -81,13 +95,34 @@ export const createPaymentIntent = async ({amount, description, receipt_email, m
                 amount: amount,
                 description: description,
                 receipt_email: receipt_email,
-                metadata: metadata
+                metadata: metadata,
             }),
         });
         const jsonData = await res.json();
         return jsonData;
     } catch (error) {
         console.error("Erreur lors de la récupération de la clé :", error);
+    }
+};
+
+export const payedCart = async () => {
+    try {
+        const response = await fetch(
+            `http://127.0.0.1:8000/api/user/cart/payed`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${user}`,
+                },
+            }
+        );
+
+        const jsonData = await response.json();
+
+        return jsonData;
+    } catch (error) {
+        console.error("Erreur lors de la récupération des données:", error);
     }
 };
 
