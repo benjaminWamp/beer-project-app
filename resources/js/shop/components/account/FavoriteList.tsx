@@ -75,7 +75,7 @@ const FavoriteList = () => {
                                         </th>
 
                                         <td className="px-6 py-4">
-                                            <div className="w-96 flex justify-between text-accent font-medium">
+                                            <div className=" text-accent font-medium">
                                                 <h3>
                                                     <a
                                                         href={`#/produit/${favorite.product_id}`}
