@@ -73,6 +73,7 @@ Route::middleware(["auth"])->group(function () {
     Route::post('/admin/utilisateurs/ajouter', UserController::class . "@store")->name('users.store');
     Route::get('/admin/utilisateurs/updateRole/{user}', UserController::class . "@editRole")->name('users.editRole');
     Route::put('/admin/utilisateurs/updateRole/{user}', UserController::class . "@update")->name("users.update");
+    Route::get('/admin/utilisateur/recherche', UserController::class . "@search")->name("users.search");
 
     Route::get('admin/commandes', OrderController::class . "@index")->name("orders.index");
     Route::get('admin/commandes/{order}', OrderController::class . "@show")->name("orders.show");

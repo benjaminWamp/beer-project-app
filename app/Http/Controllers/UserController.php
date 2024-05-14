@@ -16,8 +16,20 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(15);
+        $users = User::paginate(10);
         return view("users.index", ["users" => $users]);
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $users = User::where('name', 'LIKE', "%{$query}%")
+        ->orderBy('created_at', 'desc')
+        ->paginate(10)
+            ->appends(['query' => $query]);
+
+        return view('users.search', compact('users', 'query'));
     }
 
     /**
