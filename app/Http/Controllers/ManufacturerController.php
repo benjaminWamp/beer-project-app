@@ -16,6 +16,18 @@ class ManufacturerController extends Controller
         return view('manufacturer.index', ["manufacturers" => $manufacturers]);
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $manufacturers = Manufacturer::where('name', 'LIKE', "%{$query}%")
+        ->orderBy('created_at', 'desc')
+        ->paginate(10)
+            ->appends(['query' => $query]);
+
+        return view('manufacturer.search', compact('manufacturers', 'query'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

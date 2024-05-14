@@ -64,6 +64,7 @@ Route::middleware(["auth"])->group(function () {
     Route::post('/admin/producteurs', ManufacturerController::class . "@store")->name("manufacturer.store");
     Route::get('/admin/producteurs/modifier/{manufacturer}', ManufacturerController::class . "@edit")->name("manufacturer.edit");
     Route::put('/admin/producteurs/producteurs/modifier/{manufacturer}', ManufacturerController::class . "@update")->name("manufacturer.update");
+    Route::get('/admin/producteur/recherche', ManufacturerController::class . "@search")->name("manufacturer.search");
 
     Route::get('/admin/avis', ReviewController::class . "@index")->name("review.index");
     Route::get('/admin/avis/{review}', ReviewController::class . "@show")->name("review.show");

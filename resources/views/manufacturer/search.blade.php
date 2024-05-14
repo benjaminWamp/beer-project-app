@@ -2,20 +2,23 @@
 <x-slot name="title">Producteurs - Monsieur Bière</x-slot>
 <x-breadcrumbs :breadcrumbs="[
             ['title' => 'Tableau de bord', 'url' => route('index')],
-            ['title' => 'Producteurs', 'url' => ''],
+            ['title' => 'Producteurs', 'url' => route('manufacturer.index')],
+            ['title' => 'Recherche', 'url' => ''],
         ]"/>
-
 
 <div class="px-6">
     <div class="flex justify-between mb-1">
-        <div class="flex flex-row gap-4">
-            <h1 class="text-3xl font-bold mt-4 mb-2 font-title text-accent">Producteurs</h1>
-            <a href="{{route("manufacturer.create")}}" class="bg-accent rounded-3xl mt-3 mb-2 px-2 pt-2 text-sm font-medium hover:-translate-y-1 transition-all">
-                <svg class="w-6 h-6 text-background" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
-                </svg>
-            </a>        
+        <div class="flex gap-4 items-center">
+            <div class="flex mt-3">
+                <a href="{{ route('manufacturer.index') }}" class="hover:-translate-y-1 transition-all font-title border bg-accent text-secondary rounded-3xl px-3 py-3 text-sm font-medium">
+                    <svg class="w-6 h-6 text-background" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+                    </svg>
+                </a>
+            </div>
+            <h1 class="text-3xl font-bold mt-4 mb-2 font-title text-accent">Résultats pour "{{ request('query') }}"</h1> 
         </div>
+        
         <form action="{{ route('manufacturer.search') }}" method="GET" class="w-96 pt-2">
             <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">
                 Rechercher
@@ -49,8 +52,9 @@
         <span class="text-sm italic text-end">La recherche inclut les noms des producteurs</span>
     </div>
     
+    @if($manufacturers->isNotEmpty())
     
-    {{ $manufacturers->links() }}
+    {{ $manufacturers->appends(request()->input())->links() }}
     <div class="relative rounded-md overflow-hidden my-4">
     <table class="w-full text-sm text-left rtl:text-right text-zinc-50">
         <thead class="text-xs text-zinc-50 uppercase bg-accent ">
@@ -100,7 +104,11 @@
 
     </div>
 
-    {{ $manufacturers->links() }}
+    {{ $manufacturers->appends(request()->input())->links() }}
+
+    @else
+        <p>Aucun producteur trouvé pour "{{ request('query') }}".</p>
+    @endif
     
     
 
