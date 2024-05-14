@@ -21,12 +21,12 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
     const { product, onScrollToReviews } = props;
     const { categories } = product;
     const { reviews } = product;
-    const { isLogged } = useContext(UserContext);
+    const { token, isLogged } = useContext(UserContext);
     const { addAlert } = useContext(AlertContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (isLogged) {
+        if (isLogged && token) {
             const quantity =
                 e.target.quantity.value * e.target.quantityType.value;
             if (quantity <= product.stock) {
@@ -34,7 +34,7 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
                     product_id: product.id,
                     quantity: quantity,
                 };
-                await addProductToCart(addedProduct);
+                await addProductToCart(token, addedProduct);
             } else {
                 addAlert(
                     "failure",
@@ -66,17 +66,24 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
                 </p>
 
                 <p className="text-sm font-title font-bold tracking-tight text-accent">
-                    {product.stock > 0
-                        ? <span className="text-[#009942]">En stock</span>
-                        : <span className="text-[#a50f0f]">En rupture de stock</span>
-                    }
+                    {product.stock > 0 ? (
+                        <span className="text-[#009942]">En stock</span>
+                    ) : (
+                        <span className="text-[#a50f0f]">
+                            En rupture de stock
+                        </span>
+                    )}
                 </p>
 
                 {/* Reviews */}
                 <div className="my-4">
                     <h3 className="sr-only">Reviews</h3>
                     <ReviewsStars review={product.reviews_sum} />{" "}
-                    <a href="#" className="font-title" onClick={(e) => onScrollToReviews(e)}>
+                    <a
+                        href="#"
+                        className="font-title"
+                        onClick={(e) => onScrollToReviews(e)}
+                    >
                         {reviews.length} avis
                     </a>
                 </div>

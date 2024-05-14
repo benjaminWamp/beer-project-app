@@ -11,13 +11,14 @@ const options = {
 
 const user = localStorage.getItem("token");
 
-export const addProductToCart = async (cartItem: any) => {
+export const addProductToCart = async (token: string, cartItem: any) => {
     try {
         const response = await fetch("http://127.0.0.1:8000/api/user/cart", {
             method: "POST", // Méthode de la requête
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${user}`,
+                Authorization: `Bearer ${token}`,
+                Accept: "application/json",
             }, // En-têtes de la requête
             body: JSON.stringify(cartItem), // Corps de la requête (converti en JSON)
         });
