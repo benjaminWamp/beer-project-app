@@ -47,11 +47,11 @@ const UpdateForm = (props: DialogProps) => {
                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-4xl">
+                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-5xl">
                                 <form onSubmit={(e) => onSubmit(e)}>
                                     <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 ">
                                         <div className="border-b border-gray-900/10 pb-12">
-                                            <h2 className="text-base font-semibold leading-7 text-gray-900">
+                                            <h2 className="text-2xl font-title text-accent font-bold leading-7">
                                                 Information personelles
                                             </h2>
                                             <p className="mt-1 text-sm leading-6 text-gray-600">
@@ -64,7 +64,7 @@ const UpdateForm = (props: DialogProps) => {
                                                 <div className="sm:col-span-3">
                                                     <label
                                                         htmlFor="name"
-                                                        className="block text-sm font-medium leading-6 text-gray-900"
+                                                        className="block text-sm font-title text-accent font-bold leading-6"
                                                     >
                                                         Nom Prénom
                                                     </label>
@@ -77,7 +77,7 @@ const UpdateForm = (props: DialogProps) => {
                                                                 user.name
                                                             }
                                                             autoComplete="given-name"
-                                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6"
                                                         />
                                                     </div>
                                                 </div>
@@ -85,7 +85,7 @@ const UpdateForm = (props: DialogProps) => {
                                                 <div className="sm:col-span-3">
                                                     <label
                                                         htmlFor="email"
-                                                        className="block text-sm font-medium leading-6 text-gray-900"
+                                                        className="block text-sm font-title text-accent font-bold leading-6"
                                                     >
                                                         Adresse email
                                                     </label>
@@ -98,12 +98,12 @@ const UpdateForm = (props: DialogProps) => {
                                                                 user.email
                                                             }
                                                             autoComplete="email"
-                                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6"
                                                         />
                                                     </div>
                                                 </div>
                                                 <div className="sm:col-span-6">
-                                                    <h3 className="text-base font-semibold leading-7 text-gray-900">
+                                                    <h3 className="text-2xl font-title text-accent font-bold leading-7">
                                                         Votre Adresse
                                                     </h3>
                                                     <p className="mt-1 text-sm leading-6 text-gray-600">
@@ -115,7 +115,7 @@ const UpdateForm = (props: DialogProps) => {
                                                 <div className="sm:col-span-3">
                                                     <label
                                                         htmlFor="number"
-                                                        className="block text-sm font-medium leading-6 text-gray-900"
+                                                        className="block text-sm font-title text-accent font-bold leading-6 "
                                                     >
                                                         Numéro
                                                     </label>
@@ -127,14 +127,14 @@ const UpdateForm = (props: DialogProps) => {
                                                             defaultValue={
                                                                 user.number
                                                             }
-                                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6"
                                                         />
                                                     </div>
                                                 </div>
                                                 <div className="sm:col-span-3">
                                                     <label
                                                         htmlFor="street"
-                                                        className="block text-sm font-medium leading-6 text-gray-900"
+                                                        className="block text-sm font-title text-accent font-bold leading-6"
                                                     >
                                                         Rue
                                                     </label>
@@ -146,7 +146,7 @@ const UpdateForm = (props: DialogProps) => {
                                                             defaultValue={
                                                                 user.street
                                                             }
-                                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6"
                                                         />
                                                     </div>
                                                 </div>
@@ -154,7 +154,7 @@ const UpdateForm = (props: DialogProps) => {
                                                 <div className="sm:col-span-3 ">
                                                     <label
                                                         htmlFor="city"
-                                                        className="block text-sm font-medium leading-6 text-gray-900"
+                                                        className="block text-sm font-title text-accent font-bold leading-6"
                                                     >
                                                         Ville
                                                     </label>
@@ -166,7 +166,7 @@ const UpdateForm = (props: DialogProps) => {
                                                             defaultValue={
                                                                 user.city
                                                             }
-                                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6"
                                                         />
                                                     </div>
                                                 </div>
@@ -174,7 +174,7 @@ const UpdateForm = (props: DialogProps) => {
                                                 <div className="sm:col-span-3">
                                                     <label
                                                         htmlFor="zip_code"
-                                                        className="block text-sm font-medium leading-6 text-gray-900"
+                                                        className="block text-sm font-title text-accent font-bold leading-6"
                                                     >
                                                         Code Postal
                                                     </label>
@@ -188,7 +188,7 @@ const UpdateForm = (props: DialogProps) => {
                                                                 user.zip_code
                                                             }
                                                             autoComplete="zip_code"
-                                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-accent sm:text-sm sm:leading-6"
                                                         />
                                                     </div>
                                                 </div>
@@ -196,16 +196,16 @@ const UpdateForm = (props: DialogProps) => {
                                         </div>
                                     </div>
 
-                                    <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                                    <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse gap-2 sm:px-6">
                                         <button
                                             type="submit"
-                                            className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                                            className="rounded-md transition-all text-sm inline-block font-title font-bold border-2 py-2 px-4 shadow-buttonDarkBase hover:shadow-buttonDarkHover hover:text-secondary text-accent border-accent"
                                         >
                                             Modifier
                                         </button>
                                         <button
                                             type="button"
-                                            className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                                            className="rounded-md transition-all text-sm inline-block font-title font-bold border-2 py-2 px-4 shadow-buttonDarkBase hover:shadow-buttonDarkHover hover:text-secondary text-accent border-accent"
                                             onClick={() => onClose()}
                                             ref={cancelButtonRef}
                                         >
