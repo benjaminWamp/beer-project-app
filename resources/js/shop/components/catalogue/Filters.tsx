@@ -254,7 +254,7 @@ const Filters = (props: FilterProps) => {
                                     </div>
 
                                     {/* Filters */}
-                                    <form className="mt-4 border-t border-gray-200">
+                                    <form className="p-4 mt-4 border-t border-gray-200">
                                         <h3 className="sr-only">Categories</h3>
                                         <div className="space-y-4">
                                             {categories.map(
@@ -273,6 +273,11 @@ const Filters = (props: FilterProps) => {
                                                             checked={categoriesChecked.includes(
                                                                 category.id.toString()
                                                             )}
+                                                            onChange={(e) =>
+                                                                addCatergoryChecked(
+                                                                    e
+                                                                )
+                                                            }
                                                             className="h-4 w-4 rounded border-accent/50 text-accent focus:ring-accent"
                                                         />
 
@@ -330,6 +335,16 @@ const Filters = (props: FilterProps) => {
                                                                             defaultValue={
                                                                                 manufacturer.id
                                                                             }
+                                                                            onChange={(
+                                                                                e
+                                                                            ) =>
+                                                                                addManufacturerChecked(
+                                                                                    e
+                                                                                )
+                                                                            }
+                                                                            checked={manufacturersChecked.includes(
+                                                                                manufacturer.id.toString()
+                                                                            )}
                                                                             type="checkbox"
                                                                             className="h-4 w-4 rounded border-accent/50 text-accent focus:ring-accent"
                                                                         />
@@ -543,6 +558,9 @@ const Filters = (props: FilterProps) => {
                                                                         manufacturer.id
                                                                     }
                                                                     type="checkbox"
+                                                                    checked={manufacturersChecked.includes(
+                                                                        manufacturer.id.toString()
+                                                                    )}
                                                                     onChange={(
                                                                         e
                                                                     ) =>
