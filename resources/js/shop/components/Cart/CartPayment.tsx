@@ -1,46 +1,54 @@
-import { useElements, useStripe, PaymentElement } from "@stripe/react-stripe-js";
+import {
+    useElements,
+    useStripe,
+    PaymentElement,
+} from "@stripe/react-stripe-js";
 import React, { useState } from "react";
+import { payedCart } from "../../utils/services/CartService";
+import { useNavigate } from "react-router-dom";
 
 const CartPayment = () => {
+    const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState(null);
     const options = {
-
-      clientSecret: 'sk_test_51P7HxBIvgCNdAzyGFtNcHYStYKyWmyEJxj4wad4KG1DUW5njNS2N1xrUAY71flyg36KiepJDgUhk2m0LqQU2I9DG00NTDquJGj'
-    }
+        clientSecret:
+            "sk_test_51P7HxBIvgCNdAzyGFtNcHYStYKyWmyEJxj4wad4KG1DUW5njNS2N1xrUAY71flyg36KiepJDgUhk2m0LqQU2I9DG00NTDquJGj",
+    };
 
     const stripe = useStripe();
     const elements = useElements();
 
     const handleSubmit = async (e) => {
-      e.preventDefault();
+        e.preventDefault();
 
-      if (!stripe || !elements) {
-        return;
-      }
-
-      const { error } = await stripe.confirmPayment({
-        elements,
-        confirmParams: {
-          return_url: `${window.location.origin}/`,
-        },
-      });
-
-      if (error) {
-        if (error.type === "card_error" || error.type === "validation_error") {
-          console.error(error.message);
-        } else {
-          console.error(
-            "Une erreur est survenue lors du paiement. Veuillez réessayer."
-          );
+        if (!stripe || !elements) {
+            return;
         }
-      }
+        console.log(elements);
+
+        try {
+            await stripe.confirmPayment({ elements, redirect: "if_required" });
+            await payedCart();
+            navigate("/");
+        } catch (error) {
+            if (
+                error.type === "card_error" ||
+                error.type === "validation_error"
+            ) {
+                console.error(error.message);
+            } else {
+                console.error(
+                    "Une erreur est survenue lors du paiement. Veuillez réessayer."
+                );
+            }
+        }
     };
 
     return (
-      <form>
-        <PaymentElement/>
-        <button onClick={handleSubmit}>Payer</button>
-      </form>
+        <form>
+            <PaymentElement />
+            <button onClick={handleSubmit}>Payer</button>
+        </form>
     );
 };
 

@@ -69,4 +69,12 @@ class Product extends Model
             "stock" => $stock - $quantity
         ]);
     }
+
+    public function restoreStock($quantity): void
+    {
+        $stock = $this->stock;
+        $this->update([
+            "stock" => $stock + $quantity
+        ]);
+    }
 }

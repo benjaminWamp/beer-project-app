@@ -76,11 +76,18 @@ class OrderController extends Controller
 
     public function RemoveFromCart(Request $request, OrderItem $orderItem)
     {
+        $quantity = $orderItem->quantity;
+        $product = Product::find($orderItem->product_id);
 
         // Get User cart
         $order = $orderItem->order;
+
+
         $this->authorize("order", $order);
+
         $orderItem->delete();
+
+        $product->restoreStock($quantity);
         $order->calculateTotal();
 
         return response()->json(["message" => "Produit supprimé du panier"], 200);
