@@ -17,7 +17,7 @@ const ProductList = (props: productListProps) => {
 
     return (
         <div
-            className={`mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-${col} xl:gap-x-8`}
+            className={`mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-${col} lg:grid-cols-${col} xl:gap-x-8`}
         >
             {products.map((product, index) => {
                 const categories = product.categories;
