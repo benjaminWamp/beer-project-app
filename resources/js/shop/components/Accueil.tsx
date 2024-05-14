@@ -37,6 +37,7 @@ const Accueil = () => {
             setFiveProducts(listData);
             setBestProducts(bestData);
         };
+        window.scrollTo(0, 0);
         getDatas();
     }, []);
 
@@ -46,11 +47,11 @@ const Accueil = () => {
                 <div className="bg-gradient-to-r from-black/90 via-black/50 h-heroVh flex flex-col justify-center">
                     <div className="max-w-screen-xl w-full mx-auto px-4 h-4/6 m-0 grid grid-cols-2">
                         <div>
-                            <h1 className="text-8xl font-bold mt-4 mb-8 font-title text-secondary">
+                            <h1 className="text-8xl font-bold mt-4 mb-8 font-title text-secondary lg:text-6xl">
                                 Monsieur Bière
                             </h1>
-                            <p className="mb-10 text-white text-2xl font-bold">
-                                Vos bières, notre bonheur.
+                            <p className="mb-10 text-white text-2xl font-bold font-title">
+                                Nos bières, votre bonheur.
                             </p>
                             <Button
                                 href={"#/catalogue"}
@@ -70,7 +71,7 @@ const Accueil = () => {
                         text={"Nos Bières"}
                     />
                     {fiveProducts ? (
-                        <ProductList products={fiveProducts} />
+                        <ProductList products={fiveProducts} col={4} />
                     ) : (
                         <div className="flex flex-row flex-wrap gap-12 justify-center pt-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                             {[0, 1, 2, 3].map((key) => (
@@ -164,7 +165,7 @@ const Accueil = () => {
                         text={"Les 4 Glorieuses"}
                     />
                     {bestProducts ? (
-                        <ProductList products={bestProducts} />
+                        <ProductList products={bestProducts} col={4} />
                     ) : (
                         <div className="flex flex-row flex-wrap gap-12 justify-center pt-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                             {[0, 1, 2, 3].map((key) => (

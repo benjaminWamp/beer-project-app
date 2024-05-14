@@ -47,6 +47,8 @@ interface FilterProps {
         order?: string,
         search?: string
     ) => Promise<any>;
+    perPage: number;
+    setPerPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const Filters = (props: FilterProps) => {
@@ -61,12 +63,17 @@ const Filters = (props: FilterProps) => {
         totalProducts,
         setTotalProducts,
         getProducts,
+        perPage,
+        setPerPage,
     } = props;
     const [searchParams, setSearchParams] = useSearchParams();
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
-    const [categoriesChecked, setCategoriesChecked] = useState<Array<string>>([
-        searchParams.get("category") || "",
-    ]);
+    const [categoriesChecked, setCategoriesChecked] = useState<Array<string>>(
+        searchParams.get("category") !== null
+            ? [searchParams.get("category") as string]
+            : []
+    );
+
     const [manufacturersChecked, setManufacturersChecked] = useState<
         Array<string>
     >([]);
@@ -150,8 +157,8 @@ const Filters = (props: FilterProps) => {
             setFilteredProducts(ProductsData.data);
             setTotalPages(ProductsData.last_page);
             setTotalProducts(ProductsData.total);
+            setPerPage(ProductsData.to);
         };
-        console.log("get");
         getDatas();
         window.scrollTo(0, 0);
     }, [
@@ -198,7 +205,7 @@ const Filters = (props: FilterProps) => {
     };
 
     return (
-        <div className="bg-background">
+        <div className="min-h-screen bg-background">
             <div>
                 {/* Mobile filter dialog */}
                 <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -252,7 +259,7 @@ const Filters = (props: FilterProps) => {
                                     </div>
 
                                     {/* Filters */}
-                                    <form className="mt-4 border-t border-gray-200">
+                                    <form className="p-4 mt-4 border-t border-gray-200">
                                         <h3 className="sr-only">Categories</h3>
                                         <div className="space-y-4">
                                             {categories.map(
@@ -271,6 +278,11 @@ const Filters = (props: FilterProps) => {
                                                             checked={categoriesChecked.includes(
                                                                 category.id.toString()
                                                             )}
+                                                            onChange={(e) =>
+                                                                addCatergoryChecked(
+                                                                    e
+                                                                )
+                                                            }
                                                             className="h-4 w-4 rounded border-accent/50 text-accent focus:ring-accent"
                                                         />
 
@@ -328,6 +340,16 @@ const Filters = (props: FilterProps) => {
                                                                             defaultValue={
                                                                                 manufacturer.id
                                                                             }
+                                                                            onChange={(
+                                                                                e
+                                                                            ) =>
+                                                                                addManufacturerChecked(
+                                                                                    e
+                                                                                )
+                                                                            }
+                                                                            checked={manufacturersChecked.includes(
+                                                                                manufacturer.id.toString()
+                                                                            )}
                                                                             type="checkbox"
                                                                             className="h-4 w-4 rounded border-accent/50 text-accent focus:ring-accent"
                                                                         />
@@ -360,15 +382,15 @@ const Filters = (props: FilterProps) => {
                             Nos Bières
                         </h1>
 
-                        <div className="flex items-center">
+                        <div className="flex flex-col items-end gap-4">
+                            <SearchIntput
+                                onSubmit={handleSearch}
+                                onEmptyValue={handleEmptySearch}
+                            />
                             <Menu
                                 as="div"
                                 className="relative inline-block text-left"
                             >
-                                <SearchIntput
-                                    onSubmit={handleSearch}
-                                    onEmptyValue={handleEmptySearch}
-                                />
                                 <div>
                                     <Menu.Button className="group inline-flex justify-center text-m font-title font-bold text-accent hover:text-gray-900">
                                         {sortingValue
@@ -541,6 +563,9 @@ const Filters = (props: FilterProps) => {
                                                                         manufacturer.id
                                                                     }
                                                                     type="checkbox"
+                                                                    checked={manufacturersChecked.includes(
+                                                                        manufacturer.id.toString()
+                                                                    )}
                                                                     onChange={(
                                                                         e
                                                                     ) =>
@@ -571,20 +596,25 @@ const Filters = (props: FilterProps) => {
                             {/* Product grid */}
                             <div className="lg:col-span-3">
                                 {filteredProducts.length > 0 ? (
-                                    <ProductList products={filteredProducts} />
+                                    <ProductList
+                                        products={filteredProducts}
+                                        col={3}
+                                    />
                                 ) : (
                                     <h2>
                                         Aucune bière ne correspond à vos
                                         critères
                                     </h2>
                                 )}
-                                <Pagination
-                                    currentPage={currentPage}
-                                    setCurrentPage={setCurrentPage}
-                                    totalPages={totalPages}
-                                    totalElements={totalProducts}
-                                    numberOfElements={15}
-                                />
+                                <div className="flex justify-end mt-6">
+                                    <Pagination
+                                        currentPage={currentPage}
+                                        setCurrentPage={setCurrentPage}
+                                        totalPages={totalPages}
+                                        totalElements={totalProducts}
+                                        numberOfElements={perPage}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </section>

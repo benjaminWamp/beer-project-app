@@ -27,20 +27,21 @@ const Pagination = (props: PaginationProps) => {
     };
     return (
         totalElements > 0 && (
-            <div className="flex">
-                <p>{`${numberOfElements} éléments sur ${totalElements}`}</p>
-                <p>{`Page ${currentPage} sur ${totalPages}`}</p>
+            <div className="flex items-center">
+                <p className="border-r mr-4 pr-3">{`${numberOfElements} éléments sur ${totalElements}`}&nbsp;</p>
+                
+                <p className="mr-4">{`Page ${currentPage} sur ${totalPages}`}</p>
 
                 <button
                     disabled={currentPage === 1}
-                    className="flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    className="mr-2 rounded-md transition-all text-sm inline-block font-title font-bold border-2 py-1 px-2 shadow-buttonDarkBase hover:shadow-buttonDarkHover hover:text-secondary text-accent border-accent"
                     onClick={() => handlePreviousPage()}
                 >
-                    Prédént
+                    Précédent
                 </button>
                 <button
                     disabled={currentPage === totalPages}
-                    className="flex items-center justify-center px-3 h-8 ms-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    className="rounded-md transition-all text-sm inline-block font-title font-bold border-2 py-1 px-2 shadow-buttonDarkBase hover:shadow-buttonDarkHover hover:text-secondary text-accent border-accent"
                     onClick={() => handleNextPage()}
                 >
                     Suivant

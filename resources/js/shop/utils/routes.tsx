@@ -13,6 +13,7 @@ import MentionsLegales from "../components/MentionsLegales";
 export const routes = {
     home: {
         path: "/",
+
         element: <Accueil />,
     },
     about: {
@@ -25,6 +26,7 @@ export const routes = {
     },
     catalogue: {
         path: "/catalogue",
+        name: "catalogue",
         element: <Catalogue />,
     },
     product: {

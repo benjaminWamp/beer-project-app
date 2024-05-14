@@ -24,6 +24,7 @@ const Catalogue = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [totalProducts, setTotalProducts] = useState<number>(0);
+    const [perPage, setPerPage] = useState<number>(0);
     const [userFavorites, setUserFavorites] = useState<any>();
     const { token } = useContext(UserContext);
     const { userAllFavorites, handleDeleteFavorite, handleAddToFavorite } =
@@ -63,19 +64,31 @@ const Catalogue = () => {
     };
 
     const getDatas = async () => {
-        const productsData = await getProducts(1, [
-            searchParams.get("category") || "",
-        ]);
+        let productsData;
+
+        if (searchParams.get("category") !== null) {
+            const category: string[] = [searchParams.get("category")].filter(
+                (value) => value !== null
+            ) as string[];
+            productsData = await getProducts(1, category);
+        } else {
+            productsData = await getProducts(1);
+        }
         const categoriesData = await getCategories();
         const manufacturersData = await getManufacturers();
         setProductList(productsData.data);
         setCurrentPage(productsData.current_page);
         setTotalPages(productsData.last_page);
         setTotalProducts(productsData.total);
+        setPerPage(productsData.to);
         setCategories(categoriesData);
         setManufacturers(manufacturersData);
         setUserFavorites(userAllFavorites);
     };
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     useEffect(() => {
         getDatas();
@@ -93,6 +106,8 @@ const Catalogue = () => {
             setTotalProducts={setTotalProducts}
             totalProducts={totalProducts}
             getProducts={getProducts}
+            perPage={perPage}
+            setPerPage={setPerPage}
         />
     ) : (
         <div className="min-h-screen flex flex-row flex-wrap gap-16 justify-center bg-background pt-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
