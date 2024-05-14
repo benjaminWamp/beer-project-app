@@ -6,8 +6,14 @@
         ]"/>
 <div class="px-6 mb-4">
     <div class="flex justify-between mb-1">
-
-        <h1 class="text-3xl font-bold mt-4 mb-2 font-title text-accent">Utilisateurs</h1>       
+        <div class="flex flex-row gap-4">
+            <h1 class="text-3xl font-bold mt-4 mb-2 font-title text-accent">Utilisateurs</h1>
+            <a href="{{route("users.create")}}" class="bg-accent rounded-3xl mt-3 mb-2 px-2 pt-2 text-sm font-medium hover:-translate-y-1 transition-all">
+                <svg class="w-6 h-6 text-background" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
+                </svg>
+            </a>
+        </div>
 
         <form action="{{ route('users.search') }}" method="GET" class="w-96 pt-2">
             <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">
