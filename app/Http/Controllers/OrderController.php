@@ -13,9 +13,32 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::whereIn("status", ["complete", "delivered", "cancel"])->paginate(15);
+        $orders = Order::whereIn("status", ["complete", "delivered", "cancel"])
+            ->orderBy('created_at', 'asc') // Order by created_at in descending order
+            ->paginate(15);
+
         return view("orders.index", ["orders" => $orders]);
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $orders = Order::whereHas('user', function ($q) use ($query) {
+            $q->where('email', 'LIKE', "%{$query}%")
+                ->orWhere('name', 'LIKE', "%{$query}%");
+        })
+            ->orWhere('number', 'LIKE', "%{$query}%")
+            ->orWhere('street', 'LIKE', "%{$query}%")
+            ->orWhere('city', 'LIKE', "%{$query}%")
+            ->orWhere('zip_code', 'LIKE', "%{$query}%")
+            ->orderBy('created_at', 'desc')
+            ->paginate(10)
+            ->appends(['query' => $query]);
+
+        return view('orders.search', compact('orders', 'query'));
+    }
+
 
     public function show(Order $order)
     {
