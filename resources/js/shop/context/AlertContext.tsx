@@ -31,8 +31,8 @@ export const useAlert = () => {
 
 export const AlertContextProvider = (props: AlertContextProps) => {
     const { children } = props;
-    const [type, setType] = useState<string>();
-    const [message, setMessage] = useState<string>();
+    const [type, setType] = useState<string>("");
+    const [message, setMessage] = useState<string>("");
     const [open, setOpen] = useState<boolean>(false);
 
     const addAlert = (type, message) => {
