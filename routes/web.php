@@ -39,13 +39,14 @@ Route::middleware(["auth"])->group(function () {
 
     Route::get('/admin', "App\Http\Controllers\DashboardController@index")->name('index');
 
-    Route::get('/admin/catalogue', "App\Http\Controllers\ProductController@index")->name('product.index');
+    Route::get('/admin/produits', "App\Http\Controllers\ProductController@index")->name('product.index');
     Route::get('/admin/produit/modifier/{product}', "App\Http\Controllers\ProductController@edit")->name('product.edit');
     Route::put('/admin/produit/modifier/{product}', "App\Http\Controllers\ProductController@update")->name('product.update');
     Route::get('/admin/produit/ajouter', "App\Http\Controllers\ProductController@create")->name('product.create');
     Route::get('/admin/produit/{product}', "App\Http\Controllers\ProductController@show")->name('product.show');
     Route::post('/admin/produit/store', "App\Http\Controllers\ProductController@store")->name('product.store');
     Route::delete('/admin/produit/{product}',  "App\Http\Controllers\ProductController@destroy")->name('product.destroy');
+    Route::get('admin/produits/recherche', "App\Http\Controllers\ProductController@search")->name('product.search');
 
     Route::get('/admin/categories', CategoryController::class . "@index")->name("category.index");
     Route::get('/admin/categories/ajouter', CategoryController::class . "@create")->name("category.create");
@@ -54,6 +55,7 @@ Route::middleware(["auth"])->group(function () {
     Route::post('/admin/categories', CategoryController::class . "@store")->name("category.store");
     Route::get('/admin/categories/modifier/{category}', CategoryController::class . "@edit")->name("category.edit");
     Route::put('/admin/categories/modifier/{category}', CategoryController::class . "@update")->name("category.update");
+    Route::get('/admin/categorie/recherche', CategoryController::class . "@search")->name("category.search");
 
     Route::get('/admin/producteurs', ManufacturerController::class . "@index")->name("manufacturer.index");
     Route::get('/admin/producteurs/ajouter', ManufacturerController::class . "@create")->name("manufacturer.create");

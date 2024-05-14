@@ -16,7 +16,7 @@ class productController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(10);
+        $products = Product::orderBy('created_at', 'desc')->paginate(10);
         return view('product.index', ["product" => $products]);
     }
 
@@ -38,7 +38,7 @@ class productController extends Controller
         $product = Product::create(
             [
                 ...$request->validated(),
-                "image" => $request->file("image")->hashName(), 
+                "image" => $request->file("image")->hashName(),
                 "price_ht" => $request->input("price_ht") * 100,
                 'manufacturer_id' => 1,
                 'reviews_sum' => 1,
@@ -62,6 +62,20 @@ class productController extends Controller
     public function edit(Product $product)
     {
         return view('product.edit', compact("product"),);
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        // Rechercher des produits par nom ou description
+        $products = Product::where('name', 'LIKE', "%{$query}%")
+        ->orWhere('description', 'LIKE', "%{$query}%")
+        ->orderBy('created_at', 'desc')
+        ->paginate(10)
+        ->appends(['query' => $query]);
+
+        return view('product.search', compact('products', 'query'));
     }
 
     /**
