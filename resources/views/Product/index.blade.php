@@ -45,7 +45,7 @@
     </div>
 
     <div class="flex justify-end mb-3">
-        <span class="text-sm italic text-end">La recherche inclus les descriptions de produits</span>
+        <span class="text-sm italic text-end">La recherche inclut les descriptions de produits</span>
     </div>
     
     {{ $product->links() }}
