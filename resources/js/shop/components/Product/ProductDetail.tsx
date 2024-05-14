@@ -34,7 +34,16 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
                     product_id: product.id,
                     quantity: quantity,
                 };
-                await addProductToCart(token, addedProduct);
+                try {
+                    const response = await addProductToCart(
+                        token,
+                        addedProduct
+                    );
+
+                    addAlert("success", response.message);
+                } catch (err) {
+                    addAlert("error", err);
+                }
             } else {
                 addAlert(
                     "failure",

@@ -25,29 +25,36 @@ const Cart = () => {
     );
     const [openDeleteOrderItemModal, setOpenDeleteOrderItemModal] =
         useState(false);
-    const [user, setUser] = useState<User>()
+    const [user, setUser] = useState<User>();
     const [productId, setProductId] = useState(0);
     const { addAlert } = useContext(AlertContext);
 
     const getCartList = async () => {
-        const cartList = await fetchCartList();
-        if (cartList.total > 0) {
-            const description = `Commande de ${cartList.order_items.map((el) => el.product.name).join(", ")}`
-            const user = await fetchUser(localStorage.getItem('token'))
-            setUser(user)
-            
-            const paymentIntent = await createPaymentIntent({
-                amount: cartList.total,
-                description: description,
-                receipt_email: user.email,
-                metadata: cartList.id,
-            });
+        try {
+            const cartList = await fetchCartList();
 
-            if (paymentIntent && paymentIntent.client_secret)
-                setClientSecret(paymentIntent.client_secret);
-            console.log("cartList", cartList);
-            console.log("paymentIntent", paymentIntent);
-            setCartList(cartList);
+            if (cartList.total > 0) {
+                const description = `Commande de ${cartList.order_items
+                    .map((el) => el.product.name)
+                    .join(", ")}`;
+                const user = await fetchUser(localStorage.getItem("token"));
+                setUser(user);
+
+                const paymentIntent = await createPaymentIntent({
+                    amount: cartList.total,
+                    description: description,
+                    receipt_email: user.email,
+                    metadata: cartList.id,
+                });
+
+                if (paymentIntent && paymentIntent.client_secret)
+                    setClientSecret(paymentIntent.client_secret);
+                console.log("cartList", cartList);
+                console.log("paymentIntent", paymentIntent);
+                setCartList(cartList);
+            }
+        } catch (err) {
+            addAlert("failure", err);
         }
     };
 
@@ -55,42 +62,37 @@ const Cart = () => {
         getCartList();
     }, []);
 
-    const deleteOrderItemWithId = async (id) => {
-        await deleteOrderItem(id);
-        getCartList();
-    };
-
     const handleCloseDeleteOrderItem = () => {
         setOpenDeleteOrderItemModal(false);
     };
 
     const handleDeleteOrderItem = async () => {
         try {
-            const result = await deleteOrderItem(productId);
-            addAlert("success", result.message);
+            await deleteOrderItem(productId);
+            getCartList();
         } catch (err: any) {
             const message: string = (Object.values(err)[0] as string[])[0];
             addAlert("failure", message);
             return;
         }
-        await getCartList()
-        handleCloseDeleteOrderItem()
-    }
-    const handleOpenModal = (id:number) => {
-        setOpenDeleteOrderItemModal(true)
-        setProductId(id)
-    }
-    
-    
+        await getCartList();
+        handleCloseDeleteOrderItem();
+    };
+    const handleOpenModal = (id: number) => {
+        setOpenDeleteOrderItemModal(true);
+        setProductId(id);
+    };
+
     return (
-        clientSecret && (cartList ? 
+        clientSecret &&
+        (cartList ? (
             <div className="flex">
                 <DeleteOrderItemModal
                     open={openDeleteOrderItemModal}
                     onClose={handleCloseDeleteOrderItem}
                     onDelete={handleDeleteOrderItem}
                 />
-                    <aside className="bg-blue h-full flex-1 m-4">
+                <aside className="bg-blue h-full flex-1 m-4">
                     <h2>Panier</h2>
                     {cartList && cartList.order_items.length > 0 ? (
                         cartList.order_items.map((product, index) => {
@@ -137,9 +139,7 @@ const Cart = () => {
                                             <p>{product.price_ht / 100}€</p>
                                             <button
                                                 onClick={() => {
-                                                    handleOpenModal(
-                                                        product.id
-                                                    );
+                                                    handleOpenModal(product.id);
                                                 }}
                                             >
                                                 <svg
@@ -172,14 +172,19 @@ const Cart = () => {
                     )}
                 </aside>
                 <Elements stripe={stripePromise} options={{ clientSecret }}>
-                        <CartPayment cart={cartList} user={user}/>
+                    <CartPayment cart={cartList} user={user} />
                 </Elements>
             </div>
-        : 
-        <div className="w-screen h-1/2 flex items-center justify-center">
-            <h1>Votre panier est vide... <span><a href="/catalogue">Remplisez le</a></span></h1>
+        ) : (
+            <div className="w-screen h-1/2 flex items-center justify-center">
+                <h1>
+                    Votre panier est vide...{" "}
+                    <span>
+                        <a href="/catalogue">Remplisez le</a>
+                    </span>
+                </h1>
             </div>
-        )
+        ))
     );
 };
 
