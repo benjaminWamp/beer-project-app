@@ -18,9 +18,9 @@ class DashboardController extends Controller
         $totalSold = Order::where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"), $currentMonth)
             ->sum('total');
 
-        $countOrderInProgress = Order::where('status', 'exxeexee')->count();
+        $countOrderInProgress = Order::where('status', 'payed')->count();
 
-        $countOrderDelivered = Order::where('status', 'exxeexee')
+        $countOrderDelivered = Order::where('status', 'delivered')
             ->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"), $currentMonth)
             ->count();
 

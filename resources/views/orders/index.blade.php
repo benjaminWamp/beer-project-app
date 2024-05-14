@@ -62,7 +62,7 @@
                     @if ($order->status == 'cart')
                         <span class="bg-gray-100 text-gray-800 font-semibold me-2 px-2.5 py-0.5 rounded-full font-title">{{$order->status}}</span>
 
-                    @elseif ($order->status == 'complete')
+                    @elseif ($order->status == 'payed')
                         <span class="bg-yellow-100 text-yellow-800 font-semibold me-2 px-2.5 py-0.5 rounded-full font-title">{{$order->status}}</span>
 
                     @elseif ($order->status == 'delivered')
