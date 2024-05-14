@@ -63,9 +63,6 @@
                     <th scope="col" class="font-title font-bold text-background px-6 py-3">
                         Nom
                     </th>
-                    <th scope="col" class="font-title font-bold text-background px-6 py-3">
-                        Date d'ajout
-                    </th>
                     <th scope="col" class="flex justify-end font-title font-bold text-background px-6 py-3">
                         Modifier / Voir / Supprimer
                     </th>
@@ -77,9 +74,6 @@
                         <th scope="row" class="px-6 py-4 font-sans font-bold text-slate-950 whitespace-nowrap">
                             {{ $category->name }}
                         </th>
-                        <td scope="row" class="px-6 py-4 font-sans font-bold text-slate-950 whitespace-nowrap">
-                            {{ $category->created_at->format('d/m/Y') }}
-                        </td>
                         <td class="flex flex-row justify-end px-6 py-4 gap-11">
                             <a href="{{ route('category.edit', $category) }}" class="bg-accent rounded-3xl px-2 py-2 text-sm font-medium hover:-translate-y-1 transition-all">
                                 <svg class="w-6 h-6 text-background" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
