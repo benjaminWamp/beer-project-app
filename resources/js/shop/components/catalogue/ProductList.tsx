@@ -17,7 +17,7 @@ const ProductList = (props: productListProps) => {
     const { url } = useContext(UserContext);
 
     return (
-        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
             {products.map((product, index) => {
                 const categories = product.categories;
                 return (
@@ -35,26 +35,29 @@ const ProductList = (props: productListProps) => {
                             </a>
                         </div>
                         <div className="mt-4">
-                    
                             <h3 className="font-title font-bold text-sm text-gray-700">
                                 <a href={`#/produit/${product.id}`}>
-                                    
                                     {product.name}
                                 </a>
                             </h3>
 
                             <div className="flex justify-between">
                                 <div>
-                                    <ProductCategories categories={categories} />
-        
+                                    <ProductCategories
+                                        categories={categories}
+                                    />
+
                                     <p className="text-sm font-medium text-gray-900">
-                                        {((product.price_ht + 0.2) / 100).toFixed(2)}€
+                                        {(
+                                            (product.price_ht + 0.2) /
+                                            100
+                                        ).toFixed(2)}
+                                        €
                                     </p>
                                 </div>
                                 <ReviewsStars review={product.reviews_sum} />
                                 <FavoriteHeart productId={product.id} />
                             </div>
-
                         </div>
                     </div>
                 );
