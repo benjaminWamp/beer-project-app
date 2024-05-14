@@ -7,6 +7,9 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
+
 
 class OrderController extends Controller
 {
@@ -35,7 +38,7 @@ class OrderController extends Controller
     {
         $user = $request->user();
         $cart = $user->cart();
-        return $cart->load("orderItems.product");
+        return $cart->load(["orderItems.product", "orderItems.product.categories"]);
     }
 
     /**
@@ -76,11 +79,18 @@ class OrderController extends Controller
 
     public function RemoveFromCart(Request $request, OrderItem $orderItem)
     {
+        $quantity = $orderItem->quantity;
+        $product = Product::find($orderItem->product_id);
 
         // Get User cart
         $order = $orderItem->order;
+
+
         $this->authorize("order", $order);
+
         $orderItem->delete();
+
+        $product->restoreStock($quantity);
         $order->calculateTotal();
 
         return response()->json(["message" => "Produit supprimé du panier"], 200);
@@ -112,5 +122,35 @@ class OrderController extends Controller
 
         // return $order->load("orderItems.product");
         return response()->json(["message" => "Votre panier a été supprimé"], 200);
+    }
+
+    public function updateOrderAddress (Request $request){
+        try {
+            if (!Auth::check()) {
+                return response()->json(["message" => "Veuillez vous authentifier"], 401);
+            }
+
+            $request->user()->update(
+                $request->validate([
+                    "number" => "numeric",
+                    "street" => "max:1000",
+                    "city" => "max:1000",
+                    "zip_code" => "max:5|min:5"
+                ])
+            );
+            
+            $request->user()->cart()->update(
+                $request->validate([
+                    "number" => "numeric",
+                    "street" => "max:1000",
+                    "city" => "max:1000",
+                    "zip_code" => "max:5|min:5"
+                ])
+            );
+
+            return response()->json(["message" => "Vos informations ont été mise à jour"], 200);
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
+        }
     }
 }

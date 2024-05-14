@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('status');
             $table->integer('total');
-            $table->integer('number');
-            $table->string('street');
-            $table->string('city');
-            $table->string('zip_code');
+            $table->integer('number')->nullable();
+            $table->string('street')->nullable();
+            $table->string('city')->nullable();
+            $table->string('zip_code')->nullable();
             $table->foreignId("user_id")->constrained();
             $table->timestamps();
         });

@@ -57,7 +57,9 @@ export const AlertContextProvider = (props: AlertContextProps) => {
                         zIndex: 11,
                     }}
                 >
-                    {message}
+                    {typeof message === "string"
+                        ? message
+                        : "Un erreur est survenu"}
                     <button
                         type="button"
                         className="ms-auto -mx-1.5 -my-1.5 bg-dark-50 text-dark-500 rounded-lg focus:ring-2 focus:ring-dark-400 p-1.5 hover:bg-dark-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-dark-400 dark:hover:bg-gray-700"

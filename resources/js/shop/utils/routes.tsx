@@ -6,6 +6,7 @@ import Login from "../components/Login";
 import Accueil from "../components/Accueil";
 import AccountPage from "../components/Account";
 import Register from "../components/Register";
+import Cart from "../components/Cart";
 import APropos from "../components/APropos";
 import MentionsLegales from "../components/MentionsLegales";
 
@@ -46,7 +47,7 @@ export const routes = {
     },
     cart: {
         path: "/cart",
-        element: <div>Cart</div>,
+        element: <Cart />,
     },
     checkout: {
         path: "/checkout",

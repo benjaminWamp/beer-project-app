@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\StripePaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,8 @@ Route::get("/product/{product}/reviews", "App\Http\Controllers\Api\ProductContro
 
 Route::get("/categories", "App\Http\Controllers\Api\CategoryController@index")->name("categories.index");
 Route::get("/manufacturers", "App\Http\Controllers\Api\ManufacturerController@index")->name("manufacturers.index");
+Route::post("/login", "App\Http\Controllers\Api\AuthController@login")->name("login");
+Route::post("/register", "App\Http\Controllers\Api\RegisterController@register")->name("register");
 
 
 Route::middleware('auth:sanctum')->group(
@@ -51,10 +54,13 @@ Route::middleware('auth:sanctum')->group(
         Route::get("/user/orders", "App\Http\Controllers\Api\OrderController@index")->name("order.index");
         Route::get("/user/cart", "App\Http\Controllers\Api\OrderController@showCart")->name("order.showCart");
         Route::post("/user/cart", "App\Http\Controllers\Api\OrderController@addToCart")->name("order.addToCart");
+        Route::put("/user/cart/{orderItem}", "App\Http\Controllers\Api\OrderController@updateOrderAddress")->name("order.update");
         Route::post("/user/cart/payed", "App\Http\Controllers\Api\OrderController@payed")->name("order.payed");
         Route::delete("/user/cart/{orderItem}", "App\Http\Controllers\Api\OrderController@removeFromCart")->name("order.removeFromCart");
         Route::delete("/user/cart", "App\Http\Controllers\Api\OrderController@deleteCart")->name("order.deleteCart");
 
         Route::post("/logout", "App\Http\Controllers\Api\AuthController@logout")->name("logout");
+
+        Route::post("/paymentIntent", "App\Http\Controllers\Api\StripePaymentController@createPaymentIntent")->name("stripePayment.payment");
     }
 );
