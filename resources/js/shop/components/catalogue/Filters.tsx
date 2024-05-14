@@ -591,7 +591,10 @@ const Filters = (props: FilterProps) => {
                             {/* Product grid */}
                             <div className="lg:col-span-3">
                                 {filteredProducts.length > 0 ? (
-                                    <ProductList products={filteredProducts} />
+                                    <ProductList
+                                        products={filteredProducts}
+                                        col={3}
+                                    />
                                 ) : (
                                     <h2>
                                         Aucune bière ne correspond à vos

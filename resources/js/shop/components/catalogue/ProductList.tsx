@@ -1,23 +1,24 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import ProductCategories from "./ProdcutCategories";
 import ReviewsStars from "../shared/ReviewsStars";
 import { Product } from "../../types/product.types";
 import UserContext from "../../context/UserContext";
 import FavoriteHeart from "../shared/FavoriteHeart";
-import { fetchUserFavorite } from "../../utils/services/FavoriteService";
-import { Favorite } from "../../types/favorite.types";
 
 interface productListProps {
     products: Array<Product>;
+    col: number;
 }
 
 const ProductList = (props: productListProps) => {
-    const { products } = props;
+    const { products, col } = props;
 
     const { url } = useContext(UserContext);
 
     return (
-        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+        <div
+            className={`mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-${col} xl:gap-x-8`}
+        >
             {products.map((product, index) => {
                 const categories = product.categories;
                 return (

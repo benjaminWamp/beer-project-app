@@ -71,7 +71,7 @@ const Accueil = () => {
                         text={"Nos Bières"}
                     />
                     {fiveProducts ? (
-                        <ProductList products={fiveProducts} />
+                        <ProductList products={fiveProducts} col={4} />
                     ) : (
                         <div className="flex flex-row flex-wrap gap-12 justify-center pt-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                             {[0, 1, 2, 3].map((key) => (
@@ -165,7 +165,7 @@ const Accueil = () => {
                         text={"Les 4 Glorieuses"}
                     />
                     {bestProducts ? (
-                        <ProductList products={bestProducts} />
+                        <ProductList products={bestProducts} col={4} />
                     ) : (
                         <div className="flex flex-row flex-wrap gap-12 justify-center pt-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                             {[0, 1, 2, 3].map((key) => (
