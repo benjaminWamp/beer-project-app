@@ -25,7 +25,7 @@
                     id="default-search"
                     name="query"
                     class="autofill:shadow-[inset_0_0_60px_60px_#514339] autofill:text-table placeholder:text-table text-table bg-accent block w-full p-4 ps-10 pr-[30%] text-sm table rounded-lg"
-                    placeholder="Rechercher une catégorie"
+                    placeholder="Rechercher une commande"
                     value="{{ request('query') }}"
                     required
                 />
