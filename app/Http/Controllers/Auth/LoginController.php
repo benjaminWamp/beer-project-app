@@ -22,9 +22,16 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            return redirect()->intended('/admin');
+            if (Auth::user()->role === 'admin') {
+                $request->session()->regenerate();
+                return redirect()->intended('/admin');
+            } else {
+                // Déconnexion de l'utilisateur si le rôle n'est pas admin
+                Auth::logout();
+                return back()->withErrors([
+                    'email' => 'Vous n\'avez pas les permissions nécessaires pour accéder à cette section.',
+                ])->onlyInput('email');
+            }
         }
 
         return back()->withErrors([
