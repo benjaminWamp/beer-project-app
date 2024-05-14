@@ -50,7 +50,7 @@
     </div>
 
     <div class="flex justify-end mb-3">
-        <span class="text-sm italic text-end">La recherche inclut les descriptions de catégories</span>
+        <span class="text-sm italic text-end">La recherche inclut les noms, prénoms et adresses</span>
     </div>
     
     @if($orders->isNotEmpty())
