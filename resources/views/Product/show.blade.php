@@ -103,7 +103,7 @@
             </div>
         </div>
 
-        <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Fournisseur&nbsp;:</h2> 
+        <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Producteur&nbsp;:</h2> 
         <div class="flex align-center mt-2 gap-4">
             <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{$product->manufacturer->name}}</p>
             <div class="flex">
