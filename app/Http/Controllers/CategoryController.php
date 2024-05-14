@@ -14,7 +14,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::paginate(10);
+        $categories = Category::orderBy('created_at', 'desc')->paginate(10);
         return view("category.index", compact('categories'));
     }
 
@@ -23,11 +23,12 @@ class CategoryController extends Controller
         return view('category.create');
     }
 
+
+
     public function store(CreateCategoryRequest $request)
     {
         $category = Category::create([
             ...$request->validated(),
-            "slug" => Str::slug($request->name),
         ]);
         return redirect()->route("category.show", $category);
     }
@@ -42,11 +43,23 @@ class CategoryController extends Controller
         return view('category.edit', compact("category"));
     }
 
+    public function search(Request $request)
+    {
+
+        $query = $request->input('query');
+
+        $categories = Category::where('name', 'LIKE', "%{$query}%")
+            ->orderBy('created_at', 'desc')
+            ->paginate(10)
+            ->appends(['query' => $query]);
+
+        return view('category.search', compact('categories', 'query'));
+    }
+
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         $category->update([
             ...$request->validated(),
-            "slug" => Str::slug($request->slug),
         ]);
 
         return redirect()->route("category.show", $category);

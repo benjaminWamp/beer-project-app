@@ -24,7 +24,6 @@ class CreateCategoryRequest extends FormRequest
         return [
             "name" => "required|max:255|min:2",
             "description" => "required|max:1000|min:10",
-            "slug" => "slug",
             "color" => "required|max:255|min:2",
         ];
     }

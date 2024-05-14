@@ -19,7 +19,7 @@ class CategoryFactory extends Factory
         return [
             "name" => fake()->word(1, true),
             "description" => fake()->text(1000),
-            "slug" => fake()->slug(),
+
             "color" => fake()->randomElement(["red", "green", "blue", "yellow", "purple", "orange"]),
         ];
     }

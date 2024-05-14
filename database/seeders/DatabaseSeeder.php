@@ -99,14 +99,14 @@ class DatabaseSeeder extends Seeder
         \App\Models\Category::factory()->create([
             "name" => "Blonde",
             "description" => "Nos plus belles bières blondes",
-            "slug" => "blonde",
+           
             "color" => "orange",
         ]);
 
         \App\Models\Category::factory()->create([
             "name" => "Brune",
             "description" => "Nos meilleures bières brunes",
-            "slug" => "brune",
+            
             "color" => "purple",
         ]);
 
@@ -114,7 +114,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Category::factory()->create([
             "name" => "Blanche",
             "description" => "Nos plus pure bière blanche",
-            "slug" => "blanche",
+            
             "color" => "yellow",
         ]);
 
