@@ -38,6 +38,14 @@ const NavBar = () => {
                 <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse gap-2">
                     {isLogged ? (
                         <>
+                            <button>
+                                <a
+                                    href="#/cart"
+                                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                                >
+                                    Panier
+                                </a>
+                            </button>
                             <button
                                 type="button"
                                 className="rounded-md transition-all text-sm inline-block font-title font-bold border-2 py-2 px-4 shadow-buttonLightBase hover:shadow-buttonLightHover hover:text-accent text-secondary border-secondary"
@@ -156,14 +164,6 @@ const NavBar = () => {
                                 } block py-2 px-3 font-title font-bold  rounded md:p-0 hover:text-secondary active:text-secondary`}
                             >
                                 Contact
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="#/cart"
-                                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                            >
-                                Panier
                             </a>
                         </li>
                     </ul>

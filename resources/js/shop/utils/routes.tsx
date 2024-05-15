@@ -53,7 +53,7 @@ export const routes = {
     },
     checkout: {
         path: "/checkout",
-        element: <div>Checkout</div>,
+        element: <ConfirmedOrder />,
     },
     mentionsLegales: {
         path: "/mentions-legales",
@@ -63,8 +63,8 @@ export const routes = {
         path: "/cgv",
         element: <Cgv />,
     },
-    confirmedorder : {
+    confirmedorder: {
         path: "/commande-validee",
-        element: <ConfirmedOrder />
-    }
+        element: <ConfirmedOrder />,
+    },
 };

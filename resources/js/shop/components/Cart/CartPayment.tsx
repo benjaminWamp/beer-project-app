@@ -52,7 +52,7 @@ const CartPayment = (props: CartPaymentProps) => {
                         redirect: "if_required",
                     });
                     const response = await payedCart(token);
-                    navigate("/");
+                    navigate("/checkout");
                     addAlert("success", response.message);
                 } catch (error) {
                     if (
