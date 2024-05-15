@@ -59,13 +59,26 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
     };
 
     return (
-        <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6  lg:size-3/6 lg:px-8 lg:pb-24 lg:pt-16">
+        <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6  lg:size-3/6 lg:px-8 lg:pb-24 ">
             <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
                 <h1 className="text-3xl font-title text-accent font-bold">
                     {product.name}
                 </h1>
             </div>
             <FavoriteHeart productId={product.id} />
+
+            <div className="py-2 lg:col-span-2 lg:col-start-1">
+                {/* Description and details */}
+                <div>
+                    <h3 className="sr-only">Description</h3>
+
+                    <div className="space-y-6">
+                        <p className="text-base text-xs text-justify text-gray-900">
+                            {product.description}
+                        </p>
+                    </div>
+                </div>
+            </div>
 
             {/* Options */}
             <div className="mt-4 lg:row-span-3 lg:mt-0">
@@ -149,18 +162,7 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
                 </form>
             </div>
 
-            <div className="py-10 lg:col-span-2 lg:col-start-1">
-                {/* Description and details */}
-                <div>
-                    <h3 className="sr-only">Description</h3>
-
-                    <div className="space-y-6">
-                        <p className="text-base text-xs text-justify text-gray-900">
-                            {product.description}
-                        </p>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     );
 };
