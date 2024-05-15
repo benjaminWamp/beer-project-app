@@ -17,7 +17,7 @@ class productController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(10);
+        $products = Product::orderBy('created_at', 'desc')->paginate(10);
         return view('product.index', ["product" => $products]);
     }
 
@@ -65,6 +65,20 @@ class productController extends Controller
     {
         $manufacturers = Manufacturer::all();
         return view('product.edit', compact('product', 'manufacturers'),);
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        // Rechercher des produits par nom ou description
+        $products = Product::where('name', 'LIKE', "%{$query}%")
+        ->orWhere('description', 'LIKE', "%{$query}%")
+        ->orderBy('created_at', 'desc')
+        ->paginate(10)
+        ->appends(['query' => $query]);
+
+        return view('product.search', compact('products', 'query'));
     }
 
     /**

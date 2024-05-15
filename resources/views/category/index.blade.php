@@ -6,13 +6,46 @@
         ]"/>
 
 <div class="px-6">
-    <div class="flex flex-row gap-4">
-        <h1 class="text-3xl font-bold mt-4 mb-2 font-title text-accent">Catégories</h1>
-        <a href="{{route("category.create")}}" class="bg-accent rounded-3xl mt-3 mb-2 px-2 pt-2 text-sm font-medium hover:-translate-y-1 transition-all">
-            <svg class="w-6 h-6 text-background" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
-            </svg>
-        </a>        
+    <div class="flex justify-between mb-1">
+        <div class="flex flex-row gap-4">
+            <h1 class="text-3xl font-bold mt-4 mb-2 font-title text-accent">Catégories</h1>
+            <a href="{{route("category.create")}}" class="bg-accent rounded-3xl mt-3 mb-2 px-2 pt-2 text-sm font-medium hover:-translate-y-1 transition-all">
+                <svg class="w-6 h-6 text-background" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
+                </svg>
+            </a>        
+        </div>
+        
+        <form action="{{ route('category.search') }}" method="GET" class="w-96 pt-2">
+            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">
+                Rechercher
+            </label>
+            <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-table" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                </div>
+                <input
+                    type="search"
+                    id="default-search"
+                    name="query"
+                    class="autofill:shadow-[inset_0_0_60px_60px_#514339] autofill:text-table placeholder:text-table text-table bg-accent block w-full p-4 ps-10 pr-[30%] text-sm table rounded-lg"
+                    placeholder="Rechercher une catégorie"
+                    required
+                />
+                <button
+                    type="submit"
+                    class="bg-accent absolute end-2.5 bottom-2.5 rounded-md transition-all text-xs inline-block font-title font-bold border-2 py-2 px-4 shadow-buttonLightBase hover:shadow-buttonLightHover hover:text-accent text-secondary border-secondary"
+                >
+                    Rechercher
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="flex justify-end mb-3">
+        <span class="text-sm italic text-end">La recherche inclut les descriptions de catégories</span>
     </div>
     
     {{ $categories->links() }}
