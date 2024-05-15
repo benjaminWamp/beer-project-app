@@ -47,16 +47,7 @@
                 <input type="date" name="delivered_at" id="delivered_at" value="{{$product->delivered_at->format("Y-m-d")}}" class="block border w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
             </div>
         </div>
-        <div class="mb-4">
-            <label for="image" class="font-title block text-m font-semibold leading-6 text-gray-900">Image</label>
-            @error("image")
-            <div class="text-red-500">{{$message}}</div>
-            @enderror
-            <div class="mt-2.5">
-                <img src="{{asset("storage/images/$product->image")}}" alt="couverture {{$product->name}}" class="mb-2" />
-                <input type="file" name="image" id="image" value="{{$product->image}}" class="block border w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-            </div>
-        </div>
+        
         <div class="mb-4">
             <label for="price_ht" class="font-title block text-m font-semibold leading-6 text-gray-900">Prix HT</label>
                 @error("price_ht")
@@ -108,6 +99,17 @@
                 </select>
                 </div>
                 
+        </div>
+
+        <div class="mb-4">
+            <label for="image" class="font-title block text-m font-semibold leading-6 text-gray-900">Image</label>
+            @error("image")
+            <div class="text-red-500">{{$message}}</div>
+            @enderror
+            <div class="mt-2.5">
+                <img src="{{asset("storage/images/$product->image")}}" alt="couverture {{$product->name}}" class="mb-2" />
+                <input type="file" name="image" id="image" value="{{$product->image}}" class="block border w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
         </div>
 
         <div class="mt-8">

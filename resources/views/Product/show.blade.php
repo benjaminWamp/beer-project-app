@@ -32,53 +32,62 @@
         </form>
     </div>
 
-
-    <div class="mt-4 flex flex-col gap-4">
-        <h1 class="font-title text-4xl font-title font-semibold text-accent">{{$product->name}}</h1>
-
-        <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Image&nbsp;:</h2>
+<div class="mt-4 flex flex-row gap-16">
+    <div> <h1 class="font-title text-4xl font-title font-semibold text-accent">{{$product->name}}</h1>
+ <h2 class="mt-4 font-title text-m leading-none font-semibold leading-6 text-accent">Créé le {{$product->created_at->format("d/m/Y")}}</h2> 
+        
+          
+        
+        <h2 class="mt-4 font-title text-m leading-none font-semibold leading-6 text-accent">Image&nbsp;:</h2>
+        
         <div class="mt-2 flex gap-4">
             @if($product->image)
-                <img src="{{asset("storage/images/$product->image")}}" alt="Image {{$product->name}}" class="mt-2"/>
+                <img src="{{asset("storage/images/$product->image")}}" alt="Image {{$product->name}}" class="mt-2 w-64 h-64 object-contain"/>
             @endif
-        </div>
-
-        <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Prix unitaire&nbsp;:</h2> 
+        </div></div>
+    <div>
+         <div>
+        <h2 class="mt-4 font-title text-m leading-none font-semibold leading-6 text-accent">Prix unitaire&nbsp;:</h2> 
         <div class="flex align-center mt-2 gap-4">
             <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{$product->price_ht / 100}} €</p>
         </div>
-
-        <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Description&nbsp;:</h2> 
-        <div class="flex align-center mt-2 gap-4">
+    
+        <h2 class="mt-4 font-title text-m leading-none font-semibold leading-6 text-accent">Description&nbsp;:</h2> 
+        <div class="flex align-center mt-2 gap-4 max-w-md">
             <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{$product->description}}</p>
         </div>
+    </div>
 
-        <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Créé le&nbsp;:</h2> 
-        <div class="flex align-center mt-2 gap-4">
-            <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{$product->created_at->format("d/m/Y")}}</p>
-        </div>
-
-        <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">En stock&nbsp;:</h2> 
+    <div class="flex gap-6">
+    <div>
+        <h2 class="mt-4 font-title text-m leading-none font-semibold leading-6 text-accent">En stock&nbsp;:</h2> 
         <div class="flex align-center mt-2 gap-4">
             <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{$product->stock}}</p>
         </div>
-
-        <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Avis&nbsp;:</h2> 
+    </div>
+    <div>
+        <h2 class="mt-4 font-title text-m leading-none font-semibold leading-6 text-accent">Avis&nbsp;:</h2> 
         <div class="flex align-center mt-2 gap-4">
             <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{$product->reviews_sum}} / 5</p>
         </div>
-
-        <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Catégorie&nbsp;:</h2> 
+    </div>
+    <div>
+        <h2 class="mt-4 font-title text-m leading-none font-semibold leading-6 text-accent">Catégorie&nbsp;:</h2> 
         <div class="flex align-center mt-2 gap-4">
             <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{$product->category->name}}</p>
         </div>
-
-        <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Producteur&nbsp;:</h2> 
+    </div>
+    <div>
+        <h2 class="mt-4 font-title text-m leading-none font-semibold leading-6 text-accent">Producteur&nbsp;:</h2> 
         <div class="flex align-center mt-2 gap-4">
             <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{$product->manufacturer->name}}</p>
         </div>
-        
     </div>
+</div>
+
+    </div>
+</div>
+   
 </div>
 
 </x-layout>
