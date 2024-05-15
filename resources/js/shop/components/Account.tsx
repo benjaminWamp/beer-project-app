@@ -7,16 +7,23 @@ import { fetchUserFavorite } from "../utils/services/FavoriteService";
 import { User } from "../types/user.types";
 import AccountSkeleton from "./skeletons/AccountSkeleotn";
 import OrderList from "./account/OrderList";
+import AlertContext from "../context/AlertContext";
 
 const AccountPage = () => {
     const [user, setUser] = useState<User>();
 
     const { token } = useContext(UserContext);
+    const { addAlert } = useContext(AlertContext);
 
     const getUser = async () => {
-        const response = await fetchUser(token);
+        if (token)
+            try {
+                const response = await fetchUser(token);
 
-        setUser(response);
+                setUser(response);
+            } catch (error) {
+                addAlert("failure", error.message);
+            }
     };
 
     useEffect(() => {

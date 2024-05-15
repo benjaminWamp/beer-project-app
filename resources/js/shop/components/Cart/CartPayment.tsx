@@ -73,12 +73,13 @@ const CartPayment = (props: CartPaymentProps) => {
     };
 
     return (
-        <div>
-            <PaymentElement />
-            <form onSubmit={(e) => handleSubmit(e)}>
-                <div className="flex justify-between">
-                    <label htmlFor="name">Nom</label>
+        <div className="min-w-96">
+            <PaymentElement className="text-sans"/>
+            <form onSubmit={(e) => handleSubmit(e)} className="mt-3">
+                <div className="flex flex-col">
+                    <label htmlFor="name" className="text-[#30313d] text-sm">Nom</label>
                     <input
+                        className="mb-3 rounded border-[#e6e6e6] shadow-[0_1px_1px_0_rgba(0, 0, 0, 0.03)] p-3 text-sm"
                         type="text"
                         defaultValue={user ? user.name : ""}
                         name="name"
@@ -86,9 +87,10 @@ const CartPayment = (props: CartPaymentProps) => {
                         required
                     />
                 </div>
-                <div className="flex justify-between">
-                    <label htmlFor="street">Addresse</label>
+                <div className="flex flex-col">
+                    <label htmlFor="street" className="text-[#30313d] text-sm">Addresse</label>
                     <input
+                        className="mb-3 rounded border-[#e6e6e6] shadow-[0_1px_1px_0_rgba(0, 0, 0, 0.03)] p-3 text-sm"
                         type="text"
                         defaultValue={cart.street}
                         name="street"
@@ -96,9 +98,10 @@ const CartPayment = (props: CartPaymentProps) => {
                         required
                     />
                 </div>
-                <div className="flex justify-between">
-                    <label htmlFor="number">Nº addresse</label>
+                <div className="flex flex-col">
+                    <label htmlFor="number" className="text-[#30313d] text-sm">Nº addresse</label>
                     <input
+                        className="mb-3 rounded border-[#e6e6e6] shadow-[0_1px_1px_0_rgba(0, 0, 0, 0.03)] p-3 text-sm"
                         type="number"
                         defaultValue={cart.number}
                         min={0}
@@ -107,9 +110,10 @@ const CartPayment = (props: CartPaymentProps) => {
                         required
                     />
                 </div>
-                <div className="flex justify-between">
-                    <label htmlFor="zip_code">Code postal</label>
+                <div className="flex flex-col">
+                    <label htmlFor="zip_code" className="text-[#30313d] text-sm">Code postal</label>
                     <input
+                        className="mb-3 rounded border-[#e6e6e6] shadow-[0_1px_1px_0_rgba(0, 0, 0, 0.03)] p-3 text-sm"
                         type="text"
                         defaultValue={cart.zip_code}
                         name="zip_code"
@@ -118,9 +122,10 @@ const CartPayment = (props: CartPaymentProps) => {
                         required
                     />
                 </div>
-                <div className="flex justify-between">
-                    <label htmlFor="city">Ville</label>
+                <div className="flex flex-col">
+                    <label htmlFor="city" className="text-[#30313d] text-sm">Ville</label>
                     <input
+                        className="mb-3 rounded border-[#e6e6e6] shadow-[0_1px_1px_0_rgba(0, 0, 0, 0.03)] p-3 text-sm"
                         type="text"
                         defaultValue={cart.city}
                         name="city"
@@ -128,7 +133,9 @@ const CartPayment = (props: CartPaymentProps) => {
                         required
                     />
                 </div>
-                <button type="submit">Payer</button>
+                <div className="flex justify-end mt-2">
+                    <button type="submit" className="rounded-md transition-all text-m inline-block font-title font-bold border-2 py-2 px-4 shadow-buttonDarkBase hover:shadow-buttonDarkHover hover:text-secondary text-accent border-accent">Payer</button>
+                </div>
             </form>
         </div>
     );

@@ -52,6 +52,7 @@ const AccountDetails = (props: AccountDetailProps) => {
             city: city.value,
             zip_code: zip_code.value,
         };
+        if(token)
         try {
             const result = await updateUser(userData, token);
             addAlert("success", result.message);
