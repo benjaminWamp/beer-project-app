@@ -13,6 +13,7 @@ import CartPayment from "./Cart/CartPayment";
 import DeleteOrderItemModal from "./Cart/DeleteOrderItemModal";
 import AlertContext from "../context/AlertContext";
 import { User } from "../types/user.types";
+import TableSkeleton from "./skeletons/TableSkeleton";
 
 const stripePromise = loadStripe(
     "pk_test_51P7HxBIvgCNdAzyGQvbsSdlBBNixi3ZSsQA51phuRXn3ePYTkWrWOUPwIs0bhBcwqnIVq35P25Qd5t6dgxDR5jSD00SSsNWJ2r"
@@ -83,9 +84,8 @@ const Cart = () => {
         setProductId(id);
     };
 
-    return (
-        clientSecret &&
-        (cartList ? (
+    return clientSecret ? (
+        cartList ? (
             <div className="flex">
                 <DeleteOrderItemModal
                     open={openDeleteOrderItemModal}
@@ -184,7 +184,9 @@ const Cart = () => {
                     </span>
                 </h1>
             </div>
-        ))
+        )
+    ) : (
+        <TableSkeleton />
     );
 };
 
