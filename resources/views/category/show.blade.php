@@ -34,10 +34,7 @@
     <div class="mt-4 flex flex-col gap-4">
         <h1 class="font-title text-4xl font-title font-semibold text-accent">{{$category->name}}</h1>
 
-        <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Slug&nbsp;:</h2>
-        <div class="flex align-center mt-2 gap-4">
-            <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{$category->slug}}</p>
-        </div>
+        
 
         <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Description&nbsp;:</h2>
         <div class="flex align-center mt-2 gap-4">

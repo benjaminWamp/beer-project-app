@@ -18,14 +18,17 @@
     </div>
 
 
-    <div class="mt-4 flex flex-col gap-4">
+    <div class="mt-4 flex flex-row gap-4">
+        <div>
         <h1 class="font-title text-4xl font-title font-semibold text-accent">{{$review->user->name}}</h1>
 
         <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Produit&nbsp;:</h2>
         <div class="mt-2 flex gap-4">
             <p class="bg-table border-b border-accent p-2 rounded-md">{{$review->product->name}}</p>
         </div>
-
+        <div>
+<div class="flex flex-row gap-16">
+    <div>
         <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Note&nbsp;:</h2>
             <div class="flex">
                 @for($j = 1; $j < 6; $j++)
@@ -40,11 +43,14 @@
                     @endif
                 @endfor
             </div>
-
+        </div>
+<div>
         <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Message&nbsp;:</h2>
         <div class="mt-2 flex gap-4">
             <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{$review->message}}</p>
         </div>
+    </div>
+</div>
     </div>
 
 </div>
