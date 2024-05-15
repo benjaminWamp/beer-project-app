@@ -9,6 +9,7 @@ import Register from "../components/Register";
 import Cart from "../components/Cart";
 import APropos from "../components/APropos";
 import MentionsLegales from "../components/MentionsLegales";
+import Cgv from "../components/Cgv";
 
 export const routes = {
     home: {
@@ -59,6 +60,6 @@ export const routes = {
     },
     cgv: {
         path: "/cgv",
-        element: <div>CGV</div>,
+        element: <Cgv />,
     },
 };
