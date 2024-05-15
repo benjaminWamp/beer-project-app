@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="mb-4">
-            <label for="price_ht" class="font-title block text-m font-semibold leading-6 text-gray-900">Prix HT</label>
+            <label for="price_ht" class="font-title block text-m font-semibold leading-6 text-gray-900">Prix HT (centimes)</label>
                 @error("price_ht")
             <div class="text-red-500">{{$message}}</div>
             @enderror
