@@ -7,6 +7,6 @@ export const fetchProduct = async (id: string) => {
         );
         return response.data;
     } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
+        throw (Object.values(error.response.data.errors)[0] as string[])[0];
     }
 };

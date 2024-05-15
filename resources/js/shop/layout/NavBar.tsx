@@ -8,7 +8,6 @@ const NavBar = () => {
     const { isLogged, logOut } = useContext(UserContext);
     const { addAlert } = useContext(AlertContext);
     const { pathname } = useLocation();
-    console.log(pathname, pathname === "/");
 
     const handleLogOut = async () => {
         try {

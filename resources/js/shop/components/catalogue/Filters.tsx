@@ -89,16 +89,6 @@ const Filters = (props: FilterProps) => {
         undefined
     );
 
-    // const searchCategory = searchParams.get("category");
-    // console.log(categoriesChecked);
-    // useEffect(() => {
-    //     if (searchCategory) {
-    //         console.log(searchCategory);
-    //         setCategoriesChecked([...categoriesChecked, searchCategory]);
-    //         setCurrentPage(1);
-    //     }
-    // }, [searchCategory]);
-
     const addCatergoryChecked = (e) => {
         const isChecked: boolean = e.target.checked;
         const categoryChecked: string = e.target.value;

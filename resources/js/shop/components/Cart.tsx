@@ -41,7 +41,7 @@ const Cart = () => {
                     const description = `Commande de ${cartData.order_items
                         .map((el) => el.product.name)
                         .join(", ")}`;
-                    const user = await fetchUser(localStorage.getItem("token"));
+                    const user = await fetchUser(token);
                     setUser(user);
 
                     const paymentIntent = await createPaymentIntent(token, {
@@ -84,8 +84,6 @@ const Cart = () => {
         setOpenDeleteOrderItemModal(true);
         setProductId(id);
     };
-
-    console.log(cartList);
 
     return (
         <div className="flex pt-14">
