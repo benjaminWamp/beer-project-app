@@ -29,7 +29,7 @@ const NavBar = () => {
             <nav className="bg-accent fixed w-full z-20 top-0 start-0 shadow-md">
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 ">
                     <a
-                        href="http://127.0.0.1:8000/#/"
+                        href="#/"
                         className="flex items-center space-x-3 rtl:space-x-reverse"
                     >
                         <img
@@ -166,7 +166,7 @@ const NavBar = () => {
                         <ul className="bg-transparent flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
                             <li>
                                 <a
-                                    href="/"
+                                    href="#/"
                                     className={`${
                                         pathname === "/"
                                             ? "text-secondary"
