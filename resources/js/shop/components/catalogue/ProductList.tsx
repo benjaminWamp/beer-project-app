@@ -50,10 +50,10 @@ const ProductList = (props: productListProps) => {
 
                                     <p className="text-sm font-medium text-gray-900">
                                         {(
-                                            (product.price_ht + 0.2) /
+                                            (product.price_ht * (1 + 0.2)) /
                                             100
-                                        ).toFixed(2)}
-                                        €
+                                        ).toFixed(2)}{" "}
+                                        € TTC
                                     </p>
                                 </div>
                                 <ReviewsStars review={product.reviews_sum} />

@@ -74,8 +74,11 @@ const FavoriteList = () => {
                                                 <th className="h-16 w-16 px-6 py-4">
                                                     <img
                                                         src={`${url}/storage/images/${favorite.product.image}`}
-                                                        alt={`image de ${favorite.product.name}`}
-                                                        className="h-full w-full object-cover object-center"
+                                                        alt={
+                                                            favorite.product
+                                                                .name
+                                                        }
+                                                        className="rounded-md w-16 h-16 object-cover"
                                                     />
                                                 </th>
 

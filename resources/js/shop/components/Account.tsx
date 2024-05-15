@@ -42,7 +42,7 @@ const AccountPage = () => {
 
                 {user && token ? (
                     <div className=" flex flex-col justify-center py-12 gap-8">
-                        <div className="max-w-screen-xl w-full flex justify-between gap-8">
+                        <div className="max-w-screen-xl w-full flex justify-between items-start  gap-8">
                             <AccountDetails user={user} getUser={getUser} />
                             <FavoriteList />
                         </div>

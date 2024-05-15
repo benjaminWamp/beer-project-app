@@ -84,7 +84,7 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
             <div className="mt-4 lg:row-span-3 lg:mt-0">
                 <h2 className="sr-only">Informations produit</h2>
                 <p className="mt-4 text-xl font-title font-bold text-accent">
-                    {((product.price_ht + 0.2) / 100).toFixed(2)} €
+                    {((product.price_ht * (1 + 0.2)) / 100).toFixed(2)} € TTC
                 </p>
 
                 <p className="text-sm font-title font-bold tracking-tight text-accent">
@@ -161,8 +161,6 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
                     </button>
                 </form>
             </div>
-
-            
         </div>
     );
 };

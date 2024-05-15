@@ -74,9 +74,9 @@ const Cart = () => {
                                         onDelete={handleDeleteOrderItem}
                                     />
 
-                                    <div className="w-full flex justify-center">
-                                        <div className="w-full">
-                                            <div className=" overflow-hidden">
+                                    <div className="w-full">
+                                        <div className="w-full flex flex-row gap-6">
+                                            <div className="w-3/4 overflow-hidden">
                                                 <div className="relative rounded-md overflow-hidden my-4">
                                                     <table className="w-full text-sm text-left rtl:text-right text-zinc-50">
                                                         <thead className="text-xs text-zinc-50 uppercase bg-accent ">
@@ -248,10 +248,7 @@ const Cart = () => {
                                                 </div>
                                             </div>
 
-                                            <div className="flex justify-center gap-6 mt-8">
-                                                <button className="rounded-md transition-all text-m inline-block font-title font-bold border-2 py-2 px-4 shadow-buttonDarkBase hover:shadow-buttonDarkHover hover:text-secondary text-accent border-accent">
-                                                    Revenir au catalogue
-                                                </button>
+                                            <div className="flex flex-col justify-start items-start gap-6 my-4">
                                                 <button
                                                     className="rounded-md transition-all text-m inline-block font-title font-bold border-2 py-2 px-4 shadow-buttonDarkBase hover:shadow-buttonDarkHover hover:text-secondary text-accent border-accent"
                                                     onClick={() =>
@@ -259,6 +256,14 @@ const Cart = () => {
                                                     }
                                                 >
                                                     Aller au paiement
+                                                </button>
+                                                <button
+                                                    onClick={() =>
+                                                        navigate("/catalogue")
+                                                    }
+                                                    className="rounded-md transition-all text-m inline-block font-title font-bold border-2 py-2 px-4 shadow-buttonDarkBase hover:shadow-buttonDarkHover hover:text-secondary text-accent border-accent"
+                                                >
+                                                    Revenir au catalogue
                                                 </button>
                                             </div>
                                         </div>
