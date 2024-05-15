@@ -107,6 +107,10 @@ class OrderController extends Controller
             "status" => "payed",
         ]);
 
+        $order = $request->user()->cart();
+        $order->delete();
+        $order->calculateTotal();
+
         // return $order->load("orderItems.product");
         return response()->json(["message" => "Votre panier a été payé"], 200);
     }
