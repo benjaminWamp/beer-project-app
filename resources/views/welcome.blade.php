@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="icon" type="image/x-icon" href="\images\mb-logo.png"/> 
-        <title>Mister Bière</title>
+        <title>Monsieur Bière</title>
   @viteReactRefresh
           @vite( ['resources/js/shop/main.tsx'])
     </head>
