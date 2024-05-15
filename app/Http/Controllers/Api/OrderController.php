@@ -20,7 +20,7 @@ class OrderController extends Controller
     {
         $orders = $request->user()->orders();
 
-        return $orders->paginate(15);
+        return $orders->orderBy('created_at', 'desc')->paginate(15);
     }
 
     /**
@@ -124,7 +124,8 @@ class OrderController extends Controller
         return response()->json(["message" => "Votre panier a été supprimé"], 200);
     }
 
-    public function updateOrderAddress (Request $request){
+    public function updateOrderAddress(Request $request)
+    {
         try {
             if (!Auth::check()) {
                 return response()->json(["message" => "Veuillez vous authentifier"], 401);
@@ -138,7 +139,7 @@ class OrderController extends Controller
                     "zip_code" => "max:5|min:5"
                 ])
             );
-            
+
             $request->user()->cart()->update(
                 $request->validate([
                     "number" => "numeric",
