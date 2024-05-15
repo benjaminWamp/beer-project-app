@@ -11,6 +11,7 @@ import APropos from "../components/APropos";
 import MentionsLegales from "../components/MentionsLegales";
 import Cgv from "../components/Cgv";
 import ConfirmedOrder from "../components/ConfirmedOrder";
+import Checkout from "../components/Cart/Checkout";
 
 export const routes = {
     home: {
@@ -53,6 +54,10 @@ export const routes = {
     },
     checkout: {
         path: "/checkout",
+        element: <Checkout />,
+    },
+    thanks: {
+        path: "/thank-u",
         element: <ConfirmedOrder />,
     },
     mentionsLegales: {

@@ -62,8 +62,9 @@ const Register = () => {
                         src="/images/mb-logo.png"
                         alt="Logo Monsieur Bière"
                     />
-                    <h1 className="text-background text-4xl font-title font-bold">Monsieur Bière</h1>
-                    
+                    <h1 className="text-background text-4xl font-title font-bold">
+                        Monsieur Bière
+                    </h1>
                 </a>
                 <div className="w-full bg-background rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -86,7 +87,7 @@ const Register = () => {
                                     name="name"
                                     id="name"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-accent focus:border-secondary block w-full p-2.5"
-                                    placeholder="name@email.com"
+                                    placeholder="Nom Prénom"
                                     required
                                 />
                             </div>
@@ -102,7 +103,7 @@ const Register = () => {
                                     name="email"
                                     id="email"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-accent focus:border-secondary block w-full p-2.5"
-                                    placeholder="name@email.com"
+                                    placeholder="exemple@email.com"
                                     required
                                 />
                             </div>
@@ -136,14 +137,14 @@ const Register = () => {
                                     required
                                 />
                             </div>
-                            
+
                             <Accordion collapseAll>
                                 <Accordion.Panel>
                                     <Accordion.Title>
                                         <div className="px-2">
-                                            Votre Adresse (peut être ajouté plus tard)
+                                            Votre Adresse (peut être ajouté plus
+                                            tard)
                                         </div>
-                                        
                                     </Accordion.Title>
                                     <Accordion.Content>
                                         <div className="sm:col-span-3 px-2">

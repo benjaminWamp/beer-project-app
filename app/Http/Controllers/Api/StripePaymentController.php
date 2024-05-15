@@ -14,7 +14,8 @@ class StripePaymentController extends Controller
 {
     //
 
-    public function createPaymentIntent(Request $request){
+    public function createPaymentIntent(Request $request)
+    {
         try {
             //code...
             Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
@@ -31,7 +32,6 @@ class StripePaymentController extends Controller
             ]);
 
             return response()->json($paymentIntent);
-
         } catch (QueryException $ex) {
             //throw $th;
             return response()->json([['response' => 'ERROR POST']], 500);
