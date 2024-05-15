@@ -21,7 +21,7 @@ const ProductLayer = () => {
     const [product, setProduct] = useState<Product>();
     const [isModifing, setIsModifing] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    const { userId } = useContext(UserContext);
+    const { userId, token } = useContext(UserContext);
     const { addAlert } = useContext(AlertContext);
 
     const { id } = useParams();
@@ -56,23 +56,25 @@ const ProductLayer = () => {
             message: e.target.review.value,
             product_id: product?.id?.toString(),
         };
-        if (!isModifing) {
+        if (!isModifing && token) {
             try {
-                const response = await addProductReviews(newReviewData);
+                const response = await addProductReviews(token, newReviewData);
                 addAlert("success", response.message);
             } catch (err) {
                 addAlert("failure", err);
             }
         } else {
-            try {
-                const response = await updateProductReviews(
-                    newReviewData,
-                    reviewId
-                );
-                addAlert("success", response.message);
-            } catch (err) {
-                addAlert("failure", err);
-            }
+            if (token)
+                try {
+                    const response = await updateProductReviews(
+                        token,
+                        newReviewData,
+                        reviewId
+                    );
+                    addAlert("success", response.message);
+                } catch (err) {
+                    addAlert("failure", err);
+                }
         }
 
         await getDatas();
@@ -80,12 +82,13 @@ const ProductLayer = () => {
 
     const handleDeleteReview = async (reviewId: number) => {
         setIsLoading(true);
-        try {
-            const response = await deleteProductReviews(reviewId);
-            addAlert("success", response.message);
-        } catch (err) {
-            addAlert("failure", err);
-        }
+        if (token)
+            try {
+                const response = await deleteProductReviews(token, reviewId);
+                addAlert("success", response.message);
+            } catch (err) {
+                addAlert("failure", err);
+            }
         await getDatas();
     };
 

@@ -10,8 +10,8 @@ export const fetchUserFavorite = async (
         searchParams.set("page", page.toString());
     }
 
-    return axios
-        .get(
+    try {
+        const response = await axios.get(
             `http://127.0.0.1:8000/api/user/favorites${
                 pagination
                     ? "?" + "pagination=true&" + searchParams.toString()
@@ -23,16 +23,16 @@ export const fetchUserFavorite = async (
                     Authorization: `Bearer ${token}`,
                 },
             }
-        )
-        .then((response) => response.data)
-        .catch((error) => {
-            throw (Object.values(error.response.data.errors)[0] as string[])[0];
-        });
+        );
+        return response.data;
+    } catch (error) {
+        throw (Object.values(error.response.data.errors)[0] as string[])[0];
+    }
 };
 
 export const addToFavorites = async (token: string, productId: number) => {
-    return axios
-        .post(
+    try {
+        const response = await axios.post(
             `http://127.0.0.1:8000/api/user/favorites`,
             { product_id: productId },
             {
@@ -41,23 +41,26 @@ export const addToFavorites = async (token: string, productId: number) => {
                     Authorization: `Bearer ${token}`,
                 },
             }
-        )
-        .then((response) => response.data)
-        .catch((error) => {
-            throw (Object.values(error.response.data.errors)[0] as string[])[0];
-        });
+        );
+        return response.data;
+    } catch (error) {
+        throw (Object.values(error.response.data.errors)[0] as string[])[0];
+    }
 };
 
 export const deleteFavorites = async (token: string, productId: number) => {
-    return axios
-        .delete(`http://127.0.0.1:8000/api/user/favorites/${productId}`, {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .then((response) => response.data)
-        .catch((error) => {
-            throw (Object.values(error.response.data.errors)[0] as string[])[0];
-        });
+    try {
+        const response = await axios.delete(
+            `http://127.0.0.1:8000/api/user/favorites/${productId}`,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw (Object.values(error.response.data.errors)[0] as string[])[0];
+    }
 };

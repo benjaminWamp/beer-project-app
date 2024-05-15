@@ -5,9 +5,8 @@ export const fetchUserOrders = async (token: string, page: number) => {
     if (page) {
         searchParams.set("page", page.toString());
     }
-
-    return axios
-        .get(
+    try {
+        const response = await axios.get(
             `http://127.0.0.1:8000/api/user/orders${
                 "?" + searchParams.toString()
             }`,
@@ -17,9 +16,9 @@ export const fetchUserOrders = async (token: string, page: number) => {
                     Authorization: `Bearer ${token}`,
                 },
             }
-        )
-        .then((response) => response.data)
-        .catch((error) => {
-            throw (Object.values(error.response.data.errors)[0] as string[])[0];
-        });
+        );
+        return response.data;
+    } catch (error) {
+        throw (Object.values(error.response.data.errors)[0] as string[])[0];
+    }
 };

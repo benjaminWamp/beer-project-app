@@ -1,52 +1,60 @@
 import axios from "axios";
 
-export const fetchUser = async (user) => {
-    return await axios
-        .get("http://127.0.0.1:8000/api/user", {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${user}`,
-            },
-        })
-        .then((response) => response.data)
-        .catch((error) =>
-            console.error("Erreur lors de la récupération des données:", error)
-        );
-};
-
-export const updateUser = async (userData, token) => {
-    return await axios
-        .post("http://127.0.0.1:8000/api/user", userData, {
+export const fetchUser = async (token: string) => {
+    try {
+        const response = await axios.get("http://127.0.0.1:8000/api/user", {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
-                Accept: "application/json",
             },
-        })
-        .then((response) => response.data)
-        .catch((error) => {
-            throw error.response.data.errors;
         });
+        return response.data;
+    } catch (error) {
+        throw (Object.values(error.response.data.errors)[0] as string[])[0];
+    }
+};
+
+export const updateUser = async (userData, token: string) => {
+    try {
+        const response = await axios.post(
+            "http://127.0.0.1:8000/api/user",
+            userData,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                    Accept: "application/json",
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw error.response.data.errors;
+    }
 };
 
 export const updateUserPassword = async (userData, token) => {
-    return await axios
-        .post("http://127.0.0.1:8000/api/user/password", userData, {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-                Accept: "application/json",
-            },
-        })
-        .then((response) => response.data)
-        .catch((error) => {
-            throw error.response.data.errors;
-        });
+    try {
+        const response = await axios.post(
+            "http://127.0.0.1:8000/api/user/password",
+            userData,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                    Accept: "application/json",
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw error.response.data.errors;
+    }
 };
 
 export const deleteUser = async (token) => {
-    return await axios
-        .post(
+    try {
+        const response = await axios.post(
             "http://127.0.0.1:8000/api/user/delete",
             {},
             {
@@ -56,23 +64,27 @@ export const deleteUser = async (token) => {
                     Accept: "application/json",
                 },
             }
-        )
-        .then((response) => response.data)
-        .catch((error) => {
-            throw error.response.data.errors;
-        });
+        );
+        return response.data;
+    } catch (error) {
+        throw error.response.data.errors;
+    }
 };
 
 export const registerUser = async (user) => {
-    return await axios
-        .post("http://127.0.0.1:8000/api/register", user, {
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-            },
-        })
-        .then((response) => response.data)
-        .catch((error) => {
-            throw (Object.values(error.response.data.errors)[0] as string[])[0];
-        });
+    try {
+        const response = await axios.post(
+            "http://127.0.0.1:8000/api/register",
+            user,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw (Object.values(error.response.data.errors)[0] as string[])[0];
+    }
 };

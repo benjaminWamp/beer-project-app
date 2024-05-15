@@ -32,11 +32,12 @@ export const fetchProducts = async (
     }
 
     searchParams.set("page", page.toString());
-
-    return await axios
-        .get(`http://127.0.0.1:8000/api/catalogue?${searchParams.toString()}`)
-        .then((response) => response.data)
-        .catch((err) =>
-            console.error("Erreur lors de la récupération des données:", err)
+    try {
+        const response = await axios.get(
+            `http://127.0.0.1:8000/api/catalogue?${searchParams.toString()}`
         );
+        return response.data;
+    } catch (error) {
+        throw (Object.values(error.response.data.errors)[0] as string[])[0];
+    }
 };

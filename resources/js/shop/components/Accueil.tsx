@@ -20,7 +20,6 @@ const Accueil = () => {
             sorting,
             order
         );
-
         return response.data.slice(0, 4);
     };
 

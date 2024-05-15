@@ -1,77 +1,91 @@
 import axios from "axios";
 
-const user = localStorage.getItem("token");
-
 //TO USE
-export const fetchUserReviews = async (user) => {
-    return await axios
-        .get("http://127.0.0.1:8000/api/user/reviews", {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${user}`,
-            },
-        })
-        .then((response) => response.data)
-        .catch((error) => {
-            throw (Object.values(error.response.data.errors)[0] as string[])[0];
-        });
+export const fetchUserReviews = async (token: string, user) => {
+    try {
+        const response = await axios.get(
+            "http://127.0.0.1:8000/api/user/reviews",
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw (Object.values(error.response.data.errors)[0] as string[])[0];
+    }
 };
 
 //OLD
 export const fetchProductReviews = async (productId: string) => {
-    return axios
-        .get(`http://127.0.0.1:8000/api/product/${productId}/reviews`)
-        .then((response) => response.data)
-        .catch((error) => {
-            throw (Object.values(error.response.data.errors)[0] as string[])[0];
-        });
+    try {
+        const response = await axios.get(
+            `http://127.0.0.1:8000/api/product/${productId}/reviews`
+        );
+        return response.data;
+    } catch (error) {
+        throw (Object.values(error.response.data.errors)[0] as string[])[0];
+    }
 };
 
-export const addProductReviews = async (reviewData) => {
-    return await axios
-        .post(`http://127.0.0.1:8000/api/user/reviews`, reviewData, {
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-                Authorization: `Bearer ${user}`,
-            },
-        })
-        .then((response) => response.data)
-        .catch((error) => {
-            throw (Object.values(error.response.data.errors)[0] as string[])[0];
-        });
+export const addProductReviews = async (token: string, reviewData) => {
+    try {
+        const response = await axios.post(
+            `http://127.0.0.1:8000/api/user/reviews`,
+            reviewData,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw (Object.values(error.response.data.errors)[0] as string[])[0];
+    }
 };
 
-export const updateProductReviews = async (reviewData, reviewId) => {
-    return await axios
-        .post(
+export const updateProductReviews = async (
+    token: string,
+    reviewData,
+    reviewId
+) => {
+    try {
+        const response = await axios.post(
             `http://127.0.0.1:8000/api/user/reviews/${reviewId}`,
             reviewData,
             {
                 headers: {
                     "Content-Type": "application/json",
                     Accept: "application/json",
-                    Authorization: `Bearer ${user}`,
+                    Authorization: `Bearer ${token}`,
                 },
             }
-        )
-        .then((response) => response.data)
-        .catch((error) => {
-            throw (Object.values(error.response.data.errors)[0] as string[])[0];
-        });
+        );
+        return response.data;
+    } catch (error) {
+        throw (Object.values(error.response.data.errors)[0] as string[])[0];
+    }
 };
 
-export const deleteProductReviews = async (reviewId) => {
-    return await axios
-        .delete(`http://127.0.0.1:8000/api/user/reviews/${reviewId}`, {
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-                Authorization: `Bearer ${user}`,
-            },
-        })
-        .then((response) => response.data)
-        .catch((error) => {
-            throw (Object.values(error.response.data.errors)[0] as string[])[0];
-        });
+export const deleteProductReviews = async (token: string, reviewId) => {
+    try {
+        const response = await axios.delete(
+            `http://127.0.0.1:8000/api/user/reviews/${reviewId}`,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw (Object.values(error.response.data.errors)[0] as string[])[0];
+    }
 };
