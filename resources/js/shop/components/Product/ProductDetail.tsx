@@ -73,7 +73,7 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
                     <h3 className="sr-only">Description</h3>
 
                     <div className="space-y-6">
-                        <p className="text-base text-xs text-justify text-gray-900">
+                        <p className="text-base text-sm text-justify text-gray-900">
                             {product.description}
                         </p>
                     </div>
