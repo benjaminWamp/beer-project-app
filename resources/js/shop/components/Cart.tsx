@@ -274,7 +274,10 @@ const Cart = () => {
                                 <p className="text-xl font-title text-accent">
                                     Votre panier est vide...
                                 </p>
-                                <button className="rounded-md transition-all text-xl inline-block font-title font-bold border-2 py-4 px-10 shadow-buttonDarkBase hover:shadow-buttonDarkHover hover:text-secondary text-accent border-accent">
+                                <button
+                                    onClick={() => navigate("/catalogue")}
+                                    className="rounded-md transition-all text-xl inline-block font-title font-bold border-2 py-4 px-10 shadow-buttonDarkBase hover:shadow-buttonDarkHover hover:text-secondary text-accent border-accent"
+                                >
                                     ...Remplissez le !
                                 </button>
                             </div>
