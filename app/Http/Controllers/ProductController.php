@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateproductRequest;
 use App\Http\Requests\UpdateproductRequest;
+use App\Models\Category;
 use App\Models\Manufacturer;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
@@ -27,7 +28,8 @@ class productController extends Controller
     public function create()
     {
         $manufacturers = Manufacturer::all();
-        return view('product.create', compact('manufacturers'));
+        $categories = Category::all();
+        return view('product.create', compact('manufacturers', 'categories'));
     }
 
     /**
@@ -43,6 +45,7 @@ class productController extends Controller
                 "image" => $request->file("image")->hashName(),
                 "price_ht" => $request->input("price_ht") * 100,
                 'manufacturer_id' => $request->input('manufacturer_id'),
+                'category_id' => $request->input('category_id'),
                 'reviews_sum' => 1,
             ]
         );
@@ -64,7 +67,8 @@ class productController extends Controller
     public function edit(Product $product)
     {
         $manufacturers = Manufacturer::all();
-        return view('product.edit', compact('product', 'manufacturers'),);
+        $categories = Category::all();
+        return view('product.edit', compact('product', 'manufacturers', 'categories'),);
     }
 
     public function search(Request $request)
@@ -94,12 +98,14 @@ class productController extends Controller
                 "image" => $request->file("image")->hashName(),
                 "price_ht" => $request->input("price_ht") * 100,
                 'manufacturer_id' => $request->input('manufacturer_id'), // Assurez-vous que manufacturer_id est bien mis à jour
+                'category_id' => $request->input('category_id'), // Assurez-vous que manufacturer_id est bien mis à jour
             ]);
         } else {
             $product->update([
                 ...$request->validated(),
                 "price_ht" => $request->input("price_ht") * 100,
                 'manufacturer_id' => $request->input('manufacturer_id'), // Assurez-vous que manufacturer_id est bien mis à jour
+                'category_id' => $request->input('category_id'), // Assurez-vous que manufacturer_id est bien mis à jour
             ]);
         }
         return redirect()->route("product.show", $product);

@@ -26,6 +26,11 @@ class Product extends Model
         return $this->belongsTo(Manufacturer::class);
     }
 
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function reviews(): HasMany // Quand il n'y a pas de table intermédiaire
     {
         return $this->hasMany(Review::class); /*belongTo(Category::class, "category_id, "id")*/
@@ -39,6 +44,7 @@ class Product extends Model
         'image',
         'price_ht',
         "manufacturer_id",
+        "category_id",
         'reviews_sum'
     ];
 

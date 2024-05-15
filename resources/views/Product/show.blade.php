@@ -68,6 +68,11 @@
             <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{$product->reviews_sum}} / 5</p>
         </div>
 
+        <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Catégorie&nbsp;:</h2> 
+        <div class="flex align-center mt-2 gap-4">
+            <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{$product->category->name}}</p>
+        </div>
+
         <h2 class="mt-4 font-title text-2xl leading-none font-semibold leading-6 text-accent">Producteur&nbsp;:</h2> 
         <div class="flex align-center mt-2 gap-4">
             <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{$product->manufacturer->name}}</p>

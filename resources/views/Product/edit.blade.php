@@ -75,8 +75,24 @@
                 <input type="number" min="0" name="stock" id="stock" value="{{$product->stock}}" class="block border w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
             </div>
         </div>
-
         
+        <div class="mb-4">
+            <label for="category_id" class="font-title block text-m font-semibold leading-6 text-gray-900">Catégories</label>
+                @error("category_id")
+            <div class="text-red-500">{{$message}}</div>
+            @enderror
+            <div class="mt-2.5">
+                <select  name="category_id" id="category_id" placeholder="Selectionnez un éditeur" class="block border w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}" @if($product->category_id == $category->id) selected @endif>
+                    {{ $category->name }}
+                </option>
+            @endforeach
+                </select>
+                </div>
+                
+        </div>
+
         <div>
             <label for="manufacturer_id" class="font-title block text-m font-semibold leading-6 text-gray-900">Producteur</label>
                 @error("manufacturer_id")

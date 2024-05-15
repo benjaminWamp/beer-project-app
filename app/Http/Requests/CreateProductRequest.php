@@ -29,6 +29,7 @@ class CreateProductRequest extends FormRequest
             "stock" => "required|numeric",
             "price_ht" => "required|numeric|min:0",
             "manufacturer_id" => "required|exists:App\Models\Manufacturer,id",
+            "category_id" => "required|exists:App\Models\Category,id",
             "reviews_sum" => "numeric|max:5",
         ];
     }

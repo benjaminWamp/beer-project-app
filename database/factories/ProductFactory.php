@@ -92,6 +92,7 @@ class ProductFactory extends Factory
             "image" => fake()->randomElement($images),
             "price_ht" => fake()->numberBetween(100, 10000),
             "manufacturer_id" => fake()->numberBetween(1, 5),
+            "category_id" => fake()->numberBetween(1, 3),
             "reviews_sum" => fake()->numberBetween(0, 5),
         ];
     }
