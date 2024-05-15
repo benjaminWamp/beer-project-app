@@ -35,6 +35,6 @@ class DashboardController extends Controller
 
         $lastReview = Review::latest()->take(3)->get();
 
-        return view('Dashboard.dashboard', ["totalSold" => $totalSold, "countOrderInProgress" => $countOrderInProgress, "countOrderDelivered" => $countOrderDelivered, "listProductEmpty" => $listProductEmpty, "lastReview" => $lastReview, "lastFavoris" => $lastFavoris]);
+        return view('Dashboard.dashboard', ["totalSold" => $totalSold / 100, "countOrderInProgress" => $countOrderInProgress, "countOrderDelivered" => $countOrderDelivered, "listProductEmpty" => $listProductEmpty, "lastReview" => $lastReview, "lastFavoris" => $lastFavoris]);
     }
 }
