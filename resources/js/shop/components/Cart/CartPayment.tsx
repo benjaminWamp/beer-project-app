@@ -10,6 +10,7 @@ import { Cart } from "../../types/cart.types";
 import { User } from "../../types/user.types";
 import { updateOrderAddress } from "../../utils/services/CartService";
 import AlertContext from "../../context/AlertContext";
+import UserContext from "../../context/UserContext";
 
 interface CartPaymentProps {
     cart: Cart;
@@ -20,6 +21,7 @@ const CartPayment = (props: CartPaymentProps) => {
     const navigate = useNavigate();
     const { cart, user } = props;
     const { addAlert } = useContext(AlertContext);
+    const { token } = useContext(UserContext);
     const [errorMessage, setErrorMessage] = useState(null);
     const options = {
         clientSecret:
@@ -38,35 +40,36 @@ const CartPayment = (props: CartPaymentProps) => {
             number: e.target.number.value,
             street: e.target.street.value,
         };
-        try {
-            await updateOrderAddress(tempCart);
-            if (!stripe || !elements) {
-                return;
-            }
+        if (token)
             try {
-                await stripe.confirmPayment({
-                    elements,
-                    redirect: "if_required",
-                });
-                const response = await payedCart();
-                navigate("/");
-                addAlert("success", response.message);
-            } catch (error) {
-                if (
-                    error.type === "card_error" ||
-                    error.type === "validation_error"
-                ) {
-                    addAlert("failure", error.message);
-                } else {
-                    addAlert(
-                        "failure",
-                        "Une erreur est survenue lors du paiement. Veuillez réessayer."
-                    );
+                await updateOrderAddress(token, tempCart);
+                if (!stripe || !elements) {
+                    return;
                 }
+                try {
+                    await stripe.confirmPayment({
+                        elements,
+                        redirect: "if_required",
+                    });
+                    const response = await payedCart(token);
+                    navigate("/");
+                    addAlert("success", response.message);
+                } catch (error) {
+                    if (
+                        error.type === "card_error" ||
+                        error.type === "validation_error"
+                    ) {
+                        addAlert("failure", error.message);
+                    } else {
+                        addAlert(
+                            "failure",
+                            "Une erreur est survenue lors du paiement. Veuillez réessayer."
+                        );
+                    }
+                }
+            } catch (e) {
+                addAlert("failure", e.message);
             }
-        } catch (e) {
-            addAlert("failure", e.message);
-        }
     };
 
     return (

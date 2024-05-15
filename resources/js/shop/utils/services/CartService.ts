@@ -1,8 +1,6 @@
 import { Cart } from "../../types/cart.types";
 import axios from "axios";
 
-const user = localStorage.getItem("token");
-
 export const addProductToCart = async (token: string, cartItem: any) => {
     try {
         const response = await axios.post(
@@ -22,14 +20,14 @@ export const addProductToCart = async (token: string, cartItem: any) => {
     }
 };
 
-export const fetchCartList = async () => {
+export const fetchCartList = async (token: string) => {
     try {
         const response = await axios.get(
             "http://127.0.0.1:8000/api/user/cart",
             {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${user}`,
+                    Authorization: `Bearer ${token}`,
                 },
             }
         );
@@ -39,14 +37,14 @@ export const fetchCartList = async () => {
     }
 };
 
-export const deleteOrderItem = async (orderItemId: number) => {
+export const deleteOrderItem = async (token: string, orderItemId: number) => {
     try {
         const response = await axios.delete(
             `http://127.0.0.1:8000/api/user/cart/${orderItemId}`,
             {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${user}`,
+                    Authorization: `Bearer ${token}`,
                 },
             }
         );
@@ -56,17 +54,20 @@ export const deleteOrderItem = async (orderItemId: number) => {
     }
 };
 
-export const createPaymentIntent = async ({
-    amount,
-    description,
-    receipt_email,
-    metadata,
-}: {
-    amount: number;
-    description: string;
-    receipt_email: string;
-    metadata: number;
-}) => {
+export const createPaymentIntent = async (
+    token: string,
+    {
+        amount,
+        description,
+        receipt_email,
+        metadata,
+    }: {
+        amount: number;
+        description: string;
+        receipt_email: string;
+        metadata: number;
+    }
+) => {
     try {
         const response = await axios.post(
             "http://127.0.0.1:8000/api/paymentIntent",
@@ -79,7 +80,7 @@ export const createPaymentIntent = async ({
             {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${user}`,
+                    Authorization: `Bearer ${token}`,
                 },
             }
         );
@@ -89,7 +90,7 @@ export const createPaymentIntent = async ({
     }
 };
 
-export const payedCart = async () => {
+export const payedCart = async (token: string) => {
     try {
         const response = await axios.post(
             `http://127.0.0.1:8000/api/user/cart/payed`,
@@ -97,7 +98,7 @@ export const payedCart = async () => {
             {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${user}`,
+                    Authorization: `Bearer ${token}`,
                 },
             }
         );
@@ -108,7 +109,7 @@ export const payedCart = async () => {
     }
 };
 
-export const updateOrderAddress = async (cart: Cart) => {
+export const updateOrderAddress = async (token: string, cart: Cart) => {
     try {
         const response = await axios.put(
             `http://127.0.0.1:8000/api/user/cart/${cart.id}`,
@@ -121,7 +122,7 @@ export const updateOrderAddress = async (cart: Cart) => {
             {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${user}`,
+                    Authorization: `Bearer ${token}`,
                 },
             }
         );
