@@ -48,6 +48,7 @@ const NavBar = () => {
                                     onClick={() => {
                                         navigate("/cart");
                                     }}
+                                    title="Mon panier"
                                 >
                                     <svg
                                         className="w-7 h-7 text-secondary"
@@ -71,6 +72,7 @@ const NavBar = () => {
                                     onClick={() => {
                                         navigate("/account");
                                     }}
+                                    title="Mon compte"
                                 >
                                     <svg
                                         className="w-7 h-7 text-secondary"
@@ -92,6 +94,7 @@ const NavBar = () => {
                                     onClick={() => {
                                         setLogoutModal(true);
                                     }}
+                                    title="Me déconnecter"
                                 >
                                     <svg
                                         className="w-7 h-7 text-secondary"
