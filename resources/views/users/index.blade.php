@@ -49,9 +49,9 @@
 
     {{ $users->links() }}
 
-    <div class="relative rounded-md overflow-hidden my-4">
+    <div class="max-w-full relative rounded-md my-4">
 
-    <table class="w-full text-sm text-left rtl:text-right text-zinc-50">
+    <table class="max-w-full text-sm text-left rtl:text-right text-zinc-50">
         <thead class="text-xs text-zinc-50 uppercase bg-accent">
             <tr>
                 <th scope="col" class="font-title font-bold text-background px-6 py-3">
