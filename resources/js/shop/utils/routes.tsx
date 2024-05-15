@@ -10,6 +10,7 @@ import Cart from "../components/Cart";
 import APropos from "../components/APropos";
 import MentionsLegales from "../components/MentionsLegales";
 import Cgv from "../components/Cgv";
+import ConfirmedOrder from "../components/ConfirmedOrder";
 
 export const routes = {
     home: {
@@ -62,4 +63,8 @@ export const routes = {
         path: "/cgv",
         element: <Cgv />,
     },
+    confirmedorder : {
+        path: "/commande-validee",
+        element: <ConfirmedOrder />
+    }
 };
