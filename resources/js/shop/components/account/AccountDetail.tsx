@@ -25,7 +25,7 @@ const AccountDetails = (props: AccountDetailProps) => {
 
     const [openUserForm, setUserForm] = React.useState(false);
     const [openUserPasswordForm, setUserPasswordForm] = React.useState(false);
-    const [openDeleteUserModal, setDeleteUserModal] = React.useState(false);
+    const [openDeleteUserModal, setOpenDeleteUserModal] = React.useState(false);
 
     const handleClosUserForm = () => {
         setUserForm(false);
@@ -36,7 +36,7 @@ const AccountDetails = (props: AccountDetailProps) => {
     };
 
     const handleCloseDeleteUser = () => {
-        setDeleteUserModal(false);
+        setOpenDeleteUserModal(false);
     };
 
     const handleUpdateUser = async (e) => {
@@ -98,7 +98,7 @@ const AccountDetails = (props: AccountDetailProps) => {
             addAlert("failure", message);
             return;
         }
-        setDeleteUserModal(false);
+        setOpenDeleteUserModal(false);
         logOut();
         navigate("/");
     };
@@ -181,7 +181,7 @@ const AccountDetails = (props: AccountDetailProps) => {
                         type="button"
                         className="rounded-md transition-all text-sm inline-block font-title font-bold border-2 py-2 px-4 text-[#E02424] border-[#E02424] shadow-buttonRedBase hover:shadow-buttonRedHover hover:text-white w-full"
                         onClick={() => {
-                            setDeleteUserModal(true);
+                            setOpenDeleteUserModal(true);
                         }}
                     >
                         Supprimer mon compte
