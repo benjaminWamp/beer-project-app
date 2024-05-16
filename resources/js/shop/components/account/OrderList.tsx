@@ -6,6 +6,7 @@ import FavoriteContext from "../../context/FavoriteContext";
 import { fetchUserOrders } from "../../utils/services/OrderService";
 import { Order } from "../../types/order.types";
 import TableSkeleton from "../skeletons/TableSkeleton";
+import { OrderStatus } from "../../types/orderStatus.enum";
 
 const OrderList = () => {
     const [orders, setOrders] = useState<Order[]>();
@@ -64,39 +65,56 @@ const OrderList = () => {
                                     </thead>
                                     <tbody>
                                         {orders &&
-                                            orders.map((order) => (
-                                                <tr className="bg-table border-b border-accent text-slate-950">
-                                                    <th className="h-16 w-16 px-6 py-4">
-                                                        <h3>{order.status}</h3>
-                                                    </th>
+                                            orders.map((order) => {
+                                                if (order.status !== "cart") {
+                                                    return (
+                                                        <tr className="bg-table border-b border-accent text-slate-950">
+                                                            <th className="h-16 w-16 px-6 py-4">
+                                                                <h3>
+                                                                    {order.status ===
+                                                                    "payed"
+                                                                        ? OrderStatus.PAYED
+                                                                        : order.status ===
+                                                                          "delivered"
+                                                                        ? OrderStatus.DELIVERED
+                                                                        : order.status ===
+                                                                          "cancel"
+                                                                        ? OrderStatus.CANCELLED
+                                                                        : "Status inconnu"}
+                                                                </h3>
+                                                            </th>
 
-                                                    <td className="px-6 py-4">
-                                                        <div className="w-96 flex justify-between text-accent font-medium">
-                                                            <h3>
-                                                                {(
-                                                                    (order.total +
-                                                                        0.2) /
-                                                                    100
-                                                                ).toFixed(2)}
-                                                                €
-                                                            </h3>
-                                                        </div>
-                                                    </td>
-                                                    <td className="px-6 py-4">
-                                                        <div className="w-96 flex justify-between text-accent font-medium">
-                                                            <h3>
-                                                                {order.number +
-                                                                    " " +
-                                                                    order.street +
-                                                                    " " +
-                                                                    order.city +
-                                                                    " " +
-                                                                    order.zip_code}
-                                                            </h3>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            ))}
+                                                            <td className="px-6 py-4">
+                                                                <div className="w-96 flex justify-between text-accent font-medium">
+                                                                    <h3>
+                                                                        {(
+                                                                            (order.total +
+                                                                                0.2) /
+                                                                            100
+                                                                        ).toFixed(
+                                                                            2
+                                                                        )}
+                                                                        €
+                                                                    </h3>
+                                                                </div>
+                                                            </td>
+                                                            <td className="px-6 py-4">
+                                                                <div className="w-96 flex justify-between text-accent font-medium">
+                                                                    <h3>
+                                                                        {order.number +
+                                                                            " " +
+                                                                            order.street +
+                                                                            " " +
+                                                                            order.city +
+                                                                            " " +
+                                                                            order.zip_code}
+                                                                    </h3>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    );
+                                                }
+                                            })}
                                     </tbody>
                                 </table>
                             </div>

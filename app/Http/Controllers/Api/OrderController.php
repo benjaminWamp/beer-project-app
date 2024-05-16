@@ -18,9 +18,10 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $orders = $request->user()->orders();
+        // Récupérez les commandes de l'utilisateur actuel avec les éléments de commande associés
+        $orders = $request->user()->orders()->with('orderItems.product')->orderBy('created_at', 'desc')->paginate(15);
 
-        return $orders->orderBy('created_at', 'desc')->paginate(15);
+        return $orders;
     }
 
     /**

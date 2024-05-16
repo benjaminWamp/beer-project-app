@@ -153,9 +153,8 @@ const Cart = () => {
                                                                                                         key={`category-${index}`}
                                                                                                         className="font-title"
                                                                                                     >
-                                                                                                        {
-                                                                                                            category.name
-                                                                                                        }
+                                                                                                        {category.name +
+                                                                                                            " / "}
                                                                                                     </span>
                                                                                                 );
                                                                                             }
