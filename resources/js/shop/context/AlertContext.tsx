@@ -1,4 +1,3 @@
-// AlertContext.js
 import React, { createContext, useContext, useState } from "react";
 import { Alert } from "flowbite-react";
 

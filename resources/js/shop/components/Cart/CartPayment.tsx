@@ -190,8 +190,12 @@ const CartPayment = (props: CartPaymentProps) => {
                         <div className="flex justify-end items-center gap-6 mt-2">
                             <p> Total panier HT : {cart.total / 100}€</p>
                             <p>
-                                Total panier TTC : 
-                                {" " + ((cart.total * (1 + 0.2)) / 100).toFixed(2)} €
+                                Total panier TTC :
+                                {" " +
+                                    ((cart.total * (1 + 0.2)) / 100).toFixed(
+                                        2
+                                    )}{" "}
+                                € (TVA 20%)
                             </p>
                             <button
                                 type="submit"

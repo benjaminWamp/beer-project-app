@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { User } from "../../types/user.types";
 import UpdateForm from "./UpdateForm";
 import {
@@ -52,15 +52,15 @@ const AccountDetails = (props: AccountDetailProps) => {
             city: city.value,
             zip_code: zip_code.value,
         };
-        if(token)
-        try {
-            const result = await updateUser(userData, token);
-            addAlert("success", result.message);
-        } catch (err) {
-            const message: string = (Object.values(err)[0] as string[])[0];
-            addAlert("failure", message);
-            return;
-        }
+        if (token)
+            try {
+                const result = await updateUser(userData, token);
+                addAlert("success", result.message);
+            } catch (err) {
+                const message: string = (Object.values(err)[0] as string[])[0];
+                addAlert("failure", message);
+                return;
+            }
 
         setUserForm(false);
         getUser();

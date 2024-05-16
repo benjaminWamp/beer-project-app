@@ -1,6 +1,5 @@
 import axios from "axios";
 
-//TO USE
 export const fetchUserReviews = async (token: string, user) => {
     try {
         const response = await axios.get(

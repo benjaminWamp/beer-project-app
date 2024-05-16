@@ -3,7 +3,6 @@ import AccountDetails from "./account/AccountDetail";
 import FavoriteList from "./account/FavoriteList";
 import { fetchUser } from "../utils/services/UserServices";
 import UserContext from "../context/UserContext";
-import { fetchUserFavorite } from "../utils/services/FavoriteService";
 import { User } from "../types/user.types";
 import AccountSkeleton from "./skeletons/AccountSkeleotn";
 import OrderList from "./account/OrderList";

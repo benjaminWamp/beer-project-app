@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import Button from "./shared/Button";
-import { Mode } from "../types/style.enum";
-import UserContext from "../context/UserContext";
-import { fetchUserOrders } from "../utils/services/OrderService";
-import TableSkeleton from "./skeletons/TableSkeleton";
-import { Order } from "../types/order.types";
+import Button from "../shared/Button";
+import { Mode } from "../../types/style.enum";
+import UserContext from "../../context/UserContext";
+import { fetchUserOrders } from "../../utils/services/OrderService";
+import TableSkeleton from "../skeletons/TableSkeleton";
+import { Order } from "../../types/order.types";
 
 const ConfirmedOrder = () => {
     const [lastOrder, setLastOrder] = useState<Order>();

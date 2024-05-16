@@ -12,7 +12,7 @@ type UserContextType = {
     logIn: (_: any) => Promise<string>;
     url: string;
 };
-// Create a context
+
 const UserContext = createContext<UserContextType>({
     isLogged: false,
     setIsLogged: (_: boolean) => {},

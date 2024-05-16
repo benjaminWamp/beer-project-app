@@ -22,12 +22,20 @@ const ReviewForm = (props: ReviewFormProps) => {
             >
                 <div className="flex gap-4 items-center text-l font-title text-accent">
                     <label>Donnez une note</label>
-                    <select name="rating" id="rating" className="bg-gray-50 border border-accent/50 text-accent text-sm rounded-lg focus:ring-accent focus:border-accent p-2.5">
+                    <select
+                        name="rating"
+                        id="rating"
+                        className="bg-gray-50 border border-accent/50 text-accent text-sm rounded-lg focus:ring-accent focus:border-accent p-2.5"
+                    >
                         {[1, 2, 3, 4, 5].map((rating) => (
                             <option
                                 key={rating}
                                 value={rating}
-                                selected={rating === review?.stars}
+                                selected={
+                                    review
+                                        ? rating === review?.stars
+                                        : rating === 5
+                                }
                             >
                                 {rating}
                             </option>
@@ -38,7 +46,7 @@ const ReviewForm = (props: ReviewFormProps) => {
                     htmlFor="message"
                     className="font-title text-accent text-l block mb-2 text-sm font-medium"
                 >
-                    Commentaire (optionnel)
+                    Commentaire
                 </label>
                 <textarea
                     id="review"

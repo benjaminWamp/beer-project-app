@@ -3,7 +3,6 @@ import { useState } from "react";
 import ProductImage from "./Product/ProductImage";
 import ProdcutDetails from "./Product/ProductDetail";
 import { fetchProduct } from "../utils/services/ProductServices";
-import Loader from "./Loader";
 import { useParams } from "react-router-dom";
 import {
     addProductReviews,
@@ -100,8 +99,6 @@ const ProductLayer = () => {
     return product ? (
         <div className="bg-background">
             <div className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                {/* <ProductBreadCrumb product={product} /> */}
-
                 <div className="flex flex-row">
                     <ProductImage product={product} />
 

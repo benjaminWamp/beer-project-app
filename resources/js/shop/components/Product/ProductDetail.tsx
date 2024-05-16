@@ -1,9 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import ReviewsStars from "../shared/ReviewsStars";
 import { Product } from "../../types/product.types";
 import { addProductToCart } from "../../utils/services/CartService";
-import { Button } from "flowbite-react";
-import { Mode } from "../../types/style.enum";
 import UserContext from "../../context/UserContext";
 import FavoriteHeart from "../shared/FavoriteHeart";
 import AlertContext from "../../context/AlertContext";
@@ -11,10 +9,6 @@ import AlertContext from "../../context/AlertContext";
 interface ProdcutDetailProps {
     product: Product;
     onScrollToReviews: (_: any) => void;
-}
-
-function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
 }
 
 const ProdcutDetails = (props: ProdcutDetailProps) => {
@@ -113,7 +107,9 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
 
                 <div className="font-title font-bold text-accent lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
                     {categories.map((category) => (
-                        <h3>{category.name}</h3>
+                        <h3 className={`text-${category.color}-600`}>
+                            {category.name}
+                        </h3>
                     ))}
                 </div>
 
@@ -153,7 +149,6 @@ const ProdcutDetails = (props: ProdcutDetailProps) => {
                         <option value="720">Camion (720 Bouteilles)</option>
                         <option value="5000">Citerne (5000 Bouteilles)</option>
                     </select>
-                    {/* TODO : METTRE EN GRIS LE BUTTON SI ISLOGGED EST FALSE */}
                     <button
                         type="submit"
                         className="w-full rounded-md transition-all text-xl inline-block font-title font-bold border-2 py-4 px-10 shadow-buttonDarkBase hover:shadow-buttonDarkHover hover:text-secondary text-accent border-accent"

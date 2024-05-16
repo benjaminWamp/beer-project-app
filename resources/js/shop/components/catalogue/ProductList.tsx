@@ -42,13 +42,15 @@ const ProductList = (props: productListProps) => {
                                 </a>
                             </h3>
 
-                            <div className="flex justify-between">
-                                <div>
-                                    <ProductCategories
-                                        categories={categories}
-                                    />
+                            <div className="flex flex-col justify-between">
+                                <div className="flex flex-col">
+                                    <div className="flex">
+                                        <ProductCategories
+                                            categories={categories}
+                                        />
+                                    </div>
 
-                                    <p className="text-sm font-medium text-gray-900">
+                                    <p className="text-md font-medium text-gray-900">
                                         {(
                                             (product.price_ht * (1 + 0.2)) /
                                             100
@@ -56,8 +58,12 @@ const ProductList = (props: productListProps) => {
                                         € TTC
                                     </p>
                                 </div>
-                                <ReviewsStars review={product.reviews_sum} />
-                                <FavoriteHeart productId={product.id} />
+                                <div className="flex justify-between">
+                                    <ReviewsStars
+                                        review={product.reviews_sum}
+                                    />
+                                    <FavoriteHeart productId={product.id} />
+                                </div>
                             </div>
                         </div>
                     </div>

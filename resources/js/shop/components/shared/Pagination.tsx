@@ -1,5 +1,4 @@
 import React from "react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 
 interface PaginationProps {
     currentPage: number;
@@ -28,8 +27,10 @@ const Pagination = (props: PaginationProps) => {
     return (
         totalElements > 0 && (
             <div className="flex items-center">
-                <p className="border-r mr-4 pr-3">{`${numberOfElements} éléments sur ${totalElements}`}&nbsp;</p>
-                
+                <p className="border-r mr-4 pr-3">
+                    {`${numberOfElements} éléments sur ${totalElements}`}&nbsp;
+                </p>
+
                 <p className="mr-4">{`Page ${currentPage} sur ${totalPages}`}</p>
 
                 <button

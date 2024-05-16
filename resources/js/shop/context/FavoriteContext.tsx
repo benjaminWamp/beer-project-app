@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { loginUser } from "../utils/services/AuthService";
 import { Favorite } from "../types/favorite.types";
 import {
     addToFavorites,
@@ -19,7 +18,7 @@ type FavoriteContextType = {
         pagination: boolean
     ) => Promise<any>;
 };
-// Create a context
+
 const FavoriteContext = createContext<FavoriteContextType>({
     userAllFavorites: undefined,
     setUserAllFavorites: (_: Favorite[] | undefined) => {},

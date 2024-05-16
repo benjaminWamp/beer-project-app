@@ -25,10 +25,6 @@ const sortOptions = [
     { name: FilterType.DESC, value: SortingType.PRICE },
 ];
 
-function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-}
-
 interface FilterProps {
     products: Product[];
     categories: Category[];

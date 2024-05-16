@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Favorite } from "../../types/favorite.types";
 import UserContext from "../../context/UserContext";
 import Pagination from "../shared/Pagination";
-import FavoriteContext from "../../context/FavoriteContext";
 import { fetchUserOrders } from "../../utils/services/OrderService";
 import { Order } from "../../types/order.types";
 import TableSkeleton from "../skeletons/TableSkeleton";
@@ -13,6 +11,7 @@ const OrderList = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [totalFavorite, setTotalFavorite] = useState<number>(0);
+    const [perPage, setPerPage] = useState<number>(0);
     const { token } = useContext(UserContext);
 
     const getDatas = async () => {
@@ -23,6 +22,7 @@ const OrderList = () => {
             setCurrentPage(ordersData.current_page);
             setTotalPages(ordersData.last_page);
             setTotalFavorite(ordersData.total);
+            setPerPage(ordersData.to);
         }
     };
 
@@ -35,8 +35,12 @@ const OrderList = () => {
             <h2 className="font-title text-lg font-bold leading-6 text-accent mb-4">
                 Mes Commandes
             </h2>
-            {orders ? (orders.length === 1 && orders[0].status !== "cart") ? (
-                orders.length > 0 ? (
+            {orders ? (
+                orders.length === 1 && orders[0].status === "cart" ? (
+                    <h3 className="font-title text-md font-bold leading-6 text-accent mb-4">
+                        Passe ta première commande, tu attends quoi ?
+                    </h3>
+                ) : orders.length > 0 ? (
                     <>
                         <div className=" overflow-hidden">
                             <div className="relative rounded-md overflow-hidden my-4">
@@ -125,7 +129,7 @@ const OrderList = () => {
                                 setCurrentPage={setCurrentPage}
                                 totalPages={totalPages}
                                 totalElements={totalFavorite}
-                                numberOfElements={5}
+                                numberOfElements={perPage}
                             />
                         </div>
                     </>
@@ -134,11 +138,7 @@ const OrderList = () => {
                         Passe ta première commande, tu attends quoi ?
                     </h3>
                 )
-            )  : (
-                    <h3 className="font-title text-md font-bold leading-6 text-accent mb-4">
-                        Passe ta première commande, tu attends quoi ?
-                    </h3>
-                ): (
+            ) : (
                 <TableSkeleton />
             )}
         </div>

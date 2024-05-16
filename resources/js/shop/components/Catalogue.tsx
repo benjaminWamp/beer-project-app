@@ -7,11 +7,6 @@ import { fetchManufacturers } from "../utils/services/ManufacturerService";
 import { Category } from "../types/category.types";
 import { Manufacturer } from "../types/manufacturer.types";
 import { Product } from "../types/product.types";
-import {
-    addToFavorites,
-    deleteFavorites,
-    fetchUserFavorite,
-} from "../utils/services/FavoriteService";
 import UserContext from "../context/UserContext";
 import FavoriteContext from "../context/FavoriteContext";
 import { useSearchParams } from "react-router-dom";
@@ -27,8 +22,7 @@ const Catalogue = () => {
     const [perPage, setPerPage] = useState<number>(0);
     const [userFavorites, setUserFavorites] = useState<any>();
     const { token } = useContext(UserContext);
-    const { userAllFavorites, handleDeleteFavorite, handleAddToFavorite } =
-        useContext(FavoriteContext);
+    const { userAllFavorites } = useContext(FavoriteContext);
     const [searchParams, setSearchParams] = useSearchParams();
 
     const getProducts = async (

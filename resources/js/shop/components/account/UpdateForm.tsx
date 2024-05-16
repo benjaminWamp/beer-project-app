@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
-import { Fragment, useRef, useState } from "react";
+import React from "react";
+import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { User } from "../../types/user.types";
 
 interface DialogProps {

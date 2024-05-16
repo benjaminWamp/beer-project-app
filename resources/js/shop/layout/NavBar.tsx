@@ -6,8 +6,7 @@ import LogoutModal from "../components/shared/LogoutModal";
 
 const NavBar = () => {
     const navigate = useNavigate();
-    const { isLogged, logOut } = useContext(UserContext);
-    const { addAlert } = useContext(AlertContext);
+    const { isLogged } = useContext(UserContext);
     const { pathname } = useLocation();
     const [openLogoutModal, setLogoutModal] = React.useState(false);
 
