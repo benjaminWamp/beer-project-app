@@ -44,7 +44,8 @@ export const UserContextProvider = (props: UserContextProps) => {
     const [token, setToken] = useState<string | null>(null);
     const [userId, setUserId] = useState<string | null>(null);
     const [isLogged, setIsLogged] = useState(false);
-    const url = "http://127.0.0.1:8000";
+    //@ts-ignore
+    const url = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
         const localToken = localStorage.getItem("token");

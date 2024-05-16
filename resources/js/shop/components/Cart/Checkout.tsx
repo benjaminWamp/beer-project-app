@@ -13,12 +13,12 @@ import { Cart as CartType } from "../../types/cart.types";
 import AlertContext from "../../context/AlertContext";
 import TableSkeleton from "../skeletons/TableSkeleton";
 
-const stripePromise = loadStripe(
-    "pk_test_51P7HxBIvgCNdAzyGQvbsSdlBBNixi3ZSsQA51phuRXn3ePYTkWrWOUPwIs0bhBcwqnIVq35P25Qd5t6dgxDR5jSD00SSsNWJ2r"
-);
+//@ts-ignore
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
 const Checkout = () => {
     const { token } = useContext(UserContext);
+
     const [user, setUser] = useState<User>();
     const [clientSecret, setClientSecret] = useState<string | undefined>(
         undefined
