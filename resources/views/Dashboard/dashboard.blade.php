@@ -115,7 +115,7 @@
         <div class="col-span-2">
             <div class="flex gap-4">
                 <p class="font-title font-bold text-xl mb-4">Produits bientôt sans stock</p>
-                <div class="mt-1 text-center w-6 h-6 rounded-md bg-accent text-table font-title" >{{count($listProductEmpty)}}</div>
+                <div class="mt-1 px-1 min-w-6 text-center h-6 rounded-md bg-accent text-table font-title" >{{count($listProductEmpty)}}</div>
             </div>
             <div class="rounded-md overflow-hidden">
                 <table class=" w-full text-sm text-left">
