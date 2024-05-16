@@ -7,8 +7,11 @@
 <div class="mt-4 px-6">
     <div class="flex flex-row gap-4 justify-between">
         <h1 class="text-3xl font-bold mt-4 mb-2 font-title text-accent">Tableau de bord</h1>
+        <div class="flex gap-6">
         <a href="https://documenter.getpostman.com/view/34323766/2sA3JQ4z8N#877c889e-bb7a-46be-acc9-7f9531b2bf70" class="text-table font-bold bg-accent flex items-center py-0 px-5 rounded-full" >Documentation API</a>
+         <a href="/" class="text-table font-bold bg-accent flex items-center py-0 px-5 rounded-full" >Vitrine</a>
     </div>
+</div>
     
     <h2 class="font-title font-bold text-xl mb-4">Statistiques</h2>
     <div class="grid grid-cols-3 mt-4 mb-8 gap-6">
