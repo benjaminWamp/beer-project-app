@@ -121,7 +121,7 @@ const Accueil = () => {
                                 className="max-w-full rounded-md"
                             />
                             <Button
-                                href={"#/catalogue"}
+                                href={"#/catalogue?category=3"}
                                 text={"Blanche"}
                                 startCenterEnd={"center"}
                                 mode={Mode.DARK}
