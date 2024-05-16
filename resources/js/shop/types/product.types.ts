@@ -9,7 +9,7 @@ export interface Product {
     image: string;
     description: string;
     manufacturer_id: number;
-    reviews_mean: number;
+    reviews_sum: number;
     delivered_at: string;
     created_at: string;
     updated_at: string;

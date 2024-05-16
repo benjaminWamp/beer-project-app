@@ -30,7 +30,7 @@ class CreateProductRequest extends FormRequest
             "price_ht" => "required|numeric|min:0",
             "manufacturer_id" => "required|exists:App\Models\Manufacturer,id",
             "categories" => "required",
-            "reviews_mean" => "numeric|max:5",
+            "reviews_sum" => "numeric|max:5",
         ];
     }
 }

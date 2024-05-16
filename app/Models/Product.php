@@ -44,7 +44,7 @@ class Product extends Model
         'image',
         'price_ht',
         "manufacturer_id",
-        'reviews_mean'
+        'reviews_sum'
     ];
 
     public function calculateReviewsSum(): void
@@ -61,7 +61,7 @@ class Product extends Model
         }
 
         $this->update([
-            "reviews_mean" => $sum,
+            "reviews_sum" => $sum,
         ]);
     }
 
@@ -82,5 +82,4 @@ class Product extends Model
             "stock" => $stock + $quantity
         ]);
     }
-
 }

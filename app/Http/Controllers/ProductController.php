@@ -51,7 +51,7 @@ class ProductController extends Controller
         $product->price_ht = $request->input("price_ht") * 100;
         $product->image = $request->file("image")->hashName();
         $product->manufacturer_id = $request->input("manufacturer_id");
-        $product->reviews_mean = 0;
+        $product->reviews_sum = 0;
         $product->save();
 
         foreach ($request->input("categories") as $category) {
@@ -106,8 +106,8 @@ class ProductController extends Controller
             ]);
         };
 
-        $request->input("categories") 
-            ? $product->categories()->sync($request->input("categories")) 
+        $request->input("categories")
+            ? $product->categories()->sync($request->input("categories"))
             : $product->categories()->detach();
 
         return redirect()->route("product.show", $product);

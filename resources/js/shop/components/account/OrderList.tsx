@@ -35,7 +35,7 @@ const OrderList = () => {
             <h2 className="font-title text-lg font-bold leading-6 text-accent mb-4">
                 Mes Commandes
             </h2>
-            {orders ? (
+            {orders ? (orders.length === 1 && orders[0].status !== "cart") ? (
                 orders.length > 0 ? (
                     <>
                         <div className=" overflow-hidden">
@@ -134,7 +134,11 @@ const OrderList = () => {
                         Passe ta première commande, tu attends quoi ?
                     </h3>
                 )
-            ) : (
+            )  : (
+                    <h3 className="font-title text-md font-bold leading-6 text-accent mb-4">
+                        Passe ta première commande, tu attends quoi ?
+                    </h3>
+                ): (
                 <TableSkeleton />
             )}
         </div>

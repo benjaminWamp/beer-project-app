@@ -31,7 +31,7 @@ const ProductList = (props: productListProps) => {
                                 <img
                                     src={`${url}/storage/images/${product.image}`}
                                     alt={product.name}
-                                    className="h-full w-full object-fit lg:h-full lg:w-full"
+                                    className="h-full w-full object-cover lg:h-full lg:w-full"
                                 />
                             </a>
                         </div>
