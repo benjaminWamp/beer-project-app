@@ -22,6 +22,19 @@ class ProductController extends Controller
         return view('product.index', ["product" => $products]);
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $products = Product::where('name', 'LIKE', "%{$query}%")
+            ->orWhere('description', 'LIKE', "%{$query}%")
+            ->orderBy('created_at', 'desc')
+            ->paginate(10)
+            ->appends(['query' => $query]);
+
+        return view('product.search', compact('products', 'query'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
