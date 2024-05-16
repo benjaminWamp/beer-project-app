@@ -9,9 +9,11 @@ use App\Models\Category;
 use App\Models\Manufacturer;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\Manufacturer;
 use Illuminate\Http\Request;
 
-class productController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,9 +29,7 @@ class productController extends Controller
      */
     public function create()
     {
-        $manufacturers = Manufacturer::all();
-        $categories = Category::all();
-        return view('product.create', compact('manufacturers', 'categories'));
+        return view('product.create', ["categories" => Category::all(), "manufacturers" => Manufacturer::all()]);
     }
 
     /**
@@ -39,16 +39,26 @@ class productController extends Controller
     {
         $request->file("image")->store("public/images");
 
-        $product = Product::create(
-            [
-                ...$request->validated(),
-                "image" => $request->file("image")->hashName(),
-                "price_ht" => $request->input("price_ht") * 100,
-                'manufacturer_id' => $request->input('manufacturer_id'),
-                'category_id' => $request->input('category_id'),
-                'reviews_sum' => 1,
-            ]
-        );
+        try {
+            $request->validate($request->rules());
+        } catch (\Exception $e) {
+            return response()->json(["error" => $e->getMessage()], 400);
+        }
+
+        $product = new Product();
+        $product->name = $request->input("name");
+        $product->description = $request->input("description");
+        $product->stock = $request->input("stock");
+        $product->delivered_at = $request->input("delivered_at");
+        $product->price_ht = $request->input("price_ht") * 100;
+        $product->image = $request->file("image")->hashName();
+        $product->manufacturer_id = $request->input("manufacturer_id");
+        $product->reviews_mean = 0;
+        $product->save();
+
+        foreach ($request->input("categories") as $category) {
+            $product->categories()->attach($category);
+        }
 
         return redirect()->route("product.show", $product);
     }
@@ -58,7 +68,11 @@ class productController extends Controller
      */
     public function show(Product $product)
     {
-        return view('product.show', compact("product"));
+        $categories = Category::whereHas("products", function ($query) use ($product) {
+            $query->where("product_id", $product->id);
+        })->get()->pluck("name");
+
+        return view('product.show', compact("product"), ["categories" => $categories]);
     }
 
     /**
@@ -66,23 +80,10 @@ class productController extends Controller
      */
     public function edit(Product $product)
     {
-        $manufacturers = Manufacturer::all();
-        $categories = Category::all();
-        return view('product.edit', compact('product', 'manufacturers', 'categories'),);
-    }
+        $product->price_ht = $product->price_ht / 100;
 
-    public function search(Request $request)
-    {
-        $query = $request->input('query');
-
-        // Rechercher des produits par nom ou description
-        $products = Product::where('name', 'LIKE', "%{$query}%")
-        ->orWhere('description', 'LIKE', "%{$query}%")
-        ->orderBy('created_at', 'desc')
-        ->paginate(10)
-        ->appends(['query' => $query]);
-
-        return view('product.search', compact('products', 'query'));
+        $selectedCategories = $product->categories->pluck("id")->toArray(); // dd() is a function that dumps the variable and ends the script
+        return view('product.edit', compact("product"), ["categories" => Category::all(), "manufacturers" => Manufacturer::all(), "selectedCategories" => $selectedCategories]);
     }
 
     /**
@@ -96,18 +97,19 @@ class productController extends Controller
             $product->update([
                 ...$request->validated(),
                 "image" => $request->file("image")->hashName(),
-                "price_ht" => $request->input("price_ht") * 100,
-                'manufacturer_id' => $request->input('manufacturer_id'), // Assurez-vous que manufacturer_id est bien mis à jour
-                'category_id' => $request->input('category_id'), // Assurez-vous que manufacturer_id est bien mis à jour
+                "price_ht" => ($request->input("price_ht") * 100)
             ]);
         } else {
             $product->update([
                 ...$request->validated(),
-                "price_ht" => $request->input("price_ht") * 100,
-                'manufacturer_id' => $request->input('manufacturer_id'), // Assurez-vous que manufacturer_id est bien mis à jour
-                'category_id' => $request->input('category_id'), // Assurez-vous que manufacturer_id est bien mis à jour
+                "price_ht" => ($request->input("price_ht") * 100)
             ]);
-        }
+        };
+
+        $request->input("categories") 
+            ? $product->categories()->sync($request->input("categories")) 
+            : $product->categories()->detach();
+
         return redirect()->route("product.show", $product);
     }
 
