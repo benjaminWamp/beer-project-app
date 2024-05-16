@@ -393,7 +393,7 @@ const Filters = (props: FilterProps) => {
                                             className="rounded-md transition-all text-sm inline-block font-title font-bold border-2 py-2 px-4 shadow-buttonDarkBase hover:shadow-buttonDarkHover hover:text-secondary text-accent border-accent"
                                             onClick={() => deleteFilter()}
                                         >
-                                            Supprimer les filtre
+                                            Supprimer les filtres
                                         </button>
                                     )}
                                     <Menu.Button className="py-2 group inline-flex justify-center text-m font-title font-bold text-accent hover:text-gray-900">

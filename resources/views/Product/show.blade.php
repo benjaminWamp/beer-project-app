@@ -2,7 +2,7 @@
 <x-slot name="title">{{$product->name}}</x-slot>
 <x-breadcrumbs :breadcrumbs="[
             ['title' => 'Tableau de bord', 'url' => route('index')],
-            ['title' => 'Producteurs', 'url' => route('product.index')],
+            ['title' => 'Bières', 'url' => route('product.index')],
             ['title' => $product->name, 'url' => ''],
         ]"/>
 
@@ -74,7 +74,7 @@
     <div>
         <h2 class="mt-4 font-title text-m leading-none font-semibold leading-6 text-accent">Catégorie&nbsp;:</h2> 
         <div class="flex align-center mt-2 gap-4">
-            <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{$product->category->name}}</p>
+            <p class="max-w-screen-lg bg-table border-b border-accent p-2 rounded-md">{{$categoriesName}}</p>
         </div>
     </div>
     <div>

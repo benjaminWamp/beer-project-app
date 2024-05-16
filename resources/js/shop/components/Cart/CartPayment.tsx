@@ -53,7 +53,7 @@ const CartPayment = (props: CartPaymentProps) => {
                 if (!isComplete) {
                     addAlert(
                         "failure",
-                        "Une erreur est survenue veuillez réessayer votre carte"
+                        "Une erreur est survenue, les informations de la carte sont incorrectes."
                     );
                     return;
                 }

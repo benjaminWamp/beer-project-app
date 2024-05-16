@@ -83,14 +83,4 @@ class Product extends Model
         ]);
     }
 
-    public function calculateStock($quantity): void
-    {
-        $stock = $this->stock;
-
-
-        $this->update([
-            "stock" => $stock - $quantity
-        ]);
-    }
-
 }

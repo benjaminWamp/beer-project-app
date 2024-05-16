@@ -5,9 +5,9 @@ const Footer = () => {
         <footer className="bg-black py-4">
             <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
                 <span className="text-start w-full flex justify-start text-sm text-white/80">
-                    © 2024{" "}
+                    © 2024 
                     <a href="http://127.0.0.1:8000/" className="hover:underline">
-                        Mister Beer
+                         Mister Beer
                     </a>
                     . All Rights Reserved.
                 </span>

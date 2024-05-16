@@ -9,7 +9,7 @@
 </head>
 <body class="bg-background">
     <header class="bg-accent">
-        <img src="{{asset("storage\logos\MB_Logo.png")}}" alt="Logo Monsieur Bière" class="mx-auto py-4 w-40">
+        <img src="{{asset("images\mb-logo.png")}}" alt="Logo Monsieur Bière" class="mx-auto py-4 w-40">
     </header>
 
     <div class="container mx-auto mt-10 max-w-lg px-4">

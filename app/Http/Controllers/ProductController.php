@@ -9,8 +9,6 @@ use App\Models\Category;
 use App\Models\Manufacturer;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
-use App\Models\Category;
-use App\Models\Manufacturer;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -70,9 +68,11 @@ class ProductController extends Controller
     {
         $categories = Category::whereHas("products", function ($query) use ($product) {
             $query->where("product_id", $product->id);
-        })->get()->pluck("name");
+        })->get();
 
-        return view('product.show', compact("product"), ["categories" => $categories]);
+        // Créer une chaîne de noms de catégories séparés par une virgule
+        $categoriesName = $categories->pluck('name')->implode(', ');
+        return view('product.show', compact("product", "categoriesName"));
     }
 
     /**
