@@ -16,7 +16,7 @@
             <div class="px-3 py-4 lg:px-5 lg:pl-3">
               <div class="flex justify-between items-center">
                 <div class="flex items-center justify-start rtl:justify-end">
-                  <a href="#" class="flex gap-4 ms-2 md:me-24">
+                  <a href="/admin" class="flex gap-4 ms-2 md:me-24">
                     <img src="{{asset("images\mb-logo.png")}}" alt="Logo Monsieur Bière" class="w-20">
                     <span class="self-center text-accent text-4xl font-semibold whitespace-nowrap font-title">Monsieur Bière</span>
                   </a>
