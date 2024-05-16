@@ -99,14 +99,12 @@ class DatabaseSeeder extends Seeder
         \App\Models\Category::factory()->create([
             "name" => "Blonde",
             "description" => "Nos plus belles bières blondes",
-           
             "color" => "orange",
         ]);
 
         \App\Models\Category::factory()->create([
             "name" => "Brune",
             "description" => "Nos meilleures bières brunes",
-            
             "color" => "purple",
         ]);
 
@@ -114,11 +112,10 @@ class DatabaseSeeder extends Seeder
         \App\Models\Category::factory()->create([
             "name" => "Blanche",
             "description" => "Nos plus pure bière blanche",
-            
             "color" => "yellow",
         ]);
 
-        $users = User::all();
+
 
         $products = \App\Models\Product::factory(50)->create();
 
@@ -127,8 +124,9 @@ class DatabaseSeeder extends Seeder
         $manufacturers = \App\Models\Manufacturer::all();
 
         $products->each(function ($product) use ($categories) {
+            $randomCount = rand(1, 3);
             $product->categories()->attach(
-                $categories->random(1)->pluck("id")->toArray()
+                $categories->random($randomCount)->pluck("id")->toArray()
             );
         });
 

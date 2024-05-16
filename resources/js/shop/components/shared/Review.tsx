@@ -8,11 +8,6 @@ const ReviewComponent = (props: { review: Review }) => {
     return (
         <article className="mb-10">
             <div className="flex items-center mb-4">
-                <img
-                    className="w-10 h-10 me-4 rounded-full"
-                    src="/docs/images/people/profile-picture-5.jpg"
-                    alt=""
-                />
                 <div className="font-title font-bold text-accent text-m">
                     <p>
                         {review.user.name}
@@ -27,9 +22,7 @@ const ReviewComponent = (props: { review: Review }) => {
             </div>
             <ReviewsStars review={review.stars} />
 
-            <p className="mt-2 text-accent">
-                {review.message}
-            </p>
+            <p className="mt-2 text-accent">{review.message}</p>
         </article>
     );
 };
